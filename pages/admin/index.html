@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Raza A. - Freelance Developer & Designer helping businesses establish a strong online presence." />
+    <title>Raza A. | Freelance Developer</title>
+    
+    <!-- Google Fonts: VT323 for pixel text, Inter for readability -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              pastel: {
+                blue: '#A8DAFF',
+                lavender: '#C9B6E4',
+                mint: '#B4E4C1',
+                peach: '#FFB5A7',
+                cream: '#FFF8E7',
+                gray: '#E8E8E8',
+                charcoal: '#4A4A4A',
+                dark: '#2D2D2D'
+              }
+            },
+            fontFamily: {
+              pixel: ['"VT323"', 'monospace'],
+              sans: ['"Inter"', 'sans-serif'],
+            },
+            boxShadow: {
+              'pixel': '4px 4px 0px 0px rgba(0,0,0,0.2)',
+              'pixel-sm': '2px 2px 0px 0px rgba(0,0,0,0.2)',
+              'pixel-lg': '6px 6px 0px 0px rgba(0,0,0,0.2)',
+              'pixel-press': '1px 1px 0px 0px rgba(0,0,0,0.2)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Custom Pixel Cursors */
+      body {
+        background-color: #FFF8E7;
+        color: #4A4A4A;
+        overflow-x: hidden;
+        /* Standard Pixel Arrow */
+        cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAAD///8AAAAzMzP///+a0O0wAAAAAXRSTlMAQObYZgAAAFNJREFUCNdjYMAEAyA4AMQAiM4A4hYgYgYQhwCIGUE4EIQDiJmBOGYgDqK4gYgTiIOoriBiA+KguiuI2IA4qO4KImYgDqK4gYgTiIOoriBiA+IgCgA1+xW14g4FzAAAAABJRU5ErkJggg=='), auto;
+      }
+
+      a, button, [role="button"], input, select, textarea {
+        /* Pixel Hand Pointer */
+        cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAAD///8AAAAzMzP///+a0O0wAAAAAXRSTlMAQObYZgAAAFpJREFUCNdjYMAEAyA4AMQAIJ6ZgYgTiGNgYgDiWICIGYgjgIghgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIMoAAA+cxS18q1GzgAAAABJRU5ErkJggg=='), pointer;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 12px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #FFF8E7; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #C9B6E4; 
+        border: 2px solid #FFF8E7;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #A8DAFF; 
+      }
+      .pixel-antialiased {
+        image-rendering: pixelated;
+      }
+      
+      /* Mobile Optimization for inputs */
+      input, textarea, select {
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.25",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.10.1"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
