@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
-import { Menu, X, Rocket } from 'lucide-react';
+
+import React, { useState, useEffect } from 'react';
+import { Menu, X, Rocket, Sun, Moon, Volume2, VolumeX } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useTheme } from '../../context/ThemeContext';
+import { useAudio } from '../../context/AudioContext';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const { theme, toggleTheme } = useTheme();
+  const { muted, toggleMute, playHover, playClick, playThemeSwitch } = useAudio();
+  
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const navItems = [
     { name: 'About', id: 'about' },
@@ -12,32 +23,110 @@ const Navbar: React.FC = () => {
     { name: 'Contact', id: 'contact' },
   ];
 
-  const handleScroll = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsOpen(false);
+  // Handle Scroll Spy and Progress Bar
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollTop;
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scroll = totalScroll / windowHeight;
+      setScrollProgress(scroll);
+
+      const sections = navItems.map(item => document.getElementById(item.id));
+      const scrollPosition = window.scrollY + 100;
+
+      let current = '';
+      sections.forEach((section) => {
+        if (section) {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            current = section.getAttribute('id') || '';
+          }
+        }
+      });
+      setActiveSection(current);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleScrollTo = (id: string) => {
+    playClick();
+    setIsOpen(false);
+    const scrollToElement = () => {
+      const element = document.getElementById(id);
+      if (element) {
+        const headerOffset = 85; 
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+    };
+
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(scrollToElement, 300);
+    } else {
+      setTimeout(scrollToElement, 300); 
     }
   };
 
+  const goHome = () => {
+    playClick();
+    if (location.pathname !== '/') navigate('/');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsOpen(false);
+    setActiveSection('');
+  };
+
+  const handleThemeToggle = () => {
+    toggleTheme();
+    playThemeSwitch();
+  };
+
+  const handleMuteToggle = () => {
+    playClick();
+    toggleMute();
+  };
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-pastel-cream/90 backdrop-blur-sm border-b-4 border-pastel-charcoal">
+    <nav className="fixed top-0 w-full z-50 bg-pastel-cream border-b-4 border-pastel-charcoal transition-colors duration-500">
+      {/* Reading Progress Bar */}
+      <div className="absolute bottom-0 left-0 h-1 bg-gray-200 w-full z-50">
+        <motion.div 
+          className="h-full bg-pastel-blue border-r-2 border-pastel-charcoal"
+          style={{ width: `${scrollProgress * 100}%` }}
+          initial={{ width: 0 }}
+        />
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-             <div className="w-10 h-10 bg-pastel-blue border-2 border-pastel-charcoal flex items-center justify-center shadow-pixel-sm">
-                <Rocket className="w-6 h-6 text-pastel-charcoal" />
+          <div 
+            className="flex-shrink-0 flex items-center gap-2 cursor-pointer group" 
+            onClick={goHome}
+            onMouseEnter={playHover}
+          >
+             <div className="w-10 h-10 bg-pastel-blue border-2 border-pastel-charcoal flex items-center justify-center shadow-pixel-sm group-hover:bg-pastel-lavender transition-colors">
+                <Rocket className="w-6 h-6 text-black group-hover:animate-pulse" />
              </div>
              <span className="font-pixel text-2xl font-bold text-pastel-charcoal tracking-tighter">RAZA A.</span>
           </div>
           
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+          <div className="hidden md:flex items-center gap-6">
+            <div className="flex items-baseline space-x-6">
               {navItems.map((item) => (
                 <button
                   key={item.name}
-                  onClick={() => handleScroll(item.id)}
-                  className="font-pixel text-lg text-pastel-charcoal hover:text-pastel-blue hover:underline transition-all duration-200 bg-transparent border-none cursor-pointer"
+                  onClick={() => handleScrollTo(item.id)}
+                  onMouseEnter={playHover}
+                  className={`
+                    font-pixel text-lg transition-all duration-200 bg-transparent border-none cursor-pointer relative px-2 py-1
+                    ${activeSection === item.id 
+                      ? 'text-pastel-charcoal bg-pastel-blue/30 border-2 border-pastel-charcoal shadow-pixel-sm -translate-y-1' 
+                      : 'text-pastel-charcoal hover:text-pastel-blue border-2 border-transparent'}
+                  `}
                 >
                   {item.name}
                 </button>
@@ -46,16 +135,53 @@ const Navbar: React.FC = () => {
                  href="https://calendly.com/alibuildswebsites/30min" 
                  target="_blank" 
                  rel="noopener noreferrer"
-                 className="font-pixel bg-pastel-mint border-2 border-pastel-charcoal px-4 py-2 hover:bg-pastel-peach shadow-pixel-sm hover:translate-y-[2px] hover:shadow-none transition-all inline-block"
+                 onClick={playClick}
+                 onMouseEnter={playHover}
+                 className="font-pixel bg-pastel-mint border-2 border-pastel-charcoal px-4 py-2 hover:bg-pastel-peach shadow-pixel-sm hover:translate-y-[2px] hover:shadow-none transition-all inline-block no-underline text-black"
               >
                 Hire Me
               </a>
             </div>
+
+            <div className="flex items-center gap-2 border-l-2 border-pastel-charcoal/20 pl-4">
+              {/* Mute Toggle */}
+              <button
+                onClick={handleMuteToggle}
+                onMouseEnter={playHover}
+                className="p-2 hover:bg-pastel-blue/50 rounded-sm transition-colors text-pastel-charcoal"
+                title={muted ? "Unmute Sound" : "Mute Sound"}
+              >
+                {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+              </button>
+
+              {/* Theme Toggle */}
+              <button
+                onClick={handleThemeToggle}
+                onMouseEnter={playHover}
+                className="ml-2 p-2 bg-pastel-gray border-2 border-pastel-charcoal hover:bg-pastel-blue transition-colors shadow-pixel-sm active:translate-y-[2px] active:shadow-none"
+                title="Toggle Theme"
+              >
+                {theme === 'day' ? <Moon size={20} className="text-pastel-charcoal" /> : <Sun size={20} className="text-pastel-charcoal" />}
+              </button>
+            </div>
           </div>
           
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-4">
+             <button
+                onClick={handleMuteToggle}
+                className="p-2 text-pastel-charcoal"
+              >
+                {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+              </button>
+
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={handleThemeToggle}
+              className="p-2 bg-pastel-gray border-2 border-pastel-charcoal active:translate-y-[2px]"
+            >
+              {theme === 'day' ? <Moon size={20} /> : <Sun size={20} />}
+            </button>
+            <button
+              onClick={() => { setIsOpen(!isOpen); playClick(); }}
               className="inline-flex items-center justify-center p-2 text-pastel-charcoal hover:bg-pastel-blue focus:outline-none border-2 border-transparent hover:border-pastel-charcoal transition-all"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -76,8 +202,13 @@ const Navbar: React.FC = () => {
               {navItems.map((item) => (
                 <button
                   key={item.name}
-                  onClick={() => handleScroll(item.id)}
-                  className="block w-full text-left px-3 py-3 font-pixel text-xl text-pastel-charcoal hover:bg-pastel-blue hover:text-white transition-colors border-2 border-transparent hover:border-pastel-charcoal"
+                  onClick={() => handleScrollTo(item.id)}
+                  className={`
+                    block w-full text-left px-3 py-3 font-pixel text-xl transition-colors border-2 hover:border-pastel-charcoal mb-2
+                    ${activeSection === item.id 
+                      ? 'bg-pastel-blue text-black border-pastel-charcoal' 
+                      : 'text-pastel-charcoal border-transparent hover:bg-pastel-blue hover:text-black'}
+                  `}
                 >
                   {item.name}
                 </button>
@@ -86,7 +217,7 @@ const Navbar: React.FC = () => {
                  href="https://calendly.com/alibuildswebsites/30min" 
                  target="_blank" 
                  rel="noopener noreferrer"
-                 className="block w-full text-center mt-4 font-pixel bg-pastel-mint border-2 border-pastel-charcoal px-4 py-3 hover:bg-pastel-peach shadow-pixel-sm hover:translate-y-[2px] hover:shadow-none transition-all"
+                 className="block w-full text-center mt-4 font-pixel bg-pastel-mint border-2 border-pastel-charcoal px-4 py-3 hover:bg-pastel-peach shadow-pixel-sm hover:translate-y-[2px] hover:shadow-none transition-all text-black"
               >
                 Hire Me
               </a>

@@ -1,105 +1,99 @@
 import React from 'react';
-import { ArrowUp, Heart, Linkedin, Mail } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Heart, Linkedin, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
-  const navigate = useNavigate();
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleScroll = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
-    <footer className="bg-pastel-charcoal text-pastel-cream pt-16 pb-8 border-t-4 border-black">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
+    <footer className="bg-pastel-charcoal text-pastel-cream pt-16 pb-8 border-t-4 border-pastel-blue relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid md:grid-cols-2 gap-12 mb-16">
           
-          <div>
-            <h3 className="font-pixel text-3xl mb-4 text-pastel-blue">RAZA A.</h3>
-            <p className="text-pastel-gray mb-6 max-w-xs">
+          {/* Branding Section - Left on Desktop */}
+          <div className="flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1">
+            <h3 className="font-pixel text-4xl mb-4 text-white tracking-widest drop-shadow-md">RAZA A.</h3>
+            <p className="text-pastel-gray mb-8 max-w-sm text-lg leading-relaxed opacity-90 font-light">
               Helping small and medium sized businesses establish a strong online presence digitally.
             </p>
+            
             <div className="flex gap-4">
                {/* Social Icons */}
                <a 
                  href="https://linkedin.com/in/alibuildswebsites" 
                  target="_blank" 
                  rel="noopener noreferrer"
-                 className="w-10 h-10 bg-pastel-lavender border-2 border-white hover:bg-pastel-blue transition-colors flex items-center justify-center text-pastel-charcoal shadow-sm cursor-pointer"
+                 className="group relative"
                  title="LinkedIn"
                >
-                 <Linkedin size={20} />
+                 <div className="absolute inset-0 bg-pastel-dark translate-y-1 translate-x-1 border-2 border-pastel-gray"></div>
+                 <div className="relative w-12 h-12 bg-pastel-lavender border-2 border-white flex items-center justify-center text-pastel-charcoal transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1 group-active:translate-y-0 group-active:translate-x-0">
+                    <Linkedin size={24} />
+                 </div>
                </a>
+               
                <a 
                  href="mailto:alibuildswebsites@gmail.com"
-                 className="w-10 h-10 bg-pastel-mint border-2 border-white hover:bg-pastel-peach transition-colors flex items-center justify-center text-pastel-charcoal shadow-sm cursor-pointer"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="group relative"
                  title="Send Email"
                >
-                 <Mail size={20} />
+                 <div className="absolute inset-0 bg-pastel-dark translate-y-1 translate-x-1 border-2 border-pastel-gray"></div>
+                 <div className="relative w-12 h-12 bg-pastel-mint border-2 border-white flex items-center justify-center text-pastel-charcoal transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1 group-active:translate-y-0 group-active:translate-x-0">
+                    <Mail size={24} />
+                 </div>
                </a>
             </div>
           </div>
 
-          <div>
-            <h4 className="font-pixel text-xl mb-4 text-white border-b-2 border-pastel-gray inline-block">Quick Links</h4>
-            <ul className="space-y-2">
-              {['About', 'Projects', 'Testimonials', 'Contact'].map(link => (
-                <li key={link}>
-                  <button 
-                    onClick={() => handleScroll(link.toLowerCase())}
-                    className="hover:text-pastel-blue transition-colors hover:underline decoration-wavy text-left bg-transparent border-none cursor-pointer text-pastel-cream"
-                  >
-                    {link}
-                  </button>
-                </li>
-              ))}
-              <li>
-                <button 
-                  onClick={() => navigate('/admin-login')}
-                  className="text-gray-600 hover:text-gray-400 text-sm bg-transparent border-none cursor-pointer p-0"
-                >
-                  Admin Access
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-             <h4 className="font-pixel text-xl mb-4 text-white border-b-2 border-pastel-gray inline-block">Contact</h4>
-             <ul className="space-y-2">
-               <li><a href="mailto:alibuildswebsites@gmail.com" className="hover:text-pastel-blue text-pastel-cream flex items-center gap-2"><Mail size={16} /> alibuildswebsites@gmail.com</a></li>
+          {/* Contact Section - Right on Desktop */}
+          <div className="flex flex-col items-center md:items-end text-center md:text-right w-full order-1 md:order-2">
+             <h4 className="font-pixel text-2xl mb-6 text-pastel-peach border-b-2 border-pastel-peach inline-block pb-1">Get In Touch</h4>
+             <ul className="space-y-4 w-full flex flex-col items-center md:items-end">
                <li>
-                 <a href="https://linkedin.com/in/alibuildswebsites" target="_blank" rel="noopener noreferrer" className="hover:text-pastel-blue text-pastel-cream flex items-center gap-2">
-                   <Linkedin size={16} /> linkedin.com/in/alibuildswebsites
+                 <a 
+                    href="mailto:alibuildswebsites@gmail.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center gap-3 group transition-all p-2 rounded hover:bg-white/5"
+                 >
+                    <div className="bg-pastel-charcoal border border-pastel-gray p-2 text-pastel-cream group-hover:border-pastel-blue group-hover:text-pastel-blue transition-colors rounded-sm">
+                      <Mail size={18} />
+                    </div>
+                    <span className="font-pixel text-xl text-pastel-cream group-hover:text-pastel-blue tracking-wide">alibuildswebsites@gmail.com</span>
                  </a>
                </li>
-               <li className="pt-2">Project-Based Freelance Work</li>
-               <li className="text-pastel-gray text-sm mt-4">Available for new projects</li>
+               <li>
+                 <a 
+                    href="https://linkedin.com/in/alibuildswebsites" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center gap-3 group transition-all p-2 rounded hover:bg-white/5"
+                 >
+                   <div className="bg-pastel-charcoal border border-pastel-gray p-2 text-pastel-cream group-hover:border-pastel-blue group-hover:text-pastel-blue transition-colors rounded-sm">
+                      <Linkedin size={18} />
+                   </div>
+                   <span className="font-pixel text-xl text-pastel-cream group-hover:text-pastel-blue tracking-wide">linkedin.com/in/alibuildswebsites</span>
+                 </a>
+               </li>
              </ul>
           </div>
 
         </div>
 
-        <div className="border-t border-gray-600 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="font-pixel text-sm">© 2024 Raza A. All rights reserved.</p>
-          
-          <div className="flex items-center gap-2 text-sm">
-            Made with <Heart size={16} className="fill-red-500 text-red-500 animate-pulse" /> using React & Tailwind
+        {/* Bottom Bar */}
+        <div className="border-t-2 border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-center md:text-left">
+            <p className="font-pixel text-base text-gray-400 opacity-60 tracking-wide">© 2024 Raza A. All rights reserved.</p>
           </div>
-
-          <button 
-            onClick={scrollToTop}
-            className="bg-pastel-blue text-pastel-charcoal p-3 border-2 border-white hover:bg-pastel-lavender hover:-translate-y-1 transition-all shadow-pixel cursor-pointer"
-          >
-            <ArrowUp size={20} />
-          </button>
+          
+          <div className="flex items-center gap-4">
+             <div className="flex items-center gap-2 text-xs md:text-sm text-gray-400 bg-black/20 px-4 py-2 rounded-full border border-white/5">
+                Made with <Heart size={14} className="fill-pastel-peach text-pastel-peach animate-pulse" /> using React & Tailwind
+             </div>
+             {/* Admin Link - Using Router Link */}
+             <Link to="/admin-login" className="text-xs text-gray-400 hover:text-white transition-colors underline decoration-dotted underline-offset-4 ml-2">Admin Access</Link>
+          </div>
         </div>
       </div>
     </footer>

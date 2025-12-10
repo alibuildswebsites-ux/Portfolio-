@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Folder, Star, Mail, Clock, Plus, MessageSquare } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import * as db from '../../services/storage';
 import PixelButton from '../../components/ui/PixelButton';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
-  const navigate = useNavigate();
   const [stats, setStats] = useState({ p: 0, t: 0, m: 0 });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const load = async () => {
@@ -34,13 +34,13 @@ const Dashboard: React.FC = () => {
       
       {/* Quick Actions */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-         <PixelButton onClick={() => navigate('projects')} className="w-full">
+         <PixelButton onClick={() => navigate('/admin-dashboard-secure-2024/projects')} className="w-full">
             <Plus size={18} className="inline mr-2" /> Add Project
          </PixelButton>
-         <PixelButton onClick={() => navigate('testimonials')} className="w-full">
+         <PixelButton onClick={() => navigate('/admin-dashboard-secure-2024/testimonials')} className="w-full">
             <Plus size={18} className="inline mr-2" /> Add Testimonial
          </PixelButton>
-         <PixelButton onClick={() => navigate('messages')} variant="secondary" className="w-full">
+         <PixelButton onClick={() => navigate('/admin-dashboard-secure-2024/messages')} variant="secondary" className="w-full">
             <MessageSquare size={18} className="inline mr-2" /> View Inbox
          </PixelButton>
       </div>

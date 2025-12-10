@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import PixelButton from '../components/ui/PixelButton';
 import * as db from '../services/storage';
 import { ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
-  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  // Auto-redirect if already logged in
+  useEffect(() => {
+    if (db.checkSession()) {
+      navigate('/admin-dashboard-secure-2024');
+    }
+  }, [navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +28,7 @@ const Login: React.FC = () => {
 
     const user = db.getUser();
     
-    // Simple comparison (in production use bcrypt.compare)
+    // Simple comparison
     if (username === user.username && password === user.passwordHash) {
       db.setSession(true);
       navigate('/admin-dashboard-secure-2024');
@@ -32,9 +39,10 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-pastel-cream flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4 relative z-50 text-pastel-charcoal">
+      
       <div className="bg-white border-4 border-pastel-charcoal p-8 w-full max-w-md shadow-pixel-lg">
-        <h1 className="font-pixel text-4xl text-center mb-8 text-pastel-charcoal">ADMIN LOGIN</h1>
+        <h2 className="font-pixel text-4xl text-center mb-8 text-pastel-charcoal">ADMIN LOGIN</h2>
         
         <form onSubmit={handleLogin} className="space-y-6">
           <div>

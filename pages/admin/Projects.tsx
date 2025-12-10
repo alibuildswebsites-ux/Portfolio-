@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import PixelButton from '../../components/ui/PixelButton';
-import { Plus, Trash2, Edit2, ExternalLink, Eye, EyeOff } from 'lucide-react';
+import { Plus, Trash2, Edit2, ExternalLink, EyeOff } from 'lucide-react';
 import * as db from '../../services/storage';
 import { Project } from '../../types';
+
+// Define strict type for form handling
+interface ProjectFormData extends Omit<Partial<Project>, 'technologies'> {
+  technologies?: string | string[];
+}
 
 const Projects: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentProject, setCurrentProject] = useState<Partial<Project>>({});
+  const [currentProject, setCurrentProject] = useState<ProjectFormData>({});
   const [showDeleteModal, setShowDeleteModal] = useState<string | null>(null);
 
   const loadProjects = async () => {
@@ -21,17 +26,25 @@ const Projects: React.FC = () => {
     e.preventDefault();
     if (!currentProject.title || !currentProject.description) return;
 
-    const newProject = {
-      ...currentProject,
-      technologies: Array.isArray(currentProject.technologies) 
-        ? currentProject.technologies 
-        : (currentProject.technologies as unknown as string).split(',').map((t: string) => t.trim()),
-      // Ensure visibility is boolean
-      isVisible: currentProject.isVisible !== false, 
+    let technologies: string[] = [];
+    if (Array.isArray(currentProject.technologies)) {
+      technologies = currentProject.technologies;
+    } else if (typeof currentProject.technologies === 'string') {
+      technologies = (currentProject.technologies as string).split(',').map(t => t.trim()).filter(Boolean);
+    }
+
+    const newProject: Project = {
+      id: currentProject.id || Date.now().toString(),
+      title: currentProject.title || '',
+      description: currentProject.description || '',
+      technologies,
+      isVisible: currentProject.isVisible !== false,
       category: currentProject.category || 'Web Development',
       dateCompleted: currentProject.dateCompleted || new Date().toISOString(),
-      thumbnailUrl: currentProject.thumbnailUrl || 'https://picsum.photos/400/300'
-    } as Project;
+      thumbnailUrl: currentProject.thumbnailUrl || 'https://picsum.photos/400/300', // Default placeholder kept internally
+      demoUrl: currentProject.demoUrl || '#',
+      githubUrl: currentProject.githubUrl || ''
+    };
 
     await db.saveProject(newProject);
     setIsEditing(false);
@@ -45,6 +58,11 @@ const Projects: React.FC = () => {
       setShowDeleteModal(null);
       loadProjects();
     }
+  };
+
+  const getTechnologiesString = (techs?: string | string[]): string => {
+    if (Array.isArray(techs)) return techs.join(', ');
+    return techs || '';
   };
 
   return (
@@ -74,7 +92,7 @@ const Projects: React.FC = () => {
                   <label className="block font-bold mb-1">Visibility</label>
                   <select 
                      className="w-full border-2 border-gray-300 p-2 focus:border-pastel-blue outline-none"
-                     value={currentProject.isVisible ? 'visible' : 'hidden'}
+                     value={currentProject.isVisible !== false ? 'visible' : 'hidden'}
                      onChange={e => setCurrentProject({...currentProject, isVisible: e.target.value === 'visible'})}
                   >
                      <option value="visible">Visible</option>
@@ -111,32 +129,12 @@ const Projects: React.FC = () => {
                   <label className="block font-bold mb-1">Tech Stack (comma separated)</label>
                   <input 
                      className="w-full border-2 border-gray-300 p-2 focus:border-pastel-blue outline-none" 
-                     value={Array.isArray(currentProject.technologies) ? currentProject.technologies.join(', ') : currentProject.technologies || ''} 
-                     onChange={e => setCurrentProject({...currentProject, technologies: e.target.value as any})}
+                     value={getTechnologiesString(currentProject.technologies)}
+                     onChange={e => setCurrentProject({...currentProject, technologies: e.target.value})}
                   />
                </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-               <div className="md:col-span-1">
-                  <label className="block font-bold mb-1">Date Completed</label>
-                  <input 
-                     type="date"
-                     className="w-full border-2 border-gray-300 p-2 focus:border-pastel-blue outline-none" 
-                     value={currentProject.dateCompleted?.split('T')[0] || ''} 
-                     onChange={e => setCurrentProject({...currentProject, dateCompleted: e.target.value})}
-                  />
-               </div>
-               <div className="md:col-span-2">
-                  <label className="block font-bold mb-1">Image URL</label>
-                  <input 
-                     className="w-full border-2 border-gray-300 p-2 focus:border-pastel-blue outline-none" 
-                     value={currentProject.thumbnailUrl || ''} 
-                     onChange={e => setCurrentProject({...currentProject, thumbnailUrl: e.target.value})}
-                  />
-               </div>
-            </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                <div>
                   <label className="block font-bold mb-1">Demo URL</label>
@@ -167,7 +165,7 @@ const Projects: React.FC = () => {
           {projects.map(p => (
             <div key={p.id} className={`bg-white border-2 border-pastel-charcoal p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm gap-4 ${!p.isVisible ? 'opacity-60 bg-gray-50' : ''}`}>
               <div className="flex items-center gap-4 w-full sm:w-auto">
-                 <img src={p.thumbnailUrl} className="w-16 h-16 object-cover border border-gray-300 shrink-0" alt="thumb" />
+                 <div className="w-16 h-16 bg-gray-200 border border-gray-300 shrink-0 flex items-center justify-center text-xs text-gray-400">No Img</div>
                  <div>
                     <h3 className="font-bold text-lg flex items-center gap-2 flex-wrap">
                        {p.title}
@@ -199,7 +197,6 @@ const Projects: React.FC = () => {
         </div>
       )}
 
-      {/* Delete Modal */}
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white p-6 sm:p-8 border-2 border-pastel-charcoal shadow-pixel max-w-md w-full">

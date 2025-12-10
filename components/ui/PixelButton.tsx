@@ -1,44 +1,62 @@
+
 import React from 'react';
 import { motion, HTMLMotionProps } from 'framer-motion';
+import { useAudio } from '../../context/AudioContext';
 
-interface PixelButtonProps extends HTMLMotionProps<"button"> {
+// Use intersection type to combine HTML attributes with Motion props properly
+type PixelButtonProps = HTMLMotionProps<"button"> & {
   variant?: 'primary' | 'secondary' | 'danger' | 'accent';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
-  children?: React.ReactNode;
-}
+};
 
 const PixelButton: React.FC<PixelButtonProps> = ({ 
   children, 
   variant = 'primary', 
   size = 'md', 
-  isLoading,
+  isLoading = false,
   className = '',
   disabled,
+  onClick,
+  onMouseEnter,
   ...props 
 }) => {
+  const { playHover, playClick } = useAudio();
   
-  const baseStyles = "relative font-pixel uppercase tracking-wide border-2 border-pastel-charcoal transition-all duration-75 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed";
+  const baseStyles = "relative font-pixel uppercase tracking-wide border-2 border-pastel-charcoal transition-all duration-75 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center";
   
   const variants = {
-    primary: "bg-pastel-blue hover:bg-pastel-lavender text-pastel-charcoal shadow-pixel active:shadow-pixel-press active:translate-y-[3px] active:translate-x-[3px]",
-    secondary: "bg-white hover:bg-pastel-gray text-pastel-charcoal shadow-pixel active:shadow-pixel-press active:translate-y-[3px] active:translate-x-[3px]",
+    // Force text-black for colored buttons to ensure readability in Night (Neon) mode
+    primary: "bg-pastel-blue hover:bg-pastel-lavender text-black shadow-pixel active:shadow-pixel-press active:translate-y-[3px] active:translate-x-[3px]",
+    secondary: "bg-pastel-surface hover:bg-pastel-gray text-pastel-charcoal shadow-pixel active:shadow-pixel-press active:translate-y-[3px] active:translate-x-[3px]",
     danger: "bg-red-400 hover:bg-red-500 text-white shadow-pixel active:shadow-pixel-press active:translate-y-[3px] active:translate-x-[3px]",
-    accent: "bg-pastel-peach hover:bg-pastel-mint text-pastel-charcoal shadow-pixel active:shadow-pixel-press active:translate-y-[3px] active:translate-x-[3px]"
+    accent: "bg-pastel-peach hover:bg-pastel-mint text-black shadow-pixel active:shadow-pixel-press active:translate-y-[3px] active:translate-x-[3px]"
   };
 
   const sizes = {
-    sm: "px-3 py-1 text-sm",
-    md: "px-6 py-3 text-base",
-    lg: "px-8 py-4 text-xl"
+    sm: "px-3 py-1 text-sm h-8",
+    md: "px-6 py-3 text-base h-12",
+    lg: "px-8 py-4 text-xl h-16"
+  };
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!disabled && !isLoading) playHover();
+    if (onMouseEnter) onMouseEnter(e);
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!disabled && !isLoading) playClick();
+    if (onClick) onClick(e);
   };
 
   return (
     <motion.button
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={{ scale: disabled || isLoading ? 1 : 1.02 }}
+      whileTap={{ scale: disabled || isLoading ? 1 : 0.98 }}
       className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
       disabled={isLoading || disabled}
+      onMouseEnter={handleMouseEnter}
+      onClick={handleClick}
       {...props}
     >
       {isLoading ? (
@@ -54,4 +72,4 @@ const PixelButton: React.FC<PixelButtonProps> = ({
   );
 };
 
-export default PixelButton;
+export default React.memo(PixelButton);

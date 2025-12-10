@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PixelButton from '../../components/ui/PixelButton';
-import { Plus, Trash2, Edit2, Star, EyeOff } from 'lucide-react';
+import { Plus, Trash2, Edit2, EyeOff } from 'lucide-react';
 import * as db from '../../services/storage';
 import { Testimonial } from '../../types';
 
@@ -174,7 +174,6 @@ const Testimonials: React.FC = () => {
         </div>
       )}
 
-      {/* Delete Modal */}
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white p-6 sm:p-8 border-2 border-pastel-charcoal shadow-pixel max-w-md w-full">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as db from '../../services/storage';
 import { ContactSubmission } from '../../types';
-import { Mail, CheckCircle, Trash2 } from 'lucide-react';
+import { CheckCircle, Trash2 } from 'lucide-react';
 import PixelButton from '../../components/ui/PixelButton';
 
 const Messages: React.FC = () => {
@@ -65,7 +65,6 @@ const Messages: React.FC = () => {
         ))}
       </div>
 
-      {/* Delete Confirmation Modal */}
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white p-8 border-2 border-pastel-charcoal shadow-pixel max-w-md">

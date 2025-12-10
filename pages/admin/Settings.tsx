@@ -4,9 +4,9 @@ import * as db from '../../services/storage';
 import { useNavigate } from 'react-router-dom';
 
 const Settings: React.FC = () => {
-  const navigate = useNavigate();
   const user = db.getUser();
   const [msg, setMsg] = useState({ type: '', text: '' });
+  const navigate = useNavigate();
 
   // Password State
   const [pwd, setPwd] = useState({ current: '', new: '', confirm: '' });

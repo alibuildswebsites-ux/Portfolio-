@@ -1,0 +1,135 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* DAY THEME (Default) */
+  --color-pastel-blue: #A8DAFF;
+  --color-pastel-lavender: #C9B6E4;
+  --color-pastel-mint: #B4E4C1;
+  --color-pastel-peach: #FFB5A7;
+  --color-pastel-cream: #FFF8E7;
+  --color-pastel-gray: #E8E8E8;
+  --color-pastel-charcoal: #4A4A4A;
+  --color-pastel-dark: #2D2D2D;
+  --color-pastel-surface: #FFFFFF;
+  --shadow-color: rgba(0,0,0,0.2);
+}
+
+.theme-night {
+  /* NIGHT THEME (Cyberpunk / Vaporwave) */
+  --color-pastel-blue: #00E5FF; /* Electric Cyan */
+  --color-pastel-lavender: #D500F9; /* Neon Purple */
+  --color-pastel-mint: #00E676; /* Neon Green */
+  --color-pastel-peach: #FF3D00; /* Neon Orange/Red */
+  
+  --color-pastel-cream: #100b21; /* Deep Void Purple */
+  --color-pastel-gray: #2a2438; /* Darker secondary background */
+  
+  --color-pastel-charcoal: #E0E0E0; /* Light text for readability */
+  --color-pastel-dark: #FFFFFF; /* White borders for high contrast */
+  --color-pastel-surface: #1e1633; /* Dark card background */
+  
+  --shadow-color: #D500F9; /* Neon Pink Glow */
+}
+
+html {
+  overflow-y: overlay; /* Scrollbar sits ON TOP of content */
+  background-color: var(--color-pastel-cream);
+  transition: background-color 0.5s ease;
+}
+
+body {
+  background-color: var(--color-pastel-cream);
+  color: var(--color-pastel-charcoal);
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+  /* Standard Pixel Arrow */
+  cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAAD///8AAAAzMzP///+a0O0wAAAAAXRSTlMAQObYZgAAAFNJREFUCNdjYMAEAyA4AMQAiM4A4hYgYgYQhwCIGUE4EIQDiJmBOGYgDqK4gYgTiIOoriBiA+KguiuI2IA4qO4KImYgDqK4gYgTiIOoriBiA+IgCgA1+xW14g4FzAAAAABJRU5ErkJggg=='), auto;
+}
+
+a, button, [role="button"], input, select, textarea {
+  /* Pixel Hand Pointer */
+  cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAAD///8AAAAzMzP///+a0O0wAAAAAXRSTlMAQObYZgAAAFpJREFUCNdjYMAEAyA4AMQAIJ6ZgYgTiGNgYgDiWICIGYgjgIghgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIMoAAA+cxS18q1GzgAAAABJRU5ErkJggg=='), pointer;
+}
+
+/* PIXEL ART SCROLLBAR STYLING */
+::-webkit-scrollbar {
+  width: 16px; /* Chunky width */
+}
+::-webkit-scrollbar-track {
+  background: var(--color-pastel-cream); /* Cream background */
+  border-left: 2px solid var(--color-pastel-charcoal); /* Hard pixel border on left */
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-pastel-lavender); /* Pastel Lavender */
+  border: 2px solid var(--color-pastel-charcoal); /* Hard pixel border around thumb */
+  box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1); /* Inner shadow for depth */
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B39DDB; /* Darker Pastel Purple on hover */
+}
+
+.pixel-antialiased {
+  image-rendering: pixelated;
+}
+
+/* Mobile Optimization for inputs */
+input, textarea, select {
+  font-size: 16px; /* Prevents zoom on iOS */
+}
+
+/* --- CRT & GLITCH EFFECTS --- */
+
+/* Scanline Animation */
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100vh); }
+}
+
+.crt-scanlines {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.1)
+  );
+  background-size: 100% 4px;
+  animation: scanline 10s linear infinite;
+  pointer-events: none;
+}
+
+/* Glitch Animation */
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  20% { transform: skew(-2deg); }
+  40% { transform: skew(2deg); }
+  60% { transform: skew(-1deg); }
+  80% { transform: skew(1deg); }
+  100% { transform: skew(0deg); }
+}
+
+@keyframes glitch-anim {
+  0% { text-shadow: -2px 0 #ff00c1, 2px 0 #00fff9; }
+  25% { text-shadow: 2px 0 #ff00c1, -2px 0 #00fff9; }
+  50% { text-shadow: -1px 0 #ff00c1, 1px 0 #00fff9; }
+  75% { text-shadow: 1px 0 #ff00c1, -1px 0 #00fff9; }
+  100% { text-shadow: -2px 0 #ff00c1, 2px 0 #00fff9; }
+}
+
+.glitch-hover:hover {
+  animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both,
+             glitch-anim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  color: var(--color-pastel-charcoal);
+}
+
+.crt-vignette {
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 60%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+}

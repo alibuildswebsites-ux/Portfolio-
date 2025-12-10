@@ -63,11 +63,10 @@ const INITIAL_TESTIMONIALS: Testimonial[] = [
 
 const DEFAULT_USER: User = {
   username: 'admin',
-  passwordHash: 'admin123', // In a real app, this would be a bcrypt hash. Using plain text for demo functionality simulation only.
+  passwordHash: 'admin123', 
   lastLogin: new Date().toISOString()
 };
 
-// Storage Keys
 const KEYS = {
   PROJECTS: 'raza_portfolio_projects',
   TESTIMONIALS: 'raza_portfolio_testimonials',
@@ -76,12 +75,10 @@ const KEYS = {
   SESSION: 'raza_portfolio_session'
 };
 
-// Helper to simulate network delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 // --- Projects ---
 export const getProjects = async (): Promise<Project[]> => {
-  await delay(300);
   const data = localStorage.getItem(KEYS.PROJECTS);
   if (!data) {
     localStorage.setItem(KEYS.PROJECTS, JSON.stringify(INITIAL_PROJECTS));
@@ -112,7 +109,6 @@ export const deleteProject = async (id: string): Promise<void> => {
 
 // --- Testimonials ---
 export const getTestimonials = async (): Promise<Testimonial[]> => {
-  await delay(300);
   const data = localStorage.getItem(KEYS.TESTIMONIALS);
   if (!data) {
     localStorage.setItem(KEYS.TESTIMONIALS, JSON.stringify(INITIAL_TESTIMONIALS));
@@ -143,7 +139,6 @@ export const deleteTestimonial = async (id: string): Promise<void> => {
 
 // --- Messages ---
 export const getMessages = async (): Promise<ContactSubmission[]> => {
-  await delay(300);
   const data = localStorage.getItem(KEYS.MESSAGES);
   return data ? JSON.parse(data) : [];
 };
