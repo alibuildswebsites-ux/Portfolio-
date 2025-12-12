@@ -173,8 +173,8 @@ const Home: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="text-center relative flex flex-col items-center order-1 md:order-1"
           >
-            <h1 className="font-pixel text-4xl sm:text-5xl md:text-7xl mb-4 md:mb-6 leading-tight glitch-hover cursor-default">
-              Hi, I'm <span className="text-black bg-pastel-charcoal px-2 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2 md:mt-0 text-pastel-blue">Raza A.</span>
+            <h1 className="font-pixel text-4xl sm:text-5xl md:text-7xl mb-4 md:mb-6 leading-tight cursor-default">
+              Hi, I'm <span className="bg-pastel-blue text-black px-2 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2 md:mt-0">Raza A.</span>
             </h1>
             
             <div className="font-mono text-base sm:text-xl md:text-2xl mb-8 min-h-[60px] md:min-h-[60px] border-l-4 border-pastel-blue pl-4 py-2 bg-pastel-surface/50 backdrop-blur-sm rounded-r-lg text-left max-w-lg mx-auto">
@@ -208,7 +208,7 @@ const Home: React.FC = () => {
             viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-12"
           >
-            <h2 className="font-pixel text-3xl sm:text-4xl mb-6 inline-flex items-center gap-3 glitch-hover">
+            <h2 className="font-pixel text-3xl sm:text-4xl mb-6 inline-flex items-center gap-3">
               <span className="w-3 h-8 sm:h-10 bg-pastel-peach border-2 border-pastel-charcoal"></span>
               About Me
             </h2>
@@ -274,7 +274,7 @@ const Home: React.FC = () => {
       <Section id="projects" className="bg-pastel-surface border-t-4 border-pastel-charcoal transition-colors duration-500">
         <div className="flex flex-col justify-center items-center mb-12 gap-6 text-center">
           <div className="w-full">
-            <h2 className="font-pixel text-3xl sm:text-4xl mb-2 sm:mb-4 glitch-hover">My Projects</h2>
+            <h2 className="font-pixel text-3xl sm:text-4xl mb-2 sm:mb-4">My Projects</h2>
             <p className="text-base sm:text-lg max-w-2xl mx-auto">Selected works demonstrating value and functionality.</p>
           </div>
           
@@ -335,7 +335,7 @@ const Home: React.FC = () => {
                       </div>
 
                       <div className="flex justify-between items-start mb-4">
-                        <h3 className="font-pixel text-3xl leading-none group-hover:text-pastel-blue transition-colors text-pastel-charcoal glitch-hover">
+                        <h3 className="font-pixel text-3xl leading-none group-hover:text-pastel-blue transition-colors text-pastel-charcoal">
                           {project.title}
                         </h3>
                       </div>
@@ -406,7 +406,7 @@ const Home: React.FC = () => {
         <PixelCloud top="5%" size="w-24 md:w-32" duration={50} delay={0} className="opacity-50" />
         <PixelCloud top="80%" size="w-32 md:w-48" duration={60} delay={10} className="opacity-50" />
         
-        <h2 className="font-pixel text-3xl sm:text-4xl text-center mb-8 md:mb-16 relative z-10 glitch-hover">What Clients Say</h2>
+        <h2 className="font-pixel text-3xl sm:text-4xl text-center mb-8 md:mb-16 relative z-10">What Clients Say</h2>
         
         <div className="max-w-4xl mx-auto relative z-10 px-0 sm:px-4">
           {testimonials.length > 0 ? (
@@ -490,7 +490,7 @@ const Home: React.FC = () => {
           {/* Form */}
           <div>
             <div className="text-center mb-8">
-              <h2 className="font-pixel text-3xl sm:text-4xl mb-4 text-pastel-charcoal glitch-hover">Let's Build Something Great</h2>
+              <h2 className="font-pixel text-3xl sm:text-4xl mb-4 text-pastel-charcoal">Let's Build Something Great</h2>
               <p className="mb-0 text-base sm:text-lg text-gray-700">Have a project in mind? I'm available for freelance work. Send me the details!</p>
             </div>
             
@@ -569,7 +569,7 @@ const Home: React.FC = () => {
           
           <div className="flex flex-col mt-12 lg:mt-0 w-full">
              <div className="text-center mb-6 lg:text-center">
-                <h3 className="font-pixel text-2xl text-pastel-charcoal glitch-hover">Or Schedule a Free 30-Minute Consultation</h3>
+                <h3 className="font-pixel text-2xl text-pastel-charcoal">Or Schedule a Free 30-Minute Consultation</h3>
              </div>
              <div className="w-full bg-pastel-surface border-2 border-pastel-charcoal shadow-pixel relative overflow-hidden h-[500px] sm:h-[600px]">
                  <iframe 

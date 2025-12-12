@@ -1,3 +1,4 @@
+
 import React, { memo, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
@@ -39,7 +40,7 @@ const ParticleBackground = memo(() => {
             ease: "linear",
             delay: p.delay,
           }}
-          className={`absolute ${p.color} border-2 border-pastel-charcoal/10 shadow-sm`}
+          className={`absolute ${p.color} border-2 border-pastel-charcoal/10 shadow-sm will-change-transform`}
           style={{ width: p.size, height: p.size }}
         />
       ))}

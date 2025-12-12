@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -15,7 +16,14 @@ export default {
           cream: 'var(--color-pastel-cream)',
           gray: 'var(--color-pastel-gray)',
           charcoal: 'var(--color-pastel-charcoal)',
-          dark: 'var(--color-pastel-dark)'
+          dark: 'var(--color-pastel-dark)',
+          surface: 'var(--color-pastel-surface)'
+        },
+        footer: {
+          bg: 'var(--color-footer-bg)',
+          text: 'var(--color-footer-text)',
+          muted: 'var(--color-footer-muted)',
+          shadow: 'var(--color-footer-shadow)'
         }
       },
       fontFamily: {

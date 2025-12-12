@@ -128,7 +128,7 @@ export const PixelComputerAvatar = memo(() => {
          {/* W-48 sm:w-72 (Increased from w-40 sm:w-60) */}
          <div className="bg-white border-2 border-pastel-charcoal shadow-pixel-lg w-48 sm:w-72 p-5 sm:p-7">
             <div className="bg-pastel-lavender border-b-2 border-pastel-charcoal px-3 py-1 flex justify-between items-center h-8 sm:h-10 absolute top-0 left-0 w-full">
-               <span className="font-pixel text-xs sm:text-sm text-pastel-charcoal">System.exe</span>
+               <span className="font-pixel text-xs sm:text-sm text-black">System.exe</span>
                <div className="flex gap-1.5">
                   <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-pastel-charcoal"></div>
                   <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-pastel-charcoal opacity-50"></div>
@@ -136,8 +136,8 @@ export const PixelComputerAvatar = memo(() => {
             </div>
             <div className="mt-5 sm:mt-6 flex items-center gap-3">
                <div className="w-3 h-3 sm:w-4 sm:h-4 bg-green-400 rounded-full animate-pulse border border-pastel-charcoal"></div>
-               {/* Increased text size */}
-               <span className="font-pixel text-base sm:text-xl font-bold text-pastel-charcoal whitespace-nowrap">
+               {/* Increased text size and forced text-black */}
+               <span className="font-pixel text-base sm:text-xl font-bold text-black whitespace-nowrap">
                   Open for Work!
                </span>
             </div>

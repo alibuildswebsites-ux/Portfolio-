@@ -77,14 +77,19 @@ const KEYS = {
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-// --- Projects ---
-export const getProjects = async (): Promise<Project[]> => {
-  const data = localStorage.getItem(KEYS.PROJECTS);
+// Helper to get or initialize data
+const getStoredData = <T>(key: string, initialValue: T): T => {
+  const data = localStorage.getItem(key);
   if (!data) {
-    localStorage.setItem(KEYS.PROJECTS, JSON.stringify(INITIAL_PROJECTS));
-    return INITIAL_PROJECTS;
+    localStorage.setItem(key, JSON.stringify(initialValue));
+    return initialValue;
   }
   return JSON.parse(data);
+};
+
+// --- Projects ---
+export const getProjects = async (): Promise<Project[]> => {
+  return getStoredData(KEYS.PROJECTS, INITIAL_PROJECTS);
 };
 
 export const saveProject = async (project: Project): Promise<void> => {
@@ -109,12 +114,7 @@ export const deleteProject = async (id: string): Promise<void> => {
 
 // --- Testimonials ---
 export const getTestimonials = async (): Promise<Testimonial[]> => {
-  const data = localStorage.getItem(KEYS.TESTIMONIALS);
-  if (!data) {
-    localStorage.setItem(KEYS.TESTIMONIALS, JSON.stringify(INITIAL_TESTIMONIALS));
-    return INITIAL_TESTIMONIALS;
-  }
-  return JSON.parse(data);
+  return getStoredData(KEYS.TESTIMONIALS, INITIAL_TESTIMONIALS);
 };
 
 export const saveTestimonial = async (item: Testimonial): Promise<void> => {
@@ -171,12 +171,7 @@ export const deleteMessage = async (id: string): Promise<void> => {
 
 // --- Auth ---
 export const getUser = (): User => {
-  const data = localStorage.getItem(KEYS.USER);
-  if (!data) {
-    localStorage.setItem(KEYS.USER, JSON.stringify(DEFAULT_USER));
-    return DEFAULT_USER;
-  }
-  return JSON.parse(data);
+  return getStoredData(KEYS.USER, DEFAULT_USER);
 };
 
 export const updateUser = async (updates: Partial<User>): Promise<void> => {

@@ -23,28 +23,42 @@ const Navbar: React.FC = () => {
     { name: 'Contact', id: 'contact' },
   ];
 
-  // Handle Scroll Spy and Progress Bar
+  // Handle Scroll Spy and Progress Bar (Optimized)
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const handleScrollLogic = () => {
       const totalScroll = document.documentElement.scrollTop;
       const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scroll = totalScroll / windowHeight;
       setScrollProgress(scroll);
 
-      const sections = navItems.map(item => document.getElementById(item.id));
       const scrollPosition = window.scrollY + 100;
-
       let current = '';
-      sections.forEach((section) => {
+      
+      // Iterate through items to find active section
+      for (const item of navItems) {
+        const section = document.getElementById(item.id);
         if (section) {
           const sectionTop = section.offsetTop;
           const sectionHeight = section.clientHeight;
           if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            current = section.getAttribute('id') || '';
+            current = item.id;
+            break; // Stop once we found the active section
           }
         }
-      });
+      }
       setActiveSection(current);
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScrollLogic();
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll);

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Heart, Linkedin, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -5,14 +6,14 @@ import { Link } from 'react-router-dom';
 const Footer: React.FC = () => {
 
   return (
-    <footer className="bg-pastel-charcoal text-pastel-cream pt-16 pb-8 border-t-4 border-pastel-blue relative overflow-hidden">
+    <footer className="bg-footer-bg text-footer-text pt-16 pb-8 border-t-4 border-pastel-blue relative overflow-hidden transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           
           {/* Branding Section - Left on Desktop */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1">
             <h3 className="font-pixel text-4xl mb-4 text-white tracking-widest drop-shadow-md">RAZA A.</h3>
-            <p className="text-pastel-gray mb-8 max-w-sm text-lg leading-relaxed opacity-90 font-light">
+            <p className="text-footer-muted mb-8 max-w-sm text-lg leading-relaxed opacity-90 font-light">
               Helping small and medium sized businesses establish a strong online presence digitally.
             </p>
             
@@ -25,7 +26,7 @@ const Footer: React.FC = () => {
                  className="group relative"
                  title="LinkedIn"
                >
-                 <div className="absolute inset-0 bg-pastel-dark translate-y-1 translate-x-1 border-2 border-pastel-gray"></div>
+                 <div className="absolute inset-0 bg-footer-shadow translate-y-1 translate-x-1 border-2 border-pastel-gray"></div>
                  <div className="relative w-12 h-12 bg-pastel-lavender border-2 border-white flex items-center justify-center text-pastel-charcoal transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1 group-active:translate-y-0 group-active:translate-x-0">
                     <Linkedin size={24} />
                  </div>
@@ -38,7 +39,7 @@ const Footer: React.FC = () => {
                  className="group relative"
                  title="Send Email"
                >
-                 <div className="absolute inset-0 bg-pastel-dark translate-y-1 translate-x-1 border-2 border-pastel-gray"></div>
+                 <div className="absolute inset-0 bg-footer-shadow translate-y-1 translate-x-1 border-2 border-pastel-gray"></div>
                  <div className="relative w-12 h-12 bg-pastel-mint border-2 border-white flex items-center justify-center text-pastel-charcoal transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1 group-active:translate-y-0 group-active:translate-x-0">
                     <Mail size={24} />
                  </div>
@@ -60,7 +61,7 @@ const Footer: React.FC = () => {
                     <div className="bg-pastel-charcoal border border-pastel-gray p-2 text-pastel-cream group-hover:border-pastel-blue group-hover:text-pastel-blue transition-colors rounded-sm">
                       <Mail size={18} />
                     </div>
-                    <span className="font-pixel text-xl text-pastel-cream group-hover:text-pastel-blue tracking-wide">alibuildswebsites@gmail.com</span>
+                    <span className="font-pixel text-xl text-footer-text group-hover:text-pastel-blue tracking-wide">alibuildswebsites@gmail.com</span>
                  </a>
                </li>
                <li>
@@ -73,7 +74,7 @@ const Footer: React.FC = () => {
                    <div className="bg-pastel-charcoal border border-pastel-gray p-2 text-pastel-cream group-hover:border-pastel-blue group-hover:text-pastel-blue transition-colors rounded-sm">
                       <Linkedin size={18} />
                    </div>
-                   <span className="font-pixel text-xl text-pastel-cream group-hover:text-pastel-blue tracking-wide">linkedin.com/in/alibuildswebsites</span>
+                   <span className="font-pixel text-xl text-footer-text group-hover:text-pastel-blue tracking-wide">linkedin.com/in/alibuildswebsites</span>
                  </a>
                </li>
              </ul>

@@ -10,7 +10,6 @@ import Testimonials from './pages/admin/Testimonials';
 import Messages from './pages/admin/Messages';
 import Settings from './pages/admin/Settings';
 import ScrollToTop from './components/ui/ScrollToTop';
-import CRTOverlay from './components/ui/CRTOverlay';
 import * as db from './services/storage';
 import { ThemeProvider } from './context/ThemeContext';
 import { AudioProvider } from './context/AudioContext';
@@ -30,7 +29,6 @@ const App: React.FC = () => {
         <HashRouter>
           {/* Global Components */}
           <ScrollToTop />
-          <CRTOverlay />
           
           <Routes>
             {/* Public Routes */}
