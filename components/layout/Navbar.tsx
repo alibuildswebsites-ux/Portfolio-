@@ -145,16 +145,6 @@ const Navbar: React.FC = () => {
                   {item.name}
                 </button>
               ))}
-              <a 
-                 href="https://calendly.com/alibuildswebsites/30min" 
-                 target="_blank" 
-                 rel="noopener noreferrer"
-                 onClick={playClick}
-                 onMouseEnter={playHover}
-                 className="font-pixel bg-pastel-mint border-2 border-pastel-charcoal px-4 py-2 hover:bg-pastel-peach shadow-pixel-sm hover:translate-y-[2px] hover:shadow-none transition-all inline-block no-underline text-black"
-              >
-                Hire Me
-              </a>
             </div>
 
             <div className="flex items-center gap-2 border-l-2 border-pastel-charcoal/20 pl-4">
@@ -227,14 +217,6 @@ const Navbar: React.FC = () => {
                   {item.name}
                 </button>
               ))}
-               <a 
-                 href="https://calendly.com/alibuildswebsites/30min" 
-                 target="_blank" 
-                 rel="noopener noreferrer"
-                 className="block w-full text-center mt-4 font-pixel bg-pastel-mint border-2 border-pastel-charcoal px-4 py-3 hover:bg-pastel-peach shadow-pixel-sm hover:translate-y-[2px] hover:shadow-none transition-all text-black"
-              >
-                Hire Me
-              </a>
             </div>
           </motion.div>
         )}
