@@ -486,9 +486,9 @@ const Home: React.FC = () => {
 
       {/* --- CONTACT --- */}
       <Section id="contact" className="bg-pastel-surface mb-12 md:mb-20 transition-colors duration-500">
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
+        <div className="max-w-3xl mx-auto flex flex-col gap-16">
           {/* Form */}
-          <div>
+          <div className="w-full">
             <div className="text-center mb-8">
               <h2 className="font-pixel text-3xl sm:text-4xl mb-4 text-pastel-charcoal">Let's Build Something Great</h2>
               <p className="mb-0 text-base sm:text-lg text-gray-700">Have a project in mind? I'm available for freelance work. Send me the details!</p>
@@ -567,8 +567,8 @@ const Home: React.FC = () => {
             </form>
           </div>
           
-          <div className="flex flex-col mt-12 lg:mt-0 w-full">
-             <div className="text-center mb-6 lg:text-center">
+          <div className="w-full flex flex-col items-center">
+             <div className="text-center mb-6">
                 <h3 className="font-pixel text-2xl text-pastel-charcoal">Or Schedule a Free 30-Minute Consultation</h3>
              </div>
              <div className="w-full bg-pastel-surface border-2 border-pastel-charcoal shadow-pixel relative overflow-hidden h-[500px] sm:h-[600px]">
