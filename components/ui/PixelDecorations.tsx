@@ -235,12 +235,21 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
         </g>
 
         {/* --- TYPING ARMS (Animation) --- */}
-        <motion.g animate={{ y: [0, 1, 0] }} transition={{ duration: 0.2, repeat: Infinity }}>
-            {/* Arms matching body color (#795548) */}
+        {/* Left Arm */}
+        <motion.g 
+           animate={{ y: [0, -2, 0] }} 
+           transition={{ duration: 0.15, repeat: Infinity }}
+        >
             <rect x="20" y="40" width="4" height="8" fill="#795548" />
-            <rect x="40" y="40" width="4" height="8" fill="#795548" />
-            {/* Hands matching snout color (#D7CCC8) */}
             <rect x="18" y="48" width="4" height="3" fill="#D7CCC8" />
+        </motion.g>
+        
+        {/* Right Arm */}
+        <motion.g 
+           animate={{ y: [0, -2, 0] }} 
+           transition={{ duration: 0.15, delay: 0.07, repeat: Infinity }}
+        >
+            <rect x="40" y="40" width="4" height="8" fill="#795548" />
             <rect x="42" y="48" width="4" height="3" fill="#D7CCC8" />
         </motion.g>
 
@@ -309,7 +318,7 @@ export const PixelMonkeyWaving = memo(() => {
          <rect x="18" y="48" width="4" height="3" fill="#795548" /> 
  
          <motion.g 
-            style={{ originX: "46px", originY: "38px" }}
+            style={{ transformOrigin: "44px 38px" }}
             animate={{ rotate: [0, 20, -5, 0] }}
             transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
          >
