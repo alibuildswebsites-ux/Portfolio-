@@ -172,7 +172,8 @@ const Home: React.FC = () => {
                 <span className="bg-pastel-blue text-black px-4 py-2 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2">Raza A.</span>
               </h1>
               
-              <div className="font-mono text-base sm:text-lg md:text-xl mb-8 min-h-[80px] border-l-4 border-pastel-blue pl-6 py-2 bg-pastel-surface/60 backdrop-blur-sm rounded-r-lg text-left w-full max-w-xl shadow-sm">
+              {/* Typewriter Container - Removed shadow-sm */}
+              <div className="font-mono text-base sm:text-lg md:text-xl mb-8 min-h-[80px] border-l-4 border-pastel-blue pl-6 py-2 bg-pastel-surface/60 backdrop-blur-sm rounded-r-lg text-left w-full max-w-xl">
                 <Typewriter text="I help small and medium sized businesses establish a strong online presence digitally." delay={25} />
               </div>
               
