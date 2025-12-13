@@ -165,7 +165,7 @@ const Home: React.FC = () => {
 
         {/* 3. Main Container - Pushed to the bottom */}
         {/* mt-auto ensures it sits at the bottom of the flex container */}
-        <div className="container mx-auto px-4 z-10 grid md:grid-cols-2 gap-8 md:gap-12 items-center mt-auto pb-[15vh] md:pb-[20vh]">
+        <div className="container mx-auto px-4 z-10 grid md:grid-cols-2 gap-8 md:gap-12 items-center mt-auto pb-[10vh]">
           {/* Text Content */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
