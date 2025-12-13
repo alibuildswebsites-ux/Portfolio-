@@ -6,7 +6,7 @@ import PixelButton from '../components/ui/PixelButton';
 import Footer from '../components/layout/Footer';
 import ParticleBackground from '../components/ui/ParticleBackground';
 import Typewriter from '../components/ui/Typewriter';
-import { PixelCloud, PixelSun, PixelMoon, PixelStars, PixelStatusBadge, PixelComputerAvatar } from '../components/ui/PixelDecorations';
+import { PixelCloud, PixelSun, PixelMoon, PixelStars, PixelStatusBadge } from '../components/ui/PixelDecorations';
 import { 
   Linkedin, ExternalLink, Code, 
   Briefcase, Star, Send, ArrowRight, ArrowLeft, Mail, Github
@@ -123,14 +123,8 @@ const Home: React.FC = () => {
     <div className="min-h-screen bg-pastel-cream font-sans text-pastel-charcoal selection:bg-pastel-lavender overflow-x-hidden transition-colors duration-500">
       <Navbar />
 
-      {/* --- HERO SECTION RESTRUCTURED --- */}
-      {/* 
-         Structure:
-         1. Container: 100dvh + top padding for navbar.
-         2. Layer 0 (Absolute): Background, Stars, Sun/Moon, Clouds.
-         3. Layer 1 (Relative): Main Content Flexbox.
-      */}
-      <div className="relative w-full h-[100dvh] pt-[84px] border-b-4 border-pastel-charcoal bg-pastel-blue/10 transition-colors duration-500 overflow-hidden flex flex-col">
+      {/* --- HERO SECTION --- */}
+      <div className="relative w-full min-h-[100dvh] pt-[84px] border-b-4 border-pastel-charcoal bg-pastel-blue/10 transition-colors duration-500 overflow-hidden flex flex-col justify-center">
         
         {/* === LAYER 0: DECORATIONS & BACKGROUND === */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -155,7 +149,7 @@ const Home: React.FC = () => {
             </AnimatePresence>
           </div>
 
-          {/* Clouds - Floating Absolute restricted to top 50vh below navbar */}
+          {/* Clouds */}
           <div className="absolute top-[84px] left-0 w-full h-[50vh]">
              <PixelCloud top="10%" className="opacity-80 scale-75 md:scale-100" size="w-24 md:w-48" duration={60} delay={0} />
              <PixelCloud top="40%" className="opacity-60 scale-75 md:scale-100" size="w-16 md:w-32" duration={45} delay={20} />
@@ -164,50 +158,39 @@ const Home: React.FC = () => {
         </div>
 
         {/* === LAYER 1: MAIN CONTENT === */}
-        {/* Uses full available height. Flex layout handles the split. */}
-        <div className="relative z-10 w-full h-full flex flex-col md:flex-row items-center md:items-end justify-between px-3 md:px-6 lg:px-8 pb-8 md:pb-12">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-8 py-12 md:py-0 h-full flex-grow">
           
            {/* Left Column (Text) */}
-           {/* Mobile: Centered vertically in available space. Desktop: Bottom/Center aligned. */}
            <motion.div 
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="flex-1 flex flex-col items-center md:items-start text-center md:text-left justify-center w-full md:w-1/2 pt-8 md:pt-0"
+              className="flex-1 flex flex-col items-center md:items-start text-center md:text-left z-20"
            >
-              <h1 className="font-pixel text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-3 md:mb-5 leading-tight cursor-default drop-shadow-sm">
+              <h1 className="font-pixel text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-tight cursor-default drop-shadow-sm">
                 Hi, I'm <br className="hidden md:block" />
-                <span className="bg-pastel-blue text-black px-3 py-1 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2">Raza A.</span>
+                <span className="bg-pastel-blue text-black px-4 py-2 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2">Raza A.</span>
               </h1>
               
-              <div className="font-mono text-sm sm:text-base md:text-lg lg:text-xl mb-6 md:mb-8 min-h-[60px] md:min-h-[90px] border-l-4 border-pastel-blue pl-4 md:pl-6 py-2 bg-pastel-surface/60 backdrop-blur-sm rounded-r-lg text-left w-full max-w-lg">
+              <div className="font-mono text-base sm:text-lg md:text-xl mb-8 min-h-[80px] border-l-4 border-pastel-blue pl-6 py-2 bg-pastel-surface/60 backdrop-blur-sm rounded-r-lg text-left w-full max-w-xl shadow-sm">
                 <Typewriter text="I help small and medium sized businesses establish a strong online presence digitally." delay={25} />
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                <PixelButton onClick={scrollToProjects} size="md" className="w-full sm:w-auto shadow-pixel-lg">View Projects</PixelButton>
-                <PixelButton onClick={() => window.open('https://calendly.com/alibuildswebsites/30min', '_blank')} variant="secondary" size="md" className="w-full sm:w-auto shadow-pixel-lg">Start Project</PixelButton>
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                <PixelButton onClick={scrollToProjects} size="lg" className="w-full sm:w-auto shadow-pixel-lg">View Projects</PixelButton>
+                <PixelButton onClick={() => window.open('https://calendly.com/alibuildswebsites/30min', '_blank')} variant="secondary" size="lg" className="w-full sm:w-auto shadow-pixel-lg">Start Project</PixelButton>
               </div>
            </motion.div>
 
-           {/* Right Column (Visuals) */}
-           {/* Mobile: Pushed to bottom. Desktop: Bottom Right. */}
+           {/* Right Column (Badge) */}
            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex-none md:flex-1 flex flex-col items-center md:items-end justify-end w-full mt-4 md:mt-0"
+              className="flex-none flex items-center justify-center md:justify-end z-20 w-full md:w-auto py-8 md:py-0"
            >
-               {/* 'Open for Work' Badge - Floats above table */}
-               {/* Removed bottom margin and added z-20 to sit on top of avatar */}
-               <div className="transform hover:scale-105 transition-transform duration-300 relative z-20">
+               <div className="transform hover:scale-105 transition-transform duration-300">
                   <PixelStatusBadge />
-               </div>
-
-               {/* Table Illustration - Responsive Sizing */}
-               {/* Added negative margin top to pull it up into the badge space, correcting for SVG whitespace */}
-               <div className="relative flex items-end justify-center w-full -mt-10 sm:-mt-16 md:-mt-24 lg:-mt-28 pointer-events-none">
-                  <PixelComputerAvatar className="h-40 sm:h-56 md:h-[26rem] lg:h-[30rem] w-auto max-w-full drop-shadow-xl" />
                </div>
            </motion.div>
 
