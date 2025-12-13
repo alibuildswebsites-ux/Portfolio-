@@ -145,7 +145,7 @@ export const PixelStatusBadge = memo(() => {
 export const PixelComputerAvatar = memo(({ className = "" }: { className?: string }) => {
   return (
     <div className={`relative w-full flex items-end justify-center transition-all duration-300 ${className}`}>
-      <svg viewBox="0 0 64 64" className="w-full h-full pixel-antialiased drop-shadow-md" shapeRendering="crispEdges">
+      <svg viewBox="0 0 64 64" className="w-full h-full pixel-antialiased" shapeRendering="crispEdges">
         <defs>
            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
              <feGaussianBlur stdDeviation="1" result="blur" />
@@ -223,7 +223,7 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
         {/* Placed AFTER Table to overlay it */}
         {/* Left Arm (x=18) */}
         <motion.g 
-           animate={{ y: [0, -3, 0] }} 
+           animate={{ translateY: [0, -3, 0] }} 
            transition={{ duration: 0.15, repeat: Infinity, repeatType: "reverse" }}
         >
             <rect x="18" y="42" width="4" height="8" fill="#795548" />
@@ -232,7 +232,7 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
         
         {/* Right Arm (x=42) */}
         <motion.g 
-           animate={{ y: [0, -3, 0] }} 
+           animate={{ translateY: [0, -3, 0] }} 
            transition={{ duration: 0.15, delay: 0.05, repeat: Infinity, repeatType: "reverse" }}
         >
             <rect x="42" y="42" width="4" height="8" fill="#795548" />
