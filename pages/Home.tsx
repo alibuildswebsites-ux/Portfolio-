@@ -124,15 +124,10 @@ const Home: React.FC = () => {
       <Navbar />
 
       {/* --- HERO SECTION --- */}
-      {/* 
-         Structure:
-         1. h-[100dvh] container
-         2. Pt-20 to clear navbar
-         3. Flex col layout
-      */}
+      {/* Container: 100dvh, pt-20 (to clear navbar) */}
       <div className="relative w-full h-[100dvh] flex flex-col pt-20 border-b-4 border-pastel-charcoal bg-pastel-blue/10 transition-colors duration-500 overflow-hidden">
         
-        {/* Absolute Background Layer (Stars/Particles only) */}
+        {/* Absolute Background Layer */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <ParticleBackground />
           {theme === 'night' && <PixelStars />}
@@ -144,28 +139,27 @@ const Home: React.FC = () => {
         </div>
 
         {/* --- VERTICAL SECTION 1: Sun/Moon --- */}
-        {/* Mobile: 10% height, Desktop: 15% height. Right padded matching navbar */}
+        {/* Mobile: 10%, Desktop: 15% */}
         <div className="w-full h-[10%] md:h-[15%] flex items-center justify-end px-3 md:px-6 lg:px-8 relative z-10 shrink-0">
            <AnimatePresence mode="wait">
              {theme === 'day' ? (
-                <PixelSun key="sun" className="origin-center" />
+                <PixelSun key="sun" className="origin-center scale-75 md:scale-100" />
              ) : (
-                <PixelMoon key="moon" className="origin-center" />
+                <PixelMoon key="moon" className="origin-center scale-75 md:scale-100" />
              )}
            </AnimatePresence>
         </div>
 
         {/* --- VERTICAL SECTION 2: Clouds --- */}
-        {/* Mobile: 25% height, Desktop: 35% height */}
+        {/* Mobile: 25%, Desktop: 35% */}
         <div className="w-full h-[25%] md:h-[35%] relative z-10 shrink-0 overflow-hidden">
-           <PixelCloud top="10%" className="opacity-80" size="w-24 md:w-48" duration={60} delay={0} />
-           <PixelCloud top="40%" className="opacity-60" size="w-16 md:w-32" duration={45} delay={20} />
-           <PixelCloud top="70%" className="opacity-40" size="w-32 md:w-56" duration={70} delay={10} />
+           <PixelCloud top="10%" className="opacity-80 scale-75 md:scale-100 origin-left" size="w-24 md:w-48" duration={60} delay={0} />
+           <PixelCloud top="40%" className="opacity-60 scale-75 md:scale-100 origin-left" size="w-16 md:w-32" duration={45} delay={20} />
+           <PixelCloud top="70%" className="opacity-40 scale-75 md:scale-100 origin-left" size="w-32 md:w-56" duration={70} delay={10} />
         </div>
 
         {/* --- VERTICAL SECTION 3: Main Content --- */}
-        {/* Fills remaining height. Desktop: Row (Text Left, Visuals Right). Mobile: Col (Text Top, Visuals Bottom) */}
-        {/* Padding applied here to match Navbar alignment logic */}
+        {/* Fills remaining height. Desktop: Row. Mobile: Column. min-h-0 prevents flex overflow issue */}
         <div className="flex-grow w-full flex flex-col md:flex-row items-center md:items-end justify-between relative z-10 px-3 md:px-6 lg:px-8 pb-4 md:pb-8 min-h-0">
           
            {/* Left Column (Text) */}
@@ -173,14 +167,14 @@ const Home: React.FC = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="flex flex-col items-center md:items-start text-center md:text-left w-full md:w-1/2 h-full justify-center md:justify-end pb-4 md:pb-0"
+              className="flex flex-col items-center md:items-start text-center md:text-left w-full md:w-1/2 h-auto md:h-full justify-center md:justify-end shrink-1 md:pr-4"
            >
               <h1 className="font-pixel text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-2 md:mb-4 leading-tight cursor-default">
                 Hi, I'm <br className="hidden md:block" />
-                <span className="bg-pastel-blue text-black px-3 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2">Raza A.</span>
+                <span className="bg-pastel-blue text-black px-2 md:px-3 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-1 md:mt-2">Raza A.</span>
               </h1>
               
-              <div className="font-mono text-sm sm:text-lg md:text-xl mb-4 md:mb-6 min-h-[60px] md:min-h-[80px] border-l-4 border-pastel-blue pl-4 md:pl-6 py-2 bg-pastel-surface/50 backdrop-blur-sm rounded-r-lg text-left w-full max-w-lg shadow-sm">
+              <div className="font-mono text-xs sm:text-base md:text-xl mb-3 md:mb-6 min-h-[50px] md:min-h-[80px] border-l-4 border-pastel-blue pl-4 md:pl-6 py-2 bg-pastel-surface/50 backdrop-blur-sm rounded-r-lg text-left w-full max-w-lg shadow-sm">
                 <Typewriter text="I help small and medium sized businesses establish a strong online presence digitally." delay={20} />
               </div>
               
@@ -195,16 +189,16 @@ const Home: React.FC = () => {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex flex-col items-center md:items-end justify-end w-full md:w-1/2 h-full relative"
+              className="flex flex-col items-center md:items-end justify-end w-full md:w-1/2 h-auto md:h-full shrink-0 md:shrink-1 mt-4 md:mt-0 relative"
            >
                {/* 'Open for Work' Box */}
                <div className="mb-2 md:mb-4 transform hover:scale-105 transition-transform duration-300 relative z-20">
                   <PixelStatusBadge />
                </div>
 
-               {/* Table Illustration - Scaled to fit remaining height if needed */}
-               <div className="relative flex items-end justify-center">
-                  <PixelComputerAvatar />
+               {/* Table Illustration - Responsive sizing */}
+               <div className="relative flex items-end justify-center w-full">
+                  <PixelComputerAvatar className="h-32 sm:h-48 md:h-[24rem] lg:h-[28rem] w-auto max-w-full" />
                </div>
            </motion.div>
 

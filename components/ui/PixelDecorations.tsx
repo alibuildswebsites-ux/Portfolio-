@@ -120,20 +120,20 @@ export const PixelStatusBadge = memo(() => {
         initial={{ y: 5 }}
         animate={{ y: -5 }}
         transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', ease: "easeInOut" }}
-        className="relative z-20 cursor-pointer inline-block mb-6"
+        className="relative z-20 cursor-pointer inline-block"
         whileHover={{ scale: 1.05 }}
       >
-         <div className="bg-white border-2 border-pastel-charcoal shadow-pixel-lg px-6 py-5 sm:px-8 sm:py-6">
-            <div className="bg-pastel-lavender border-b-2 border-pastel-charcoal px-3 py-1 flex justify-between items-center h-7 absolute top-0 left-0 w-full">
-               <span className="font-pixel text-[10px] sm:text-xs text-black tracking-wider">SYSTEM.EXE</span>
+         <div className="bg-white border-2 border-pastel-charcoal shadow-pixel-lg px-4 py-3 sm:px-8 sm:py-6">
+            <div className="bg-pastel-lavender border-b-2 border-pastel-charcoal px-3 py-1 flex justify-between items-center h-6 sm:h-7 absolute top-0 left-0 w-full">
+               <span className="font-pixel text-[8px] sm:text-xs text-black tracking-wider">SYSTEM.EXE</span>
                <div className="flex gap-1.5">
-                  <div className="w-2 h-2 bg-pastel-charcoal"></div>
-                  <div className="w-2 h-2 bg-pastel-charcoal opacity-50"></div>
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-pastel-charcoal"></div>
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-pastel-charcoal opacity-50"></div>
                </div>
             </div>
-            <div className="mt-4 flex items-center justify-center gap-3">
-               <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse border border-pastel-charcoal"></div>
-               <span className="font-pixel text-lg sm:text-xl font-bold text-black whitespace-nowrap">
+            <div className="mt-3 sm:mt-4 flex items-center justify-center gap-2 sm:gap-3">
+               <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-400 rounded-full animate-pulse border border-pastel-charcoal"></div>
+               <span className="font-pixel text-base sm:text-xl font-bold text-black whitespace-nowrap">
                   Open for Work!
                </span>
             </div>
@@ -142,9 +142,9 @@ export const PixelStatusBadge = memo(() => {
    );
 });
 
-export const PixelComputerAvatar = memo(() => {
+export const PixelComputerAvatar = memo(({ className = "" }: { className?: string }) => {
   return (
-    <div className="relative w-full max-w-[22rem] h-64 sm:max-w-[32rem] sm:h-80 md:max-w-[42rem] md:h-[28rem] shrink-0 transition-all duration-300 flex items-end justify-center mb-6">
+    <div className={`relative w-full flex items-end justify-center transition-all duration-300 ${className}`}>
       <svg viewBox="0 0 64 64" className="w-full h-full pixel-antialiased drop-shadow-md" shapeRendering="crispEdges">
         {/* Floor Shadow */}
         <ellipse cx="32" cy="62" rx="28" ry="2" fill="#000" opacity="0.1" />
