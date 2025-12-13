@@ -199,13 +199,14 @@ const Home: React.FC = () => {
               className="flex-none md:flex-1 flex flex-col items-center md:items-end justify-end w-full mt-4 md:mt-0"
            >
                {/* 'Open for Work' Badge - Floats above table */}
-               <div className="mb-2 md:mb-6 transform hover:scale-105 transition-transform duration-300 relative z-20">
+               {/* Removed bottom margin and added z-20 to sit on top of avatar */}
+               <div className="transform hover:scale-105 transition-transform duration-300 relative z-20">
                   <PixelStatusBadge />
                </div>
 
                {/* Table Illustration - Responsive Sizing */}
-               {/* Using max-h to ensure it fits on shorter mobile screens without overflow */}
-               <div className="relative flex items-end justify-center w-full">
+               {/* Added negative margin top to pull it up into the badge space, correcting for SVG whitespace */}
+               <div className="relative flex items-end justify-center w-full -mt-10 sm:-mt-16 md:-mt-24 lg:-mt-28 pointer-events-none">
                   <PixelComputerAvatar className="h-40 sm:h-56 md:h-[26rem] lg:h-[30rem] w-auto max-w-full drop-shadow-xl" />
                </div>
            </motion.div>
