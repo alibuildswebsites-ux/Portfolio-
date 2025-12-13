@@ -166,12 +166,12 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
            <rect x="38" y="46" width="2" height="12" fill="#3E2723" />
         </g>
 
-        {/* --- MONKEY (Middle Layer) - EXACT REPLICA OF PRELOADER --- */}
+        {/* --- MONKEY (Middle Layer) --- */}
         <g transform="translate(0, 2)"> 
            {/* Body */}
            <rect x="22" y="38" width="20" height="14" fill="#795548" />
 
-           {/* --- HEAD (Identical to PixelMonkeyWaving) --- */}
+           {/* --- HEAD --- */}
            {/* Head Base */}
            <rect x="22" y="20" width="20" height="18" fill="#795548" />
            <rect x="22" y="20" width="20" height="2" fill="#8D6E63" />
@@ -182,7 +182,7 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
            <rect x="42" y="26" width="4" height="6" fill="#5D4037" />
            <rect x="43" y="27" width="2" height="4" fill="#D7CCC8" />
 
-           {/* Face Mask (Signature Shape) */}
+           {/* Face Mask */}
            <path d="M24 26 H40 V36 H36 V38 H28 V36 H24 Z" fill="#EFEBE9" />
            
            {/* Nose Bridge */}
@@ -197,7 +197,7 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
               {/* Left Eye */}
               <rect x="25" y="28" width="6" height="4" fill="#111111" />
               <rect x="26" y="29" width="2" height="1" fill="#555555" /> 
-              <rect x="31" y="29" width="2" height="1" fill="#111111" /> {/* Pupil edge */}
+              <rect x="31" y="29" width="2" height="1" fill="#111111" /> 
               
               {/* Right Eye */}
               <rect x="33" y="28" width="6" height="4" fill="#111111" />
@@ -206,64 +206,59 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
 
            {/* Snout Area */}
            <rect x="29" y="32" width="6" height="3" fill="#D7CCC8" />
-           <rect x="31" y="33" width="2" height="1" fill="#4E342E" /> {/* Nose */}
-           <rect x="30" y="35" width="4" height="1" fill="#4E342E" opacity="0.6" /> {/* Mouth */}
-        </g>
-
-        {/* --- TABLE (Front Layer) - LARGE SIZE --- */}
-        <g>
-           {/* Legs */}
-           <rect x="4" y="52" width="4" height="12" fill="#6D4C41" />
-           <rect x="56" y="52" width="4" height="12" fill="#6D4C41" />
-           
-           {/* Top Surface - Wide Desk */}
-           <rect x="2" y="48" width="60" height="4" fill="#E6D5AC" /> {/* Pastel Cream Wood */}
-           <rect x="2" y="52" width="60" height="2" fill="#D7C49E" /> {/* Edge Shadow */}
+           <rect x="31" y="33" width="2" height="1" fill="#4E342E" /> 
+           <rect x="30" y="35" width="4" height="1" fill="#4E342E" opacity="0.6" /> 
         </g>
 
         {/* --- TYPING ARMS (Animation) --- */}
-        {/* Rendered BEFORE Laptop to appear BEHIND it. Shifted inwards to overlap. */}
-        {/* Left Arm - Shifted +2 */}
+        {/* Placed behind laptop, but widened to be visible on sides */}
+        {/* Left Arm (x=18) */}
         <motion.g 
-           animate={{ y: [0, -2, 0] }} 
+           animate={{ y: [0, -1, 0] }} 
            transition={{ duration: 0.15, repeat: Infinity }}
         >
-            <rect x="22" y="40" width="4" height="8" fill="#795548" />
-            <rect x="20" y="48" width="4" height="3" fill="#D7CCC8" />
+            <rect x="18" y="42" width="4" height="8" fill="#795548" />
+            <rect x="18" y="48" width="4" height="4" fill="#D7CCC8" /> 
         </motion.g>
         
-        {/* Right Arm - Shifted -2 */}
+        {/* Right Arm (x=42) */}
         <motion.g 
-           animate={{ y: [0, -2, 0] }} 
+           animate={{ y: [0, -1, 0] }} 
            transition={{ duration: 0.15, delay: 0.07, repeat: Infinity }}
         >
-            <rect x="38" y="40" width="4" height="8" fill="#795548" />
-            <rect x="40" y="48" width="4" height="3" fill="#D7CCC8" />
+            <rect x="42" y="42" width="4" height="8" fill="#795548" />
+            <rect x="42" y="48" width="4" height="4" fill="#D7CCC8" /> 
         </motion.g>
 
+        {/* --- TABLE (Front Layer) --- */}
+        <g>
+           <rect x="4" y="52" width="4" height="12" fill="#6D4C41" />
+           <rect x="56" y="52" width="4" height="12" fill="#6D4C41" />
+           <rect x="2" y="48" width="60" height="4" fill="#E6D5AC" /> 
+           <rect x="2" y="52" width="60" height="2" fill="#D7C49E" /> 
+        </g>
+
         {/* --- LAPTOP (Back View) --- */}
-        {/* Rendered AFTER arms */}
         <g transform="translate(0, 0)">
-           {/* Lid Back */}
-           <rect x="22" y="36" width="20" height="14" fill="#CFD8DC" /> {/* Silver */}
-           <rect x="23" y="37" width="18" height="12" fill="#B0BEC5" opacity="0.3" /> {/* Bevel */}
-           
-           {/* Apple Logo */}
+           <rect x="22" y="36" width="20" height="14" fill="#CFD8DC" /> 
+           <rect x="23" y="37" width="18" height="12" fill="#B0BEC5" opacity="0.3" /> 
            <rect x="31" y="41" width="2" height="2" fill="white" />
-           
-           {/* Hinge/Base */}
            <rect x="22" y="50" width="20" height="2" fill="#78909C" />
         </g>
 
-        {/* --- SINGLE BANANA (On Desk) --- */}
-        <g transform="translate(48, 44)">
-           <rect x="2" y="5" width="2" height="1" fill="#FFEE58" />
-           <rect x="3" y="4" width="2" height="1" fill="#FFEE58" />
-           <rect x="4" y="3" width="2" height="1" fill="#FFEE58" />
-           <rect x="6" y="2" width="2" height="1" fill="#FFEE58" />
-           <rect x="8" y="3" width="1" height="1" fill="#FFEE58" />
-           <rect x="9" y="3" width="1" height="1" fill="#5D4037" />
-           <rect x="1" y="5" width="1" height="1" fill="#5D4037" />
+        {/* --- BETTER BANANA --- */}
+        <g transform="translate(46, 42)">
+           {/* Stem */}
+           <rect x="5" y="0" width="2" height="2" fill="#5D4037" />
+           {/* Body */}
+           <rect x="4" y="2" width="3" height="2" fill="#FFEE58" />
+           <rect x="3" y="4" width="3" height="2" fill="#FFEE58" />
+           <rect x="2" y="6" width="3" height="2" fill="#FFEE58" />
+           <rect x="1" y="8" width="3" height="1" fill="#FFEE58" />
+           {/* Details */}
+           <rect x="5" y="2" width="1" height="1" fill="#FFF59D" />
+           <rect x="2" y="7" width="1" height="1" fill="#FBC02D" />
+           <rect x="6" y="1" width="1" height="1" fill="#FBC02D" opacity="0.5" />
         </g>
 
       </svg>
@@ -294,7 +289,6 @@ export const PixelMonkeyWaving = memo(() => {
          <g transform="translate(0, -4)">
              <rect x="18" y="26" width="4" height="6" fill="#5D4037" />
              <rect x="19" y="27" width="2" height="4" fill="#D7CCC8" />
-             
              <rect x="42" y="26" width="4" height="6" fill="#5D4037" />
              <rect x="43" y="27" width="2" height="4" fill="#D7CCC8" />
              
@@ -312,23 +306,24 @@ export const PixelMonkeyWaving = memo(() => {
              
              <rect x="29" y="32" width="6" height="3" fill="#D7CCC8" />
              <rect x="31" y="33" width="2" height="1" fill="#4E342E" /> 
-             
              <rect x="30" y="35" width="4" height="1" fill="#4E342E" opacity="0.6" />
          </g>
  
+         {/* Static Left Arm */}
          <rect x="18" y="38" width="4" height="10" fill="#A8DAFF" />
          <rect x="18" y="48" width="4" height="3" fill="#795548" /> 
  
+         {/* Animated Right Arm - Using translation group for robust rotation pivot */}
          <motion.g 
-            style={{ transformOrigin: "44px 38px" }}
+            initial={{ x: 44, y: 38 }}
             animate={{ rotate: [0, 20, -5, 0] }}
             transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
          >
-            <rect x="42" y="24" width="4" height="14" fill="#A8DAFF" /> 
-            <rect x="42" y="20" width="4" height="4" fill="#795548" /> 
+            {/* Shapes relative to pivot point (0,0 of this group) */}
+            <rect x="-2" y="-14" width="4" height="14" fill="#A8DAFF" /> 
+            <rect x="-2" y="-18" width="4" height="4" fill="#795548" /> 
          </motion.g>
        </svg>
      </div>
    );
 });
-    
