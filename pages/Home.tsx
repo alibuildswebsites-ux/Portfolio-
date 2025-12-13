@@ -6,7 +6,7 @@ import PixelButton from '../components/ui/PixelButton';
 import Footer from '../components/layout/Footer';
 import ParticleBackground from '../components/ui/ParticleBackground';
 import Typewriter from '../components/ui/Typewriter';
-import { PixelCloud, PixelSun, PixelMoon, PixelStars, PixelComputerAvatar } from '../components/ui/PixelDecorations';
+import { PixelCloud, PixelSun, PixelMoon, PixelStars, PixelStatusBadge } from '../components/ui/PixelDecorations';
 import { 
   Github, Linkedin, ExternalLink, Code, 
   Briefcase, Star, Send, ArrowRight, ArrowLeft, Mail
@@ -124,7 +124,6 @@ const Home: React.FC = () => {
       <Navbar />
 
       {/* --- HERO SECTION --- */}
-      {/* IMPROVED PLACEMENT: Responsive column layout, content pushed to bottom */}
       <div className="relative w-full min-h-[100dvh] flex flex-col pt-24 border-b-4 border-pastel-charcoal bg-pastel-blue/10 transition-colors duration-500 overflow-hidden">
         
         {/* Background Decorations Layer */}
@@ -138,16 +137,9 @@ const Home: React.FC = () => {
           {theme === 'night' && <PixelStars />}
           
           {/* 2. Clouds - Floating comfortably below celestial bodies */}
-          {/* Cloud 1: High Left */}
           <PixelCloud top="15%" className="opacity-80" size="w-24 md:w-48" duration={60} delay={0} />
-
-          {/* Cloud 2: Mid Right */}
           <PixelCloud top="25%" className="opacity-60" size="w-16 md:w-32" duration={45} delay={20} />
-
-          {/* Cloud 3: Lower Left */}
           <PixelCloud top="35%" className="opacity-40" size="w-32 md:w-56" duration={70} delay={10} />
-
-          {/* Cloud 4: Low Right (Closer to content boundary) */}
           <PixelCloud top="45%" className="opacity-50" size="w-20 md:w-36" duration={50} delay={30} />
           
           {/* Decorative shapes */}
@@ -163,16 +155,18 @@ const Home: React.FC = () => {
           />
         </div>
 
-        {/* 3. Main Container - Pushed to the bottom */}
-        {/* mt-auto ensures it sits at the bottom of the flex container */}
-        <div className="container mx-auto px-4 z-10 grid md:grid-cols-2 gap-8 md:gap-12 items-center mt-auto pb-[10vh]">
+        {/* 3. Main Container - Centered Content */}
+        <div className="container mx-auto px-4 z-10 flex flex-col items-center justify-center mt-auto pb-[20vh] text-center">
           {/* Text Content */}
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center relative flex flex-col items-center order-1 md:order-1"
+            className="relative flex flex-col items-center max-w-4xl mx-auto"
           >
+            {/* Added Back the 'Open for Work' Status Badge */}
+            <PixelStatusBadge />
+
             <h1 className="font-pixel text-4xl sm:text-5xl md:text-7xl mb-4 md:mb-6 leading-tight cursor-default">
               Hi, I'm <span className="bg-pastel-blue text-black px-2 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2 md:mt-0">Raza A.</span>
             </h1>
@@ -185,16 +179,6 @@ const Home: React.FC = () => {
               <PixelButton onClick={scrollToProjects} size="md" className="md:h-16 md:text-xl md:px-8 w-full sm:w-auto">View My Projects</PixelButton>
               <PixelButton onClick={() => window.open('https://calendly.com/alibuildswebsites/30min', '_blank')} variant="secondary" size="md" className="md:h-16 md:text-xl md:px-8 w-full sm:w-auto">Start a Project</PixelButton>
             </div>
-          </motion.div>
-          
-          {/* Computer Avatar */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex justify-center mt-2 md:mt-0 order-2 md:order-2"
-          >
-             <PixelComputerAvatar />
           </motion.div>
         </div>
       </div>
