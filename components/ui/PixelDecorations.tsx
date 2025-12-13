@@ -53,11 +53,11 @@ export const PixelCloud = memo(({ size = "w-32", className = "", duration = 25, 
   </motion.div>
 ));
 
-export const PixelSun = memo(() => (
+export const PixelSun = memo(({ className = "" }: { className?: string }) => (
   <motion.div 
     animate={{ rotate: 360 }}
     transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-    className="absolute top-24 right-4 w-14 h-14 sm:top-28 sm:right-8 sm:w-20 sm:h-20 md:top-32 md:right-10 md:w-24 md:h-24 z-0 opacity-80"
+    className={`w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 z-0 opacity-80 ${className}`}
   >
     <svg viewBox="0 0 24 24" className="w-full h-full pixel-antialiased">
        <rect x="8" y="8" width="8" height="8" fill="#FFB5A7" />
@@ -73,12 +73,12 @@ export const PixelSun = memo(() => (
   </motion.div>
 ));
 
-export const PixelMoon = memo(() => (
+export const PixelMoon = memo(({ className = "" }: { className?: string }) => (
   <motion.div 
     initial={{ y: 20, opacity: 0 }}
     animate={{ y: 0, opacity: 1 }}
     transition={{ duration: 1 }}
-    className="absolute top-24 right-4 w-14 h-14 sm:top-28 sm:right-8 sm:w-20 sm:h-20 md:top-32 md:right-10 md:w-24 md:h-24 z-0"
+    className={`w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 z-0 ${className}`}
   >
     <svg viewBox="0 0 24 24" className="w-full h-full pixel-antialiased drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
        <path d="M8 3 H12 V5 H15 V8 H17 V16 H15 V19 H12 V21 H8 V19 H10 V17 H11 V7 H10 V5 H8 V3 Z" fill="#F5F5F5" />
