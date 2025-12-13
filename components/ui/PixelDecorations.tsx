@@ -146,28 +146,112 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
   return (
     <div className={`relative w-full flex items-end justify-center transition-all duration-300 ${className}`}>
       <svg viewBox="0 0 64 64" className="w-full h-full pixel-antialiased drop-shadow-md" shapeRendering="crispEdges">
+        <defs>
+           <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+             <feGaussianBlur stdDeviation="1" result="blur" />
+             <feComposite in="SourceGraphic" in2="blur" operator="over" />
+           </filter>
+        </defs>
+
         {/* Floor Shadow */}
-        <ellipse cx="32" cy="62" rx="28" ry="2" fill="#000" opacity="0.1" />
+        <ellipse cx="32" cy="58" rx="28" ry="4" fill="#000" opacity="0.1" />
 
-        {/* --- TABLE (Layer 1) --- */}
+        {/* --- CHAIR (Back Layer) --- */}
+        <g>
+           {/* Backrest sticking up behind monkey */}
+           <rect x="20" y="22" width="24" height="24" fill="#5D4037" rx="1" />
+           <rect x="22" y="24" width="20" height="20" fill="#4E342E" /> 
+           {/* Legs */}
+           <rect x="24" y="46" width="2" height="12" fill="#3E2723" />
+           <rect x="38" y="46" width="2" height="12" fill="#3E2723" />
+        </g>
+
+        {/* --- MONKEY (Middle Layer) --- */}
+        <g>
+           {/* Shoulders / Body */}
+           <rect x="22" y="38" width="20" height="14" fill="#8D6E63" />
+           
+           {/* Head Shape - More detailed */}
+           <path d="
+             M24 18 h16 v2 h2 v4 h-2 v6 h-2 v2 h-12 v-2 h-2 v-6 h-2 v-4 h2 z
+           " fill="#8D6E63" />
+
+           {/* Ears */}
+           <path d="M19 23 h3 v5 h-3 z" fill="#D7CCC8" />
+           <path d="M42 23 h3 v5 h-3 z" fill="#D7CCC8" />
+
+           {/* Face Mask */}
+           <path d="
+             M27 22 h10 v2 h2 v5 h-2 v3 h-10 v-3 h-2 v-5 h2 z
+           " fill="#F5F5F5" />
+
+           {/* Hair Tuft */}
+           <rect x="31" y="17" width="2" height="1" fill="#8D6E63" />
+
+           {/* Eyes (Blinking Animation) */}
+           <motion.g 
+             animate={{ scaleY: [1, 0.1, 1] }} 
+             transition={{ duration: 3, repeat: Infinity, times: [0, 0.05, 0.1] }}
+             style={{ originY: "26px" }}
+           >
+              <rect x="29" y="26" width="2" height="2" fill="#3E2723" />
+              <rect x="33" y="26" width="2" height="2" fill="#3E2723" />
+           </motion.g>
+
+           {/* Snout */}
+           <rect x="30" y="29" width="4" height="2" fill="#E0E0E0" />
+           <rect x="31" y="30" width="2" height="1" fill="#5D4037" opacity="0.4" />
+        </g>
+
+        {/* --- TABLE (Front Layer) --- */}
+        <g>
+           {/* Legs */}
+           <rect x="6" y="52" width="4" height="10" fill="#8D6E63" />
+           <rect x="54" y="52" width="4" height="10" fill="#8D6E63" />
+           
+           {/* Top Surface */}
+           <rect x="2" y="48" width="60" height="4" fill="#E6D5AC" /> {/* Pastel Cream Wood */}
+           <rect x="2" y="52" width="60" height="2" fill="#D7C49E" /> {/* Edge Shadow */}
+        </g>
+
+        {/* --- LAPTOP (Back View - Screen Facing Monkey) --- */}
         <g transform="translate(0, 0)">
-            {/* Back Legs (Darker for depth) - Extended Height */}
-            <rect x="8" y="28" width="4" height="32" fill="#A18E78" /> 
-            <rect x="52" y="28" width="4" height="32" fill="#A18E78" />
+           {/* Screen Housing (Lid) */}
+           <rect x="21" y="36" width="22" height="14" fill="#CFD8DC" /> {/* Silver Lid */}
+           <rect x="22" y="37" width="20" height="12" fill="#B0BEC5" opacity="0.5" /> {/* Bevel/Depth */}
+           
+           {/* Apple Logo (Stylized) */}
+           <g transform="translate(31, 41)">
+              <rect x="1" y="0" width="1" height="1" fill="white" />
+              <rect x="0" y="1" width="3" height="2" fill="white" />
+              <rect x="1" y="3" width="1" height="1" fill="white" />
+           </g>
 
-            {/* Table Top Surface - Soft Pastel Wood - Moved Up */}
-            <rect x="2" y="20" width="60" height="6" fill="#E6D5AC" />
-            
-            {/* Table Front Edge/Lip */}
-            <rect x="2" y="26" width="60" height="2" fill="#C7B299" />
-            
-            {/* Front Legs - Taller and distinct */}
-            <rect x="4" y="28" width="4" height="32" fill="#C7B299" /> {/* Left Leg */}
-            <rect x="56" y="28" width="4" height="32" fill="#C7B299" /> {/* Right Leg */}
-            
-            {/* Subtle Texture/Highlight on top */}
-            <rect x="2" y="20" width="60" height="1" fill="#FFF8E1" opacity="0.4" />
-            <rect x="4" y="22" width="56" height="1" fill="#D7C49E" opacity="0.2" />
+           {/* Base (Bottom visible part) */}
+           <rect x="20" y="50" width="24" height="1" fill="#78909C" />
+        </g>
+
+        {/* --- TYPING ARMS (Animation) --- */}
+        <motion.g animate={{ y: [0, 1, 0] }} transition={{ duration: 0.15, repeat: Infinity }}>
+            {/* Arms reaching around laptop */}
+            <rect x="18" y="40" width="4" height="8" fill="#8D6E63" />
+            <rect x="42" y="40" width="4" height="8" fill="#8D6E63" />
+            {/* Hands/Paws */}
+            <rect x="19" y="48" width="3" height="3" fill="#D7CCC8" />
+            <rect x="42" y="48" width="3" height="3" fill="#D7CCC8" />
+        </motion.g>
+
+        {/* --- BANANAS (Improved Bunch Shape) --- */}
+        <g transform="translate(46, 42)">
+           {/* Banana 1 */}
+           <path d="M4 2 h2 v1 h1 v1 h1 v1 h-1 v1 h-1 v1 h-1 v-1 h-1 v-1 h-1 v-1 h1 v-1 z" fill="#FFF176" />
+           {/* Banana 2 */}
+           <path d="M8 3 h2 v1 h1 v2 h-1 v2 h-1 v2 h-1 v-1 h-1 v-2 h-1 v-2 h1 v-1 z" fill="#FFF59D" />
+           {/* Stems */}
+           <rect x="6" y="0" width="2" height="2" fill="#5D4037" />
+           {/* Tips */}
+           <rect x="3" y="6" width="1" height="1" fill="#5D4037" opacity="0.5" />
+           <rect x="10" y="8" width="1" height="1" fill="#5D4037" opacity="0.5" />
         </g>
       </svg>
     </div>
