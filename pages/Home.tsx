@@ -124,8 +124,8 @@ const Home: React.FC = () => {
       <Navbar />
 
       {/* --- HERO SECTION --- */}
-      {/* Container: 100dvh, pt-20 (to clear navbar) */}
-      <div className="relative w-full h-[100dvh] flex flex-col pt-20 border-b-4 border-pastel-charcoal bg-pastel-blue/10 transition-colors duration-500 overflow-hidden">
+      {/* Container: 100dvh, pt-[84px] (to exactly clear 80px navbar + 4px border) */}
+      <div className="relative w-full h-[100dvh] flex flex-col pt-[84px] border-b-4 border-pastel-charcoal bg-pastel-blue/10 transition-colors duration-500 overflow-hidden">
         
         {/* Absolute Background Layer */}
         <div className="absolute inset-0 z-0 pointer-events-none">
