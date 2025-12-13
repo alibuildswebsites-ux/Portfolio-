@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-footer-bg text-footer-text pt-16 pb-8 border-t-4 border-pastel-blue relative overflow-hidden transition-colors duration-500">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-3 md:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           
           {/* Branding Section - Left on Desktop */}
