@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { LayoutDashboard, FolderOpen, MessageSquare, Settings, LogOut, Star, Menu, X } from 'lucide-react';
 import * as db from '../../services/storage';
@@ -14,11 +15,11 @@ const AdminLayout: React.FC = () => {
   };
 
   const navItems = [
-    { to: '/admin-dashboard-secure-2024', icon: <LayoutDashboard size={20} />, label: 'Dashboard', exact: true },
-    { to: '/admin-dashboard-secure-2024/projects', icon: <FolderOpen size={20} />, label: 'Projects' },
-    { to: '/admin-dashboard-secure-2024/testimonials', icon: <Star size={20} />, label: 'Testimonials' },
-    { to: '/admin-dashboard-secure-2024/messages', icon: <MessageSquare size={20} />, label: 'Messages' },
-    { to: '/admin-dashboard-secure-2024/settings', icon: <Settings size={20} />, label: 'Settings' },
+    { to: '/dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard', exact: true },
+    { to: '/dashboard/projects', icon: <FolderOpen size={20} />, label: 'Projects' },
+    { to: '/dashboard/testimonials', icon: <Star size={20} />, label: 'Testimonials' },
+    { to: '/dashboard/messages', icon: <MessageSquare size={20} />, label: 'Messages' },
+    { to: '/dashboard/settings', icon: <Settings size={20} />, label: 'Settings' },
   ];
 
   return (

@@ -41,11 +41,11 @@ const App: React.FC = () => {
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Home />} />
-              <Route path="/admin-login" element={<Login />} />
+              <Route path="/admin" element={<Login />} />
 
               {/* Protected Admin Routes */}
               <Route 
-                path="/admin-dashboard-secure-2024" 
+                path="/dashboard" 
                 element={
                   <ProtectedRoute>
                     <AdminLayout />

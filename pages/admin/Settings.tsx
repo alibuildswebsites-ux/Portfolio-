@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import PixelButton from '../../components/ui/PixelButton';
 import * as db from '../../services/storage';
@@ -35,7 +36,7 @@ const Settings: React.FC = () => {
     setMsg({ type: 'success', text: 'Password updated! Logging out...' });
     setTimeout(() => {
        db.setSession(false);
-       navigate('/admin-login');
+       navigate('/admin');
     }, 2000);
   };
 
@@ -52,7 +53,7 @@ const Settings: React.FC = () => {
     setMsg({ type: 'success', text: 'Username updated! Logging out...' });
     setTimeout(() => {
        db.setSession(false);
-       navigate('/admin-login');
+       navigate('/admin');
     }, 2000);
   };
 

@@ -92,8 +92,6 @@ const Footer: React.FC = () => {
              <div className="flex items-center gap-2 text-xs md:text-sm text-gray-400 bg-black/20 px-4 py-2 rounded-full border border-white/5">
                 Made with <Heart size={14} className="fill-pastel-peach text-pastel-peach animate-pulse" /> using React & Tailwind
              </div>
-             {/* Admin Link - Using Router Link */}
-             <Link to="/admin-login" className="text-xs text-gray-400 hover:text-white transition-colors underline decoration-dotted underline-offset-4 ml-2">Admin Access</Link>
           </div>
         </div>
       </div>

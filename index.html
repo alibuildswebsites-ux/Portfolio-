@@ -57,6 +57,8 @@
       html {
         overflow-y: overlay;
         background-color: var(--color-pastel-cream); 
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;  /* IE 10+ */
       }
       
       body {
@@ -67,24 +69,12 @@
       }
 
       a, button, [role="button"], input, select, textarea {
-        cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAAD///8AAAAzMzP///+a0O0wAAAAAXRSTlMAQObYZgAAAFpJREFUCNdjYMAEAyA4AMQAIJ6ZgYgTiGNgYgDiWICIGYgjgIghgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIMoAAA+cxS18q1GzgAAAABJRU5ErkJggg=='), pointer;
+        cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAAD///8AAAAzMzP///+a0O0wAAAAAXRSTlMAQObYZgAAAFpJREFUCNdjYMAEAyA4AMQAIJ6ZgYgTiGNgYgDiWICIGYgjgIghgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIMoAAA+cxS18q1GzgAAAABJRU5ErkJggg=='), pointer;
       }
 
+      /* Hide scrollbar for Chrome, Safari and Opera */
       ::-webkit-scrollbar {
-        width: 16px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--color-pastel-cream);
-        border-left: 2px solid var(--color-pastel-charcoal);
-        margin-top: 80px;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: var(--color-pastel-lavender);
-        border: 2px solid var(--color-pastel-charcoal);
-        box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1);
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #B39DDB;
+        display: none;
       }
 
       .pixel-antialiased {

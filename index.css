@@ -50,6 +50,10 @@ html {
   overflow-y: overlay; /* Scrollbar sits ON TOP of content */
   background-color: var(--color-pastel-cream);
   transition: background-color 0.5s ease;
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 body {
@@ -58,7 +62,7 @@ body {
   overflow-x: hidden;
   transition: background-color 0.5s ease, color 0.5s ease;
   /* Standard Pixel Arrow */
-  cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAAD///8AAAAzMzP///+a0O0wAAAAAXRSTlMAQObYZgAAAFNJREFUCNdjYMAEAyA4AMQAiM4A4hYgYgYQhwCIGUE4EIQDiJmBOGYgDqK4gYgTiIOoriBiA+KguiuI2IA4qO4KImYgDqK4gYgTiIOoriBiA+KguiuI2IA4qO4KImYgDqK4gYgTiIOoriBiA+KguiuI2IA4qO4KImYgDqK4gYgTiIOoriBiA+IgCgA1+xW14g4FzAAAAABJRU5ErkJggg=='), auto;
+  cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAAD///8AAAAzMzP///+a0O0wAAAAAXRSTlMAQObYZgAAAFNJREFUCNdjYMAEAyA4AMQAiM4A4hYgYgYQhwCIGUE4EIQDiJmBOGYgDqK4gYgTiIOoriBiA+KguiuI2IA4qO4KImYgDqK4gYgTiIOoriBiA+KguiuI2IA4qO4KImYgDqK4gYgTiIOoriBiA+IgCgA1+xW14g4FzAAAAABJRU5ErkJggg=='), auto;
 }
 
 a, button, [role="button"], input, select, textarea {
@@ -66,21 +70,9 @@ a, button, [role="button"], input, select, textarea {
   cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAAD///8AAAAzMzP///+a0O0wAAAAAXRSTlMAQObYZgAAAFpJREFUCNdjYMAEAyA4AMQAIJ6ZgYgTiGNgYgDiWICIGYgjgIghgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIOIGYgjgIghiIMoAAA+cxS18q1GzgAAAABJRU5ErkJggg=='), pointer;
 }
 
-/* PIXEL ART SCROLLBAR STYLING */
+/* Hide scrollbar for Chrome, Safari and Opera */
 ::-webkit-scrollbar {
-  width: 16px; /* Chunky width */
-}
-::-webkit-scrollbar-track {
-  background: var(--color-pastel-cream); /* Cream background */
-  border-left: 2px solid var(--color-pastel-charcoal); /* Hard pixel border on left */
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-pastel-lavender); /* Pastel Lavender */
-  border: 2px solid var(--color-pastel-charcoal); /* Hard pixel border around thumb */
-  box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1); /* Inner shadow for depth */
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #B39DDB; /* Darker Pastel Purple on hover */
+  display: none;
 }
 
 .pixel-antialiased {

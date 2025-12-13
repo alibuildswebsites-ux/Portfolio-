@@ -36,13 +36,13 @@ const Dashboard: React.FC = () => {
       
       {/* Quick Actions */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-         <PixelButton onClick={() => navigate('/admin-dashboard-secure-2024/projects')} className="w-full">
+         <PixelButton onClick={() => navigate('/dashboard/projects')} className="w-full">
             <Plus size={18} className="inline mr-2" /> Add Project
          </PixelButton>
-         <PixelButton onClick={() => navigate('/admin-dashboard-secure-2024/testimonials')} className="w-full">
+         <PixelButton onClick={() => navigate('/dashboard/testimonials')} className="w-full">
             <Plus size={18} className="inline mr-2" /> Add Testimonial
          </PixelButton>
-         <PixelButton onClick={() => navigate('/admin-dashboard-secure-2024/messages')} variant="secondary" className="w-full">
+         <PixelButton onClick={() => navigate('/dashboard/messages')} variant="secondary" className="w-full">
             <MessageSquare size={18} className="inline mr-2" /> View Inbox
          </PixelButton>
       </div>

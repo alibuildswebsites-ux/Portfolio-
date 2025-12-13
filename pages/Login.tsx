@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import PixelButton from '../components/ui/PixelButton';
 import * as db from '../services/storage';
@@ -14,7 +15,7 @@ const Login: React.FC = () => {
   // Auto-redirect if already logged in
   useEffect(() => {
     if (db.checkSession()) {
-      navigate('/admin-dashboard-secure-2024');
+      navigate('/dashboard');
     }
   }, [navigate]);
 
@@ -31,7 +32,7 @@ const Login: React.FC = () => {
     // Simple comparison
     if (username === user.username && password === user.passwordHash) {
       db.setSession(true);
-      navigate('/admin-dashboard-secure-2024');
+      navigate('/dashboard');
     } else {
       setError('Invalid credentials');
     }
