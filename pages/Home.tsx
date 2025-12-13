@@ -165,7 +165,7 @@ const Home: React.FC = () => {
 
         {/* === LAYER 1: MAIN CONTENT === */}
         {/* Uses full available height. Flex layout handles the split. */}
-        <div className="relative z-10 w-full h-full flex flex-col md:flex-row items-center md:items-end justify-between px-4 md:px-8 lg:px-12 pb-0 md:pb-8 max-w-7xl mx-auto">
+        <div className="relative z-10 w-full h-full flex flex-col md:flex-row items-center md:items-end justify-between px-4 md:px-8 lg:px-12 pb-8 md:pb-12 max-w-7xl mx-auto">
           
            {/* Left Column (Text) */}
            {/* Mobile: Centered vertically in available space. Desktop: Bottom/Center aligned. */}
