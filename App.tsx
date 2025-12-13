@@ -1,6 +1,7 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import AdminLayout from './pages/admin/AdminLayout';
@@ -10,6 +11,7 @@ import Testimonials from './pages/admin/Testimonials';
 import Messages from './pages/admin/Messages';
 import Settings from './pages/admin/Settings';
 import ScrollToTop from './components/ui/ScrollToTop';
+import Preloader from './components/ui/Preloader';
 import * as db from './services/storage';
 import { ThemeProvider } from './context/ThemeContext';
 import { AudioProvider } from './context/AudioContext';
@@ -23,6 +25,8 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 };
 
 const App: React.FC = () => {
+  const [loading, setLoading] = useState(true);
+
   return (
     <ThemeProvider>
       <AudioProvider>
@@ -30,6 +34,10 @@ const App: React.FC = () => {
             {/* Global Components */}
             <ScrollToTop />
             
+            <AnimatePresence>
+               {loading && <Preloader onComplete={() => setLoading(false)} />}
+            </AnimatePresence>
+
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Home />} />
