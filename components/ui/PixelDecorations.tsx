@@ -166,43 +166,48 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
            <rect x="38" y="46" width="2" height="12" fill="#3E2723" />
         </g>
 
-        {/* --- MONKEY (Middle Layer) - CUTER DESIGN --- */}
-        <g>
+        {/* --- MONKEY (Middle Layer) - EXACT REPLICA OF PRELOADER --- */}
+        <g transform="translate(0, 2)"> 
            {/* Body */}
-           <rect x="24" y="38" width="16" height="14" fill="#8D6E63" />
+           <rect x="22" y="38" width="20" height="14" fill="#795548" />
+
+           {/* --- HEAD (Identical to PixelMonkeyWaving) --- */}
+           {/* Head Base */}
+           <rect x="22" y="20" width="20" height="18" fill="#795548" />
+           <rect x="22" y="20" width="20" height="2" fill="#8D6E63" />
+
+           {/* Ears */}
+           <rect x="18" y="26" width="4" height="6" fill="#5D4037" />
+           <rect x="19" y="27" width="2" height="4" fill="#D7CCC8" />
+           <rect x="42" y="26" width="4" height="6" fill="#5D4037" />
+           <rect x="43" y="27" width="2" height="4" fill="#D7CCC8" />
+
+           {/* Face Mask (Signature Shape) */}
+           <path d="M24 26 H40 V36 H36 V38 H28 V36 H24 Z" fill="#EFEBE9" />
            
-           {/* Head Main Shape - Rounder */}
-           <rect x="22" y="18" width="20" height="16" fill="#8D6E63" />
-           <rect x="21" y="20" width="1" height="12" fill="#8D6E63" /> {/* Left round */}
-           <rect x="42" y="20" width="1" height="12" fill="#8D6E63" /> {/* Right round */}
+           {/* Nose Bridge */}
+           <rect x="30" y="26" width="4" height="2" fill="#795548" /> 
 
-           {/* Ears - Cute & Round */}
-           <rect x="18" y="22" width="3" height="6" fill="#8D6E63" />
-           <rect x="19" y="23" width="2" height="4" fill="#D7CCC8" />
-           <rect x="43" y="22" width="3" height="6" fill="#8D6E63" />
-           <rect x="43" y="23" width="2" height="4" fill="#D7CCC8" />
-
-           {/* Face Mask - Heart-ish shape */}
-           <path d="M24 22 h16 v10 h-16 z" fill="#F5F5F5" />
-           <rect x="25" y="32" width="14" height="2" fill="#F5F5F5" />
-           <rect x="27" y="34" width="10" height="1" fill="#F5F5F5" />
-
-           {/* Hair Tuft */}
-           <rect x="31" y="16" width="2" height="2" fill="#8D6E63" />
-
-           {/* Eyes - Larger, friendlier (2x3 pixels) */}
+           {/* Eyes (Animated) */}
            <motion.g 
              animate={{ scaleY: [1, 0.1, 1] }} 
              transition={{ duration: 4, repeat: Infinity, times: [0, 0.05, 0.1] }}
-             style={{ originY: "26px" }}
+             style={{ originY: "30px" }}
            >
-              <rect x="27" y="25" width="2" height="3" fill="#212121" />
-              <rect x="35" y="25" width="2" height="3" fill="#212121" />
+              {/* Left Eye */}
+              <rect x="25" y="28" width="6" height="4" fill="#111111" />
+              <rect x="26" y="29" width="2" height="1" fill="#555555" /> 
+              <rect x="31" y="29" width="2" height="1" fill="#111111" /> {/* Pupil edge */}
+              
+              {/* Right Eye */}
+              <rect x="33" y="28" width="6" height="4" fill="#111111" />
+              <rect x="34" y="29" width="2" height="1" fill="#555555" /> 
            </motion.g>
 
-           {/* Snout/Nose - Simple line */}
-           <rect x="30" y="30" width="4" height="2" fill="#E0E0E0" opacity="0.5" />
-           <rect x="31" y="31" width="2" height="1" fill="#4E342E" opacity="0.8" />
+           {/* Snout Area */}
+           <rect x="29" y="32" width="6" height="3" fill="#D7CCC8" />
+           <rect x="31" y="33" width="2" height="1" fill="#4E342E" /> {/* Nose */}
+           <rect x="30" y="35" width="4" height="1" fill="#4E342E" opacity="0.6" /> {/* Mouth */}
         </g>
 
         {/* --- TABLE (Front Layer) - LARGE SIZE --- */}
@@ -231,26 +236,22 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
 
         {/* --- TYPING ARMS (Animation) --- */}
         <motion.g animate={{ y: [0, 1, 0] }} transition={{ duration: 0.2, repeat: Infinity }}>
-            {/* Arms */}
-            <rect x="20" y="40" width="4" height="8" fill="#8D6E63" />
-            <rect x="40" y="40" width="4" height="8" fill="#8D6E63" />
-            {/* Hands */}
+            {/* Arms matching body color (#795548) */}
+            <rect x="20" y="40" width="4" height="8" fill="#795548" />
+            <rect x="40" y="40" width="4" height="8" fill="#795548" />
+            {/* Hands matching snout color (#D7CCC8) */}
             <rect x="18" y="48" width="4" height="3" fill="#D7CCC8" />
             <rect x="42" y="48" width="4" height="3" fill="#D7CCC8" />
         </motion.g>
 
         {/* --- SINGLE BANANA (On Desk) --- */}
         <g transform="translate(48, 44)">
-           {/* Simple pixel curve */}
            <rect x="2" y="5" width="2" height="1" fill="#FFEE58" />
            <rect x="3" y="4" width="2" height="1" fill="#FFEE58" />
            <rect x="4" y="3" width="2" height="1" fill="#FFEE58" />
            <rect x="6" y="2" width="2" height="1" fill="#FFEE58" />
            <rect x="8" y="3" width="1" height="1" fill="#FFEE58" />
-           
-           {/* Stem */}
            <rect x="9" y="3" width="1" height="1" fill="#5D4037" />
-           {/* Tip */}
            <rect x="1" y="5" width="1" height="1" fill="#5D4037" />
         </g>
 
