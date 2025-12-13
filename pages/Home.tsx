@@ -155,11 +155,11 @@ const Home: React.FC = () => {
             </AnimatePresence>
           </div>
 
-          {/* Clouds - Floating Absolute */}
-          <div className="absolute inset-0 w-full h-full">
-             <PixelCloud top="15%" className="opacity-80 scale-75 md:scale-100" size="w-24 md:w-48" duration={60} delay={0} />
-             <PixelCloud top="30%" className="opacity-60 scale-75 md:scale-100" size="w-16 md:w-32" duration={45} delay={20} />
-             <PixelCloud top="60%" className="opacity-40 scale-75 md:scale-100" size="w-32 md:w-56" duration={70} delay={10} />
+          {/* Clouds - Floating Absolute restricted to top 50vh below navbar */}
+          <div className="absolute top-[84px] left-0 w-full h-[50vh]">
+             <PixelCloud top="10%" className="opacity-80 scale-75 md:scale-100" size="w-24 md:w-48" duration={60} delay={0} />
+             <PixelCloud top="40%" className="opacity-60 scale-75 md:scale-100" size="w-16 md:w-32" duration={45} delay={20} />
+             <PixelCloud top="70%" className="opacity-40 scale-75 md:scale-100" size="w-32 md:w-56" duration={70} delay={10} />
           </div>
         </div>
 
