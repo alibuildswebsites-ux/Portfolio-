@@ -158,14 +158,14 @@ const Home: React.FC = () => {
         </div>
 
         {/* === LAYER 1: MAIN CONTENT === */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center py-12 md:py-0 h-full flex-grow">
+        <div className="relative z-10 w-full px-3 md:px-6 lg:px-8 flex flex-col justify-center py-12 md:py-0 h-full flex-grow">
           
-           {/* Center Content */}
+           {/* Left Aligned Content */}
            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="flex flex-col items-center text-center z-20"
+              className="flex flex-col items-start text-left z-20 max-w-5xl"
            >
               <h1 className="font-pixel text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-tight cursor-default drop-shadow-sm">
                 Hi, I'm <br className="hidden md:block" />
@@ -173,7 +173,7 @@ const Home: React.FC = () => {
               </h1>
               
               {/* Typewriter Container */}
-              <div className="font-mono text-base sm:text-lg md:text-xl mb-8 min-h-[80px] border-l-4 border-pastel-blue pl-6 py-2 bg-pastel-surface/60 backdrop-blur-sm rounded-r-lg text-left w-full max-w-xl">
+              <div className="font-mono text-base sm:text-lg md:text-xl mb-8 min-h-[80px] border-l-4 border-pastel-blue pl-6 py-2 bg-pastel-surface/60 backdrop-blur-sm rounded-r-lg text-left w-full max-w-2xl">
                 <Typewriter text="I help small and medium sized businesses establish a strong online presence digitally." delay={25} />
               </div>
               
