@@ -158,35 +158,40 @@ const Home: React.FC = () => {
         </div>
 
         {/* === LAYER 1: MAIN CONTENT === */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center py-12 md:py-0 h-full flex-grow">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between py-12 md:py-0 h-full flex-grow gap-8">
           
-           {/* Center Content */}
+           {/* Left Content */}
            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="flex flex-col items-center text-center z-20"
+              className="flex flex-col items-center md:items-start text-center md:text-left z-20 max-w-2xl"
            >
               <h1 className="font-pixel text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-tight cursor-default drop-shadow-sm">
                 Hi, I'm <br className="hidden md:block" />
-                <div className="relative inline-block mt-2">
-                    <span className="bg-pastel-blue text-black px-4 py-2 shadow-pixel inline-block transform hover:scale-105 transition-transform relative z-10">Raza A.</span>
-                    <div className="absolute -top-12 -right-8 sm:-top-16 sm:-right-24 z-20 transform -rotate-6">
-                        <div className="scale-[0.6] sm:scale-75 origin-bottom-left hover:scale-[0.8] transition-transform">
-                            <PixelStatusBadge />
-                        </div>
-                    </div>
-                </div>
+                <span className="bg-pastel-blue text-black px-4 py-2 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2">Raza A.</span>
               </h1>
               
               {/* Typewriter Container */}
-              <div className="font-mono text-base sm:text-lg md:text-xl mb-8 min-h-[80px] border-l-4 border-pastel-blue pl-6 py-2 bg-pastel-surface/60 backdrop-blur-sm rounded-r-lg text-left w-full max-w-xl">
+              <div className="font-mono text-base sm:text-lg md:text-xl mb-8 min-h-[80px] border-l-4 border-pastel-blue pl-6 py-2 bg-pastel-surface/60 backdrop-blur-sm rounded-r-lg text-left w-full">
                 <Typewriter text="I help small and medium sized businesses establish a strong online presence digitally." delay={25} />
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <PixelButton onClick={scrollToProjects} size="lg" className="w-full sm:w-auto shadow-pixel-lg">View Projects</PixelButton>
                 <PixelButton onClick={() => window.open('https://calendly.com/alibuildswebsites/30min', '_blank')} variant="secondary" size="lg" className="w-full sm:w-auto shadow-pixel-lg">Start Project</PixelButton>
+              </div>
+           </motion.div>
+
+           {/* Right Content */}
+           <motion.div
+             initial={{ opacity: 0, x: 50 }}
+             animate={{ opacity: 1, x: 0 }}
+             transition={{ duration: 0.8, delay: 0.2 }}
+             className="relative z-20 flex justify-center md:justify-end mt-8 md:mt-0"
+           >
+              <div className="transform rotate-[-6deg] hover:rotate-0 transition-transform duration-300 scale-90 sm:scale-100">
+                  <PixelStatusBadge />
               </div>
            </motion.div>
 
