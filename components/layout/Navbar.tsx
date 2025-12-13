@@ -115,8 +115,8 @@ const Navbar: React.FC = () => {
         />
       </div>
 
-      {/* Main Container - Full Width with Specific Padding */}
-      <div className="w-full px-6 md:px-12 lg:px-20">
+      {/* Main Container - Full Width with specific padding requested */}
+      <div className="w-full px-3 md:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           
           {/* LEFT GROUP: Logo/Name */}
