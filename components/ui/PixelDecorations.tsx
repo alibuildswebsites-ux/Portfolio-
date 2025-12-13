@@ -221,7 +221,28 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
            <rect x="2" y="52" width="60" height="2" fill="#D7C49E" /> {/* Edge Shadow */}
         </g>
 
+        {/* --- TYPING ARMS (Animation) --- */}
+        {/* Rendered BEFORE Laptop to appear BEHIND it. Shifted inwards to overlap. */}
+        {/* Left Arm - Shifted +2 */}
+        <motion.g 
+           animate={{ y: [0, -2, 0] }} 
+           transition={{ duration: 0.15, repeat: Infinity }}
+        >
+            <rect x="22" y="40" width="4" height="8" fill="#795548" />
+            <rect x="20" y="48" width="4" height="3" fill="#D7CCC8" />
+        </motion.g>
+        
+        {/* Right Arm - Shifted -2 */}
+        <motion.g 
+           animate={{ y: [0, -2, 0] }} 
+           transition={{ duration: 0.15, delay: 0.07, repeat: Infinity }}
+        >
+            <rect x="38" y="40" width="4" height="8" fill="#795548" />
+            <rect x="40" y="48" width="4" height="3" fill="#D7CCC8" />
+        </motion.g>
+
         {/* --- LAPTOP (Back View) --- */}
+        {/* Rendered AFTER arms */}
         <g transform="translate(0, 0)">
            {/* Lid Back */}
            <rect x="22" y="36" width="20" height="14" fill="#CFD8DC" /> {/* Silver */}
@@ -233,25 +254,6 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
            {/* Hinge/Base */}
            <rect x="22" y="50" width="20" height="2" fill="#78909C" />
         </g>
-
-        {/* --- TYPING ARMS (Animation) --- */}
-        {/* Left Arm */}
-        <motion.g 
-           animate={{ y: [0, -2, 0] }} 
-           transition={{ duration: 0.15, repeat: Infinity }}
-        >
-            <rect x="20" y="40" width="4" height="8" fill="#795548" />
-            <rect x="18" y="48" width="4" height="3" fill="#D7CCC8" />
-        </motion.g>
-        
-        {/* Right Arm */}
-        <motion.g 
-           animate={{ y: [0, -2, 0] }} 
-           transition={{ duration: 0.15, delay: 0.07, repeat: Infinity }}
-        >
-            <rect x="40" y="40" width="4" height="8" fill="#795548" />
-            <rect x="42" y="48" width="4" height="3" fill="#D7CCC8" />
-        </motion.g>
 
         {/* --- SINGLE BANANA (On Desk) --- */}
         <g transform="translate(48, 44)">
@@ -329,3 +331,4 @@ export const PixelMonkeyWaving = memo(() => {
      </div>
    );
 });
+    
