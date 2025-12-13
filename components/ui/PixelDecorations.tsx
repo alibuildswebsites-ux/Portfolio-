@@ -151,18 +151,23 @@ export const PixelComputerAvatar = memo(() => {
 
         {/* --- TABLE (Layer 1) --- */}
         <g transform="translate(0, 0)">
+            {/* Back Legs (Darker for depth) */}
+            <rect x="8" y="44" width="4" height="16" fill="#A18E78" /> 
+            <rect x="52" y="44" width="4" height="16" fill="#A18E78" />
+
             {/* Table Top Surface - Soft Pastel Wood */}
-            <rect x="2" y="54" width="60" height="4" fill="#E6D5AC" />
+            <rect x="2" y="36" width="60" height="6" fill="#E6D5AC" />
             
-            {/* Table Front Edge/Lip - Slightly Darker for 3D effect */}
-            <rect x="2" y="58" width="60" height="1" fill="#C7B299" />
+            {/* Table Front Edge/Lip */}
+            <rect x="2" y="42" width="60" height="2" fill="#C7B299" />
             
-            {/* Table Legs - Minimalist */}
-            <rect x="6" y="59" width="4" height="4" fill="#C7B299" /> {/* Left Leg Stump */}
-            <rect x="54" y="59" width="4" height="4" fill="#C7B299" /> {/* Right Leg Stump */}
+            {/* Front Legs - Taller and distinct */}
+            <rect x="4" y="44" width="4" height="18" fill="#C7B299" /> {/* Left Leg */}
+            <rect x="56" y="44" width="4" height="18" fill="#C7B299" /> {/* Right Leg */}
             
             {/* Subtle Texture/Highlight on top */}
-            <rect x="4" y="55" width="56" height="1" fill="#FFF8E1" opacity="0.3" />
+            <rect x="2" y="36" width="60" height="1" fill="#FFF8E1" opacity="0.4" />
+            <rect x="4" y="38" width="56" height="1" fill="#D7C49E" opacity="0.2" />
         </g>
       </svg>
     </div>
