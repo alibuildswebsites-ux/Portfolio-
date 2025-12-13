@@ -155,34 +155,49 @@ const Home: React.FC = () => {
           />
         </div>
 
-        {/* 3. Main Container - Centered Content */}
-        <div className="container mx-auto px-4 z-10 flex flex-col items-center justify-center mt-auto pb-[20vh] text-center">
-          {/* Text Content */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="relative flex flex-col items-center max-w-4xl mx-auto"
-          >
-            {/* Status Badge */}
-            <PixelStatusBadge />
-
-            {/* Avatar Scene (Table Only) */}
-            <PixelComputerAvatar />
-
-            <h1 className="font-pixel text-4xl sm:text-5xl md:text-7xl mb-4 md:mb-6 leading-tight cursor-default">
-              Hi, I'm <span className="bg-pastel-blue text-black px-2 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2 md:mt-0">Raza A.</span>
-            </h1>
+        {/* 3. Main Container - 2 Column Layout */}
+        <div className="container mx-auto px-4 md:px-8 z-10 flex flex-col justify-center flex-grow pb-12">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-16 max-w-7xl mx-auto w-full">
             
-            <div className="font-mono text-base sm:text-xl md:text-2xl mb-8 min-h-[60px] md:min-h-[60px] border-l-4 border-pastel-blue pl-4 py-2 bg-pastel-surface/50 backdrop-blur-sm rounded-r-lg text-left max-w-lg mx-auto">
-              <Typewriter text="I help small and medium sized businesses establish a strong online presence digitally." delay={20} />
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
-              <PixelButton onClick={scrollToProjects} size="md" className="md:h-16 md:text-xl md:px-8 w-full sm:w-auto">View My Projects</PixelButton>
-              <PixelButton onClick={() => window.open('https://calendly.com/alibuildswebsites/30min', '_blank')} variant="secondary" size="md" className="md:h-16 md:text-xl md:px-8 w-full sm:w-auto">Start a Project</PixelButton>
-            </div>
-          </motion.div>
+            {/* Left Column (Text & Buttons) */}
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col items-center md:items-start text-center md:text-left w-full md:w-1/2 order-1"
+            >
+              <h1 className="font-pixel text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-tight cursor-default">
+                Hi, I'm <br className="hidden md:block" />
+                <span className="bg-pastel-blue text-black px-3 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2">Raza A.</span>
+              </h1>
+              
+              <div className="font-mono text-base sm:text-xl md:text-2xl mb-8 min-h-[80px] border-l-4 border-pastel-blue pl-6 py-2 bg-pastel-surface/50 backdrop-blur-sm rounded-r-lg text-left w-full max-w-xl shadow-sm">
+                <Typewriter text="I help small and medium sized businesses establish a strong online presence digitally." delay={20} />
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                <PixelButton onClick={scrollToProjects} size="lg" className="w-full sm:w-auto shadow-pixel-lg">View My Projects</PixelButton>
+                <PixelButton onClick={() => window.open('https://calendly.com/alibuildswebsites/30min', '_blank')} variant="secondary" size="lg" className="w-full sm:w-auto shadow-pixel-lg">Start a Project</PixelButton>
+              </div>
+            </motion.div>
+
+            {/* Right Column (Visuals) */}
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex flex-col items-center justify-center w-full md:w-1/2 order-2 mt-8 md:mt-0 relative"
+            >
+               <div className="mb-6 transform hover:scale-105 transition-transform duration-300">
+                  <PixelStatusBadge />
+               </div>
+
+               <div className="relative">
+                  <PixelComputerAvatar />
+               </div>
+            </motion.div>
+
+          </div>
         </div>
       </div>
 
