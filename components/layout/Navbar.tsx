@@ -115,8 +115,11 @@ const Navbar: React.FC = () => {
         />
       </div>
 
-      <div className="w-full px-4 sm:px-8 lg:px-12">
+      {/* Main Container - Full Width with Specific Padding */}
+      <div className="w-full px-6 md:px-12 lg:px-20">
         <div className="flex justify-between items-center h-20">
+          
+          {/* LEFT GROUP: Logo/Name */}
           <div 
             className="flex-shrink-0 flex items-center gap-2 cursor-pointer group" 
             onClick={goHome}
@@ -128,7 +131,8 @@ const Navbar: React.FC = () => {
              <span className="font-pixel text-2xl font-bold text-pastel-charcoal tracking-tighter">RAZA A.</span>
           </div>
           
-          <div className="hidden md:flex items-center gap-6">
+          {/* RIGHT GROUP (Desktop): Links + Icons */}
+          <div className="hidden md:flex items-center gap-8">
             <div className="flex items-baseline space-x-6">
               {navItems.map((item) => (
                 <button
@@ -147,7 +151,7 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
-            <div className="flex items-center gap-2 border-l-2 border-pastel-charcoal/20 pl-4">
+            <div className="flex items-center gap-2 border-l-2 border-pastel-charcoal/20 pl-6">
               {/* Mute Toggle */}
               <button
                 onClick={handleMuteToggle}
@@ -170,6 +174,7 @@ const Navbar: React.FC = () => {
             </div>
           </div>
           
+          {/* Mobile Menu Toggle (Visible only on mobile) */}
           <div className="md:hidden flex items-center gap-4">
              <button
                 onClick={handleMuteToggle}
