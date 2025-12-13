@@ -224,7 +224,7 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
         {/* Left Arm (x=18) */}
         <motion.g 
            animate={{ y: [0, -3, 0] }} 
-           transition={{ duration: 0.2, repeat: Infinity }}
+           transition={{ duration: 0.15, repeat: Infinity, repeatType: "reverse" }}
         >
             <rect x="18" y="42" width="4" height="8" fill="#795548" />
             <rect x="18" y="48" width="4" height="4" fill="#D7CCC8" /> 
@@ -233,7 +233,7 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
         {/* Right Arm (x=42) */}
         <motion.g 
            animate={{ y: [0, -3, 0] }} 
-           transition={{ duration: 0.2, delay: 0.1, repeat: Infinity }}
+           transition={{ duration: 0.15, delay: 0.05, repeat: Infinity, repeatType: "reverse" }}
         >
             <rect x="42" y="42" width="4" height="8" fill="#795548" />
             <rect x="42" y="48" width="4" height="4" fill="#D7CCC8" /> 
