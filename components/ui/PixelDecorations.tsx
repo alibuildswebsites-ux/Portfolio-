@@ -120,7 +120,7 @@ export const PixelStatusBadge = memo(() => {
         initial={{ y: 5 }}
         animate={{ y: -5 }}
         transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', ease: "easeInOut" }}
-        className="relative z-20 cursor-pointer inline-block mb-8"
+        className="relative z-20 cursor-pointer inline-block mb-6"
         whileHover={{ scale: 1.05 }}
       >
          <div className="bg-white border-2 border-pastel-charcoal shadow-pixel-lg px-6 py-5 sm:px-8 sm:py-6">
@@ -140,6 +140,33 @@ export const PixelStatusBadge = memo(() => {
          </div>
       </motion.div>
    );
+});
+
+export const PixelComputerAvatar = memo(() => {
+  return (
+    <div className="relative w-48 h-24 sm:w-72 sm:h-36 md:w-80 md:h-40 shrink-0 max-w-full transition-all duration-300 flex items-end justify-center mb-6">
+      <svg viewBox="0 0 64 64" className="w-full h-full pixel-antialiased drop-shadow-md" shapeRendering="crispEdges">
+        {/* Floor Shadow */}
+        <ellipse cx="32" cy="62" rx="28" ry="2" fill="#000" opacity="0.1" />
+
+        {/* --- TABLE (Layer 1) --- */}
+        <g transform="translate(0, 0)">
+            {/* Table Top Surface - Soft Pastel Wood */}
+            <rect x="2" y="54" width="60" height="4" fill="#E6D5AC" />
+            
+            {/* Table Front Edge/Lip - Slightly Darker for 3D effect */}
+            <rect x="2" y="58" width="60" height="1" fill="#C7B299" />
+            
+            {/* Table Legs - Minimalist */}
+            <rect x="6" y="59" width="4" height="4" fill="#C7B299" /> {/* Left Leg Stump */}
+            <rect x="54" y="59" width="4" height="4" fill="#C7B299" /> {/* Right Leg Stump */}
+            
+            {/* Subtle Texture/Highlight on top */}
+            <rect x="4" y="55" width="56" height="1" fill="#FFF8E1" opacity="0.3" />
+        </g>
+      </svg>
+    </div>
+  );
 });
 
 export const PixelMonkeyWaving = memo(() => {

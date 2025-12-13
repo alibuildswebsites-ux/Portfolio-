@@ -6,7 +6,7 @@ import PixelButton from '../components/ui/PixelButton';
 import Footer from '../components/layout/Footer';
 import ParticleBackground from '../components/ui/ParticleBackground';
 import Typewriter from '../components/ui/Typewriter';
-import { PixelCloud, PixelSun, PixelMoon, PixelStars, PixelStatusBadge } from '../components/ui/PixelDecorations';
+import { PixelCloud, PixelSun, PixelMoon, PixelStars, PixelStatusBadge, PixelComputerAvatar } from '../components/ui/PixelDecorations';
 import { 
   Github, Linkedin, ExternalLink, Code, 
   Briefcase, Star, Send, ArrowRight, ArrowLeft, Mail
@@ -164,8 +164,11 @@ const Home: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="relative flex flex-col items-center max-w-4xl mx-auto"
           >
-            {/* Added Back the 'Open for Work' Status Badge */}
+            {/* Status Badge */}
             <PixelStatusBadge />
+
+            {/* Avatar Scene (Table Only) */}
+            <PixelComputerAvatar />
 
             <h1 className="font-pixel text-4xl sm:text-5xl md:text-7xl mb-4 md:mb-6 leading-tight cursor-default">
               Hi, I'm <span className="bg-pastel-blue text-black px-2 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2 md:mt-0">Raza A.</span>
