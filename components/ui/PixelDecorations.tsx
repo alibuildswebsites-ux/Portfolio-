@@ -144,30 +144,30 @@ export const PixelStatusBadge = memo(() => {
 
 export const PixelComputerAvatar = memo(() => {
   return (
-    <div className="relative w-48 h-24 sm:w-72 sm:h-36 md:w-80 md:h-40 shrink-0 max-w-full transition-all duration-300 flex items-end justify-center mb-6">
+    <div className="relative w-full max-w-[22rem] h-64 sm:max-w-[32rem] sm:h-80 md:max-w-[42rem] md:h-[28rem] shrink-0 transition-all duration-300 flex items-end justify-center mb-6">
       <svg viewBox="0 0 64 64" className="w-full h-full pixel-antialiased drop-shadow-md" shapeRendering="crispEdges">
         {/* Floor Shadow */}
         <ellipse cx="32" cy="62" rx="28" ry="2" fill="#000" opacity="0.1" />
 
         {/* --- TABLE (Layer 1) --- */}
         <g transform="translate(0, 0)">
-            {/* Back Legs (Darker for depth) */}
-            <rect x="8" y="44" width="4" height="16" fill="#A18E78" /> 
-            <rect x="52" y="44" width="4" height="16" fill="#A18E78" />
+            {/* Back Legs (Darker for depth) - Extended Height */}
+            <rect x="8" y="28" width="4" height="32" fill="#A18E78" /> 
+            <rect x="52" y="28" width="4" height="32" fill="#A18E78" />
 
-            {/* Table Top Surface - Soft Pastel Wood */}
-            <rect x="2" y="36" width="60" height="6" fill="#E6D5AC" />
+            {/* Table Top Surface - Soft Pastel Wood - Moved Up */}
+            <rect x="2" y="20" width="60" height="6" fill="#E6D5AC" />
             
             {/* Table Front Edge/Lip */}
-            <rect x="2" y="42" width="60" height="2" fill="#C7B299" />
+            <rect x="2" y="26" width="60" height="2" fill="#C7B299" />
             
             {/* Front Legs - Taller and distinct */}
-            <rect x="4" y="44" width="4" height="18" fill="#C7B299" /> {/* Left Leg */}
-            <rect x="56" y="44" width="4" height="18" fill="#C7B299" /> {/* Right Leg */}
+            <rect x="4" y="28" width="4" height="32" fill="#C7B299" /> {/* Left Leg */}
+            <rect x="56" y="28" width="4" height="32" fill="#C7B299" /> {/* Right Leg */}
             
             {/* Subtle Texture/Highlight on top */}
-            <rect x="2" y="36" width="60" height="1" fill="#FFF8E1" opacity="0.4" />
-            <rect x="4" y="38" width="56" height="1" fill="#D7C49E" opacity="0.2" />
+            <rect x="2" y="20" width="60" height="1" fill="#FFF8E1" opacity="0.4" />
+            <rect x="4" y="22" width="56" height="1" fill="#D7C49E" opacity="0.2" />
         </g>
       </svg>
     </div>

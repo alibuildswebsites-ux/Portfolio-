@@ -155,11 +155,12 @@ const Home: React.FC = () => {
           />
         </div>
 
-        {/* 3. Main Container - 2 Column Layout */}
+        {/* 3. Main Container - Responsive Layout */}
         <div className="container mx-auto px-4 md:px-8 z-10 flex flex-col justify-center flex-grow pb-12">
+          {/* Flex Container: Stacks vertical on Mobile, Row on Tablet/Desktop */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-16 max-w-7xl mx-auto w-full">
             
-            {/* Left Column (Text & Buttons) */}
+            {/* Left Column (Text & Buttons) - Order 1 */}
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -181,17 +182,19 @@ const Home: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* Right Column (Visuals) */}
+            {/* Right Column (Visuals) - Order 2 */}
             <motion.div 
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex flex-col items-center justify-center w-full md:w-1/2 order-2 mt-8 md:mt-0 relative"
+              className="flex flex-col items-center justify-center w-full md:w-1/2 order-2 relative"
             >
+               {/* 'Open for Work' Box */}
                <div className="mb-6 transform hover:scale-105 transition-transform duration-300">
                   <PixelStatusBadge />
                </div>
 
+               {/* Table Illustration */}
                <div className="relative">
                   <PixelComputerAvatar />
                </div>
