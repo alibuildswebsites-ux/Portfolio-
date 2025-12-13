@@ -165,7 +165,7 @@ const Home: React.FC = () => {
 
         {/* === LAYER 1: MAIN CONTENT === */}
         {/* Uses full available height. Flex layout handles the split. */}
-        <div className="relative z-10 w-full h-full flex flex-col md:flex-row items-center md:items-end justify-between px-4 md:px-8 lg:px-12 pb-8 md:pb-12 max-w-7xl mx-auto">
+        <div className="relative z-10 w-full h-full flex flex-col md:flex-row items-center md:items-end justify-between px-3 md:px-6 lg:px-8 pb-8 md:pb-12">
           
            {/* Left Column (Text) */}
            {/* Mobile: Centered vertically in available space. Desktop: Bottom/Center aligned. */}
@@ -180,7 +180,7 @@ const Home: React.FC = () => {
                 <span className="bg-pastel-blue text-black px-3 py-1 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2">Raza A.</span>
               </h1>
               
-              <div className="font-mono text-sm sm:text-base md:text-lg lg:text-xl mb-6 md:mb-8 min-h-[60px] md:min-h-[90px] border-l-4 border-pastel-blue pl-4 md:pl-6 py-2 bg-pastel-surface/60 backdrop-blur-sm rounded-r-lg text-left w-full max-w-lg shadow-sm">
+              <div className="font-mono text-sm sm:text-base md:text-lg lg:text-xl mb-6 md:mb-8 min-h-[60px] md:min-h-[90px] border-l-4 border-pastel-blue pl-4 md:pl-6 py-2 bg-pastel-surface/60 backdrop-blur-sm rounded-r-lg text-left w-full max-w-lg">
                 <Typewriter text="I help small and medium sized businesses establish a strong online presence digitally." delay={25} />
               </div>
               
