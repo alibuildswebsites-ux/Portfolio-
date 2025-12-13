@@ -210,12 +210,21 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
            <rect x="30" y="35" width="4" height="1" fill="#4E342E" opacity="0.6" /> 
         </g>
 
+        {/* --- TABLE (Front Layer) --- */}
+        {/* Rendered BEFORE Arms so Arms appear ON TOP */}
+        <g>
+           <rect x="4" y="52" width="4" height="12" fill="#6D4C41" />
+           <rect x="56" y="52" width="4" height="12" fill="#6D4C41" />
+           <rect x="2" y="48" width="60" height="4" fill="#E6D5AC" /> 
+           <rect x="2" y="52" width="60" height="2" fill="#D7C49E" /> 
+        </g>
+
         {/* --- TYPING ARMS (Animation) --- */}
-        {/* Placed behind laptop, but widened to be visible on sides */}
+        {/* Placed AFTER Table to overlay it */}
         {/* Left Arm (x=18) */}
         <motion.g 
-           animate={{ y: [0, -1, 0] }} 
-           transition={{ duration: 0.15, repeat: Infinity }}
+           animate={{ y: [0, -3, 0] }} 
+           transition={{ duration: 0.2, repeat: Infinity }}
         >
             <rect x="18" y="42" width="4" height="8" fill="#795548" />
             <rect x="18" y="48" width="4" height="4" fill="#D7CCC8" /> 
@@ -223,20 +232,12 @@ export const PixelComputerAvatar = memo(({ className = "" }: { className?: strin
         
         {/* Right Arm (x=42) */}
         <motion.g 
-           animate={{ y: [0, -1, 0] }} 
-           transition={{ duration: 0.15, delay: 0.07, repeat: Infinity }}
+           animate={{ y: [0, -3, 0] }} 
+           transition={{ duration: 0.2, delay: 0.1, repeat: Infinity }}
         >
             <rect x="42" y="42" width="4" height="8" fill="#795548" />
             <rect x="42" y="48" width="4" height="4" fill="#D7CCC8" /> 
         </motion.g>
-
-        {/* --- TABLE (Front Layer) --- */}
-        <g>
-           <rect x="4" y="52" width="4" height="12" fill="#6D4C41" />
-           <rect x="56" y="52" width="4" height="12" fill="#6D4C41" />
-           <rect x="2" y="48" width="60" height="4" fill="#E6D5AC" /> 
-           <rect x="2" y="52" width="60" height="2" fill="#D7C49E" /> 
-        </g>
 
         {/* --- LAPTOP (Back View) --- */}
         <g transform="translate(0, 0)">
