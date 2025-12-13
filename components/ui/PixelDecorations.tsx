@@ -138,6 +138,56 @@ export const PixelStatusBadge = memo(() => {
                </span>
             </div>
          </div>
+         {/* Speech Bubble Tail */}
+         <div className="w-0 h-0 border-l-[8px] border-l-transparent border-t-[12px] border-t-pastel-charcoal border-r-[8px] border-r-transparent mx-auto relative mt-[-2px] z-10 hidden sm:block">
+            <div className="absolute -top-[14px] -left-[6px] w-0 h-0 border-l-[6px] border-l-transparent border-t-[10px] border-t-white border-r-[6px] border-r-transparent"></div>
+         </div>
       </motion.div>
    );
 });
+
+export const PixelHuman = memo(({ className = "" }: { className?: string }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5 }}
+    className={`relative select-none ${className}`}
+  >
+     <svg viewBox="0 0 24 32" className="w-32 h-auto sm:w-40 md:w-48 pixel-antialiased drop-shadow-2xl" shapeRendering="crispEdges">
+        {/* Shadow */}
+        <ellipse cx="12" cy="30" rx="8" ry="1.5" fill="rgba(0,0,0,0.15)" />
+
+        <motion.g
+           animate={{ y: [0, -1, 0] }}
+           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          {/* Pants */}
+          <rect x="8" y="19" width="3" height="9" fill="#4A4A4A" /> 
+          <rect x="13" y="19" width="3" height="9" fill="#4A4A4A" /> 
+          <rect x="8" y="18" width="8" height="2" fill="#4A4A4A" /> 
+          
+          {/* Shoes */}
+          <rect x="7" y="28" width="4" height="2" fill="#2D2D2D" />
+          <rect x="13" y="28" width="4" height="2" fill="#2D2D2D" />
+
+          {/* Shirt */}
+          <rect x="7" y="10" width="10" height="9" fill="#A8DAFF" /> 
+          <rect x="5" y="10" width="2" height="8" fill="#FFB5A7" /> 
+          <rect x="17" y="10" width="2" height="8" fill="#FFB5A7" /> 
+          
+          {/* Head */}
+          <rect x="9" y="3" width="6" height="6" fill="#FFB5A7" />
+          <rect x="10" y="9" width="4" height="1" fill="#FFB5A7" />
+
+          {/* Hair */}
+          <rect x="9" y="2" width="6" height="2" fill="#4A4A4A" />
+          <rect x="8" y="3" width="1" height="3" fill="#4A4A4A" />
+          <rect x="15" y="3" width="1" height="3" fill="#4A4A4A" />
+
+          {/* Face */}
+          <rect x="10" y="5" width="1" height="1" fill="#2D2D2D" /> 
+          <rect x="13" y="5" width="1" height="1" fill="#2D2D2D" /> 
+        </motion.g>
+     </svg>
+  </motion.div>
+));
