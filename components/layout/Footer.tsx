@@ -11,10 +11,8 @@ const Footer: React.FC = () => {
         - Mobile: px-3 (12px)
         - Tablet: px-6 (24px)
         - Desktop: px-8 (32px)
-        
-        Max-width and centering maintained as per requirements.
       */}
-      <div className="max-w-7xl mx-auto px-3 md:px-6 lg:px-8">
+      <div className="w-full px-3 md:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           
           {/* Branding Section - Left on Desktop */}
