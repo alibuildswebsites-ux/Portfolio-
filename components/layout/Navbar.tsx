@@ -104,7 +104,7 @@ const Navbar: React.FC = () => {
     toggleMute();
   };
 
-  const borderColorClass = theme === 'night' ? 'border-pastel-lavender' : 'border-pastel-charcoal';
+  const borderColorClass = theme === 'night' ? 'border-black' : 'border-pastel-charcoal';
 
   return (
     <nav className={`fixed top-0 w-full z-50 bg-pastel-cream border-b-4 transition-colors duration-500 ${borderColorClass}`}>
