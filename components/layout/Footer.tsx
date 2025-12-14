@@ -1,12 +1,19 @@
 
 import React from 'react';
 import { Heart, Linkedin, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
 
   return (
     <footer className="bg-footer-bg text-footer-text pt-16 pb-8 border-t-4 border-pastel-blue relative overflow-hidden transition-colors duration-500">
+      {/* 
+        Container Padding Strategy (Matches Navbar):
+        - Mobile: px-3 (12px)
+        - Tablet: px-6 (24px)
+        - Desktop: px-8 (32px)
+        
+        Max-width and centering maintained as per requirements.
+      */}
       <div className="max-w-7xl mx-auto px-3 md:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           
