@@ -20,8 +20,9 @@ export const getProjects = async (): Promise<Project[]> => {
 };
 
 export const saveProject = async (project: Project): Promise<void> => {
-  // If the ID is a long number (Date.now), remove it so Supabase generates a new ID
-  const id = project.id.length > 20 ? project.id : undefined;
+  // If the ID is a long number (Date.now) or undefined/short, handle accordingly.
+  // UUIDs are 36 chars. Date.now() is 13 chars.
+  const id = (project.id && project.id.length > 20) ? project.id : undefined;
   
   const payload = {
     ...(id ? { id } : {}),
@@ -61,7 +62,7 @@ export const getTestimonials = async (): Promise<Testimonial[]> => {
 };
 
 export const saveTestimonial = async (item: Testimonial): Promise<void> => {
-  const id = item.id.length > 20 ? item.id : undefined;
+  const id = (item.id && item.id.length > 20) ? item.id : undefined;
   const payload = {
     ...(id ? { id } : {}),
     client_name: item.clientName,

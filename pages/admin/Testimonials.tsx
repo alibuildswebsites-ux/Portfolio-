@@ -21,13 +21,18 @@ const Testimonials: React.FC = () => {
     e.preventDefault();
     if (!currentItem.text) return;
 
-    const newItem = {
-      ...currentItem,
+    // Fix: Ensure ID is generated for new items so storage service doesn't crash
+    const newItem: Testimonial = {
+      id: currentItem.id || Date.now().toString(),
+      clientName: currentItem.clientName,
+      companyName: currentItem.companyName,
+      text: currentItem.text,
+      photoUrl: currentItem.photoUrl,
       rating: Number(currentItem.rating) || 5,
+      dateReceived: currentItem.dateReceived || new Date().toISOString(),
       isVisible: currentItem.isVisible !== false,
       isFeatured: currentItem.isFeatured || false,
-      dateReceived: currentItem.dateReceived || new Date().toISOString()
-    } as Testimonial;
+    };
 
     await db.saveTestimonial(newItem);
     setIsEditing(false);
