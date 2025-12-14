@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Home from './pages/Home';
@@ -16,11 +15,16 @@ import * as db from './services/storage';
 import { ThemeProvider } from './context/ThemeContext';
 import { AudioProvider } from './context/AudioContext';
 
-// Protected Route Wrapper
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  if (!db.checkSession()) {
-    return <Navigate to="/" replace />;
-  }
+  const [isAuth, setIsAuth] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    db.checkSession().then(auth => setIsAuth(auth));
+  }, []);
+
+  if (isAuth === null) return <div className="min-h-screen bg-pastel-cream flex items-center justify-center">Loading...</div>;
+  if (!isAuth) return <Navigate to="/admin" replace />;
+
   return <>{children}</>;
 };
 
@@ -31,27 +35,16 @@ const App: React.FC = () => {
     <ThemeProvider>
       <AudioProvider>
          <HashRouter>
-            {/* Global Components */}
             <ScrollToTop />
-            
             <AnimatePresence>
                {loading && <Preloader onComplete={() => setLoading(false)} />}
             </AnimatePresence>
 
             <Routes>
-              {/* Public Routes */}
               <Route path="/" element={<Home />} />
               <Route path="/admin" element={<Login />} />
 
-              {/* Protected Admin Routes */}
-              <Route 
-                path="/dashboard" 
-                element={
-                  <ProtectedRoute>
-                    <AdminLayout />
-                  </ProtectedRoute>
-                }
-              >
+              <Route path="/dashboard" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
                 <Route index element={<Dashboard />} />
                 <Route path="projects" element={<Projects />} />
                 <Route path="testimonials" element={<Testimonials />} />
@@ -59,7 +52,6 @@ const App: React.FC = () => {
                 <Route path="settings" element={<Settings />} />
               </Route>
 
-              {/* Catch all - Redirect to Home */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
          </HashRouter>

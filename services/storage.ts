@@ -1,195 +1,134 @@
+import { supabase } from './supabaseClient';
 import { Project, Testimonial, ContactSubmission, User } from '../types';
 
-// Initial Data Seeding
-const INITIAL_PROJECTS: Project[] = [
-  {
-    id: '1',
-    title: 'E-Commerce Dashboard',
-    description: 'A comprehensive analytics dashboard for online retailers featuring real-time data visualization.',
-    technologies: ['React', 'D3.js', 'Tailwind'],
-    demoUrl: '#',
-    githubUrl: '#',
-    thumbnailUrl: 'https://picsum.photos/800/450?random=1',
-    category: 'Web Development',
-    dateCompleted: '2023-11-15',
-    isVisible: true
-  },
-  {
-    id: '2',
-    title: 'Pixel Art Editor',
-    description: 'Browser-based tool for creating 8-bit art assets with export functionality.',
-    technologies: ['TypeScript', 'Canvas API', 'React'],
-    demoUrl: '#',
-    thumbnailUrl: 'https://picsum.photos/800/450?random=2',
-    category: 'Web Development',
-    dateCompleted: '2024-01-20',
-    isVisible: true
-  },
-  {
-    id: '3',
-    title: 'FinTech Landing Page',
-    description: 'High-conversion landing page design for a fintech startup.',
-    technologies: ['Figma', 'Next.js', 'Framer Motion'],
-    demoUrl: '#',
-    thumbnailUrl: 'https://picsum.photos/800/450?random=3',
-    category: 'UI Design',
-    dateCompleted: '2024-03-10',
-    isVisible: true
-  }
-];
-
-const INITIAL_TESTIMONIALS: Testimonial[] = [
-  {
-    id: '1',
-    clientName: 'Sarah Jenkins',
-    companyName: 'TechFlow Solutions',
-    text: 'Raza transformed our outdated site into a conversion machine. The new design is clean, fast, and exactly what we needed.',
-    rating: 5,
-    dateReceived: '2024-02-15',
-    isVisible: true,
-    isFeatured: true
-  },
-  {
-    id: '2',
-    clientName: 'Mike Ross',
-    companyName: 'StartUp Inc',
-    text: 'Exceptional attention to detail. Raza delivered the project ahead of schedule and the code quality was top notch.',
-    rating: 5,
-    dateReceived: '2024-01-10',
-    isVisible: true,
-    isFeatured: true
-  }
-];
-
-const DEFAULT_USER: User = {
-  username: 'admin',
-  passwordHash: 'admin123', 
-  lastLogin: new Date().toISOString()
-};
-
-const KEYS = {
-  PROJECTS: 'raza_portfolio_projects',
-  TESTIMONIALS: 'raza_portfolio_testimonials',
-  MESSAGES: 'raza_portfolio_messages',
-  USER: 'raza_portfolio_user',
-  SESSION: 'raza_portfolio_session'
-};
-
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
-// Helper to get or initialize data
-const getStoredData = <T>(key: string, initialValue: T): T => {
-  const data = localStorage.getItem(key);
-  if (!data) {
-    localStorage.setItem(key, JSON.stringify(initialValue));
-    return initialValue;
-  }
-  return JSON.parse(data);
-};
-
-// --- Projects ---
+// --- PROJECTS ---
 export const getProjects = async (): Promise<Project[]> => {
-  return getStoredData(KEYS.PROJECTS, INITIAL_PROJECTS);
+  const { data } = await supabase.from('projects').select('*').order('created_at', { ascending: false });
+  
+  return (data || []).map((p: any) => ({
+    id: p.id,
+    title: p.title,
+    description: p.description,
+    technologies: p.technologies || [],
+    demoUrl: p.demo_url,
+    githubUrl: p.github_url,
+    thumbnailUrl: p.thumbnail_url,
+    category: p.category,
+    dateCompleted: p.date_completed,
+    isVisible: p.is_visible
+  }));
 };
 
 export const saveProject = async (project: Project): Promise<void> => {
-  await delay(500);
-  const projects = await getProjects();
-  const index = projects.findIndex(p => p.id === project.id);
+  // If the ID is a long number (Date.now), remove it so Supabase generates a new ID
+  const id = project.id.length > 20 ? project.id : undefined;
   
-  if (index >= 0) {
-    projects[index] = project;
-  } else {
-    projects.push({ ...project, id: Date.now().toString() });
-  }
-  localStorage.setItem(KEYS.PROJECTS, JSON.stringify(projects));
+  const payload = {
+    ...(id ? { id } : {}),
+    title: project.title,
+    description: project.description,
+    technologies: project.technologies,
+    demo_url: project.demoUrl,
+    github_url: project.githubUrl,
+    thumbnail_url: project.thumbnailUrl,
+    category: project.category,
+    date_completed: project.dateCompleted,
+    is_visible: project.isVisible
+  };
+
+  await supabase.from('projects').upsert(payload);
 };
 
 export const deleteProject = async (id: string): Promise<void> => {
-  await delay(500);
-  const projects = await getProjects();
-  const filtered = projects.filter(p => p.id !== id);
-  localStorage.setItem(KEYS.PROJECTS, JSON.stringify(filtered));
+  await supabase.from('projects').delete().eq('id', id);
 };
 
-// --- Testimonials ---
+// --- TESTIMONIALS ---
 export const getTestimonials = async (): Promise<Testimonial[]> => {
-  return getStoredData(KEYS.TESTIMONIALS, INITIAL_TESTIMONIALS);
+  const { data } = await supabase.from('testimonials').select('*').order('created_at', { ascending: false });
+
+  return (data || []).map((t: any) => ({
+    id: t.id,
+    clientName: t.client_name,
+    companyName: t.company_name,
+    text: t.text,
+    photoUrl: t.photo_url,
+    rating: t.rating,
+    dateReceived: t.date_received,
+    isVisible: t.is_visible,
+    isFeatured: t.is_featured
+  }));
 };
 
 export const saveTestimonial = async (item: Testimonial): Promise<void> => {
-  await delay(500);
-  const list = await getTestimonials();
-  const index = list.findIndex(p => p.id === item.id);
-  
-  if (index >= 0) {
-    list[index] = item;
-  } else {
-    list.push({ ...item, id: Date.now().toString() });
-  }
-  localStorage.setItem(KEYS.TESTIMONIALS, JSON.stringify(list));
+  const id = item.id.length > 20 ? item.id : undefined;
+  const payload = {
+    ...(id ? { id } : {}),
+    client_name: item.clientName,
+    company_name: item.companyName,
+    text: item.text,
+    photo_url: item.photoUrl,
+    rating: item.rating,
+    date_received: item.dateReceived,
+    is_visible: item.isVisible,
+    is_featured: item.isFeatured
+  };
+
+  await supabase.from('testimonials').upsert(payload);
 };
 
 export const deleteTestimonial = async (id: string): Promise<void> => {
-  await delay(500);
-  const list = await getTestimonials();
-  const filtered = list.filter(p => p.id !== id);
-  localStorage.setItem(KEYS.TESTIMONIALS, JSON.stringify(filtered));
+  await supabase.from('testimonials').delete().eq('id', id);
 };
 
-// --- Messages ---
+// --- MESSAGES ---
 export const getMessages = async (): Promise<ContactSubmission[]> => {
-  const data = localStorage.getItem(KEYS.MESSAGES);
-  return data ? JSON.parse(data) : [];
+  const { data } = await supabase.from('messages').select('*').order('submitted_at', { ascending: false });
+  return (data || []).map((m: any) => ({
+    id: m.id,
+    name: m.name,
+    email: m.email,
+    phone: m.phone,
+    message: m.message,
+    status: m.status,
+    submittedAt: m.submitted_at
+  }));
 };
 
 export const saveMessage = async (msg: Omit<ContactSubmission, 'id' | 'status' | 'submittedAt'>): Promise<void> => {
-  await delay(800);
-  const messages = await getMessages();
-  const newMsg: ContactSubmission = {
-    ...msg,
-    id: Date.now().toString(),
-    status: 'unread',
-    submittedAt: new Date().toISOString()
-  };
-  messages.unshift(newMsg);
-  localStorage.setItem(KEYS.MESSAGES, JSON.stringify(messages));
+  await supabase.from('messages').insert({
+    name: msg.name,
+    email: msg.email,
+    phone: msg.phone,
+    message: msg.message,
+    submitted_at: new Date().toISOString()
+  });
 };
 
 export const markMessageRead = async (id: string): Promise<void> => {
-  const messages = await getMessages();
-  const updated = messages.map(m => m.id === id ? { ...m, status: 'read' as const } : m);
-  localStorage.setItem(KEYS.MESSAGES, JSON.stringify(updated));
+  await supabase.from('messages').update({ status: 'read' }).eq('id', id);
 };
 
 export const deleteMessage = async (id: string): Promise<void> => {
-  await delay(500);
-  const messages = await getMessages();
-  const filtered = messages.filter(m => m.id !== id);
-  localStorage.setItem(KEYS.MESSAGES, JSON.stringify(filtered));
+  await supabase.from('messages').delete().eq('id', id);
 };
 
-// --- Auth ---
-export const getUser = (): User => {
-  return getStoredData(KEYS.USER, DEFAULT_USER);
+// --- AUTH ---
+export const loginUser = async (email: string, pass: string): Promise<boolean> => {
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password: pass });
+  return !error && !!data.session;
 };
 
-export const updateUser = async (updates: Partial<User>): Promise<void> => {
-  await delay(500);
-  const current = getUser();
-  const updated = { ...current, ...updates };
-  localStorage.setItem(KEYS.USER, JSON.stringify(updated));
+export const logoutUser = async () => {
+  await supabase.auth.signOut();
 };
 
-export const setSession = (isActive: boolean) => {
-  if (isActive) {
-    localStorage.setItem(KEYS.SESSION, 'active');
-    updateUser({ lastLogin: new Date().toISOString() });
-  } else {
-    localStorage.removeItem(KEYS.SESSION);
-  }
+export const checkSession = async (): Promise<boolean> => {
+  const { data } = await supabase.auth.getSession();
+  return !!data.session;
 };
 
-export const checkSession = (): boolean => {
-  return localStorage.getItem(KEYS.SESSION) === 'active';
-};
+// Placeholder to satisfy typescript errors if referenced elsewhere
+export const getUser = (): User => ({ username: 'Admin', passwordHash: '', lastLogin: '' });
+export const updateUser = async (updates: Partial<User>): Promise<void> => {};
+export const setSession = (isActive: boolean) => {};

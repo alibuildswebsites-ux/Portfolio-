@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { LayoutDashboard, FolderOpen, MessageSquare, Settings, LogOut, Star, Menu, X } from 'lucide-react';
 import * as db from '../../services/storage';
@@ -9,8 +8,8 @@ const AdminLayout: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    db.setSession(false);
+  const handleLogout = async () => {
+    await db.logoutUser();
     navigate('/');
   };
 
