@@ -88,16 +88,23 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t-2 border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-center md:text-left">
+        <div className="border-t-2 border-white/10 pt-8 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+          {/* Copyright */}
+          <div className="text-center md:text-left order-2 md:order-1">
             <p className="font-pixel text-base text-gray-400 opacity-60 tracking-wide">© 2024 Raza A. All rights reserved.</p>
           </div>
           
-          <div className="flex items-center gap-4">
-             <div className="flex items-center gap-2 text-xs md:text-sm text-gray-400 bg-black/20 px-4 py-2 rounded-full border border-white/5">
-                Made with <Heart size={14} className="fill-pastel-peach text-pastel-peach animate-pulse" /> using React & Tailwind
+          {/* Made With Badge (Centered) */}
+          <div className="flex justify-center order-1 md:order-2">
+             <div className="flex flex-wrap justify-center items-center gap-2 text-xs md:text-sm text-gray-400 bg-black/20 px-4 py-2 rounded-full border border-white/5 text-center">
+                <span>Made with</span>
+                <Heart size={14} className="fill-pastel-peach text-pastel-peach animate-pulse" /> 
+                <span>using React & Tailwind</span>
              </div>
           </div>
+          
+          {/* Empty spacer to balance grid */}
+          <div className="hidden md:block order-3"></div>
         </div>
       </div>
     </footer>
