@@ -104,8 +104,10 @@ const Navbar: React.FC = () => {
     toggleMute();
   };
 
+  const borderColorClass = theme === 'night' ? 'border-pastel-blue' : 'border-pastel-charcoal';
+
   return (
-    <nav className="fixed top-0 w-full z-50 bg-pastel-cream border-b-4 border-pastel-charcoal transition-colors duration-500">
+    <nav className={`fixed top-0 w-full z-50 bg-pastel-cream border-b-4 transition-colors duration-500 ${borderColorClass}`}>
       {/* Reading Progress Bar */}
       <div className="absolute bottom-0 left-0 h-1 bg-gray-200 w-full z-50">
         <motion.div 
@@ -205,7 +207,7 @@ const Navbar: React.FC = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden bg-pastel-cream border-b-4 border-pastel-charcoal overflow-hidden"
+            className={`md:hidden bg-pastel-cream border-b-4 overflow-hidden ${borderColorClass}`}
           >
             <div className="px-2 pt-2 pb-6 space-y-1 sm:px-3 shadow-lg">
               {navItems.map((item) => (
