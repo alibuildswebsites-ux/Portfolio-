@@ -12,11 +12,11 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   const [exit, setExit] = useState(false);
 
   useEffect(() => {
-    // Minimum load time of 4 seconds to show off the animation and text
+    // Minimum load time of 2 seconds
     const timer = setTimeout(() => {
       setExit(true);
       setTimeout(onComplete, 800); // Wait for exit animation
-    }, 4000);
+    }, 2000);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -44,7 +44,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       {/* Greeting Text */}
       <div className="absolute bottom-[20%] w-full flex justify-center px-4 z-20">
         <div className="font-pixel text-2xl md:text-3xl text-white bg-white/10 backdrop-blur-sm px-6 py-4 rounded-xl border-2 border-white/20 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] inline-block">
-             <Typewriter text="Hi, nice to see you here. I'm Raza A." delay={40} />
+             <Typewriter text="Hi, nice to see you here. I'm Raza A." delay={30} />
         </div>
       </div>
     </motion.div>
