@@ -107,10 +107,21 @@ export const saveMessage = async (msg: Omit<ContactSubmission, 'id' | 'status' |
 };
 
 export const markMessageRead = async (id: string): Promise<void> => {
-  const { error } = await supabase.from('messages').update({ status: 'read' }).eq('id', id);
+  // We use .select() to ensure the row is returned, confirming the update happened.
+  const { data, error } = await supabase
+    .from('messages')
+    .update({ status: 'read' })
+    .eq('id', id)
+    .select();
+
   if (error) {
     console.error('Error marking message as read:', error);
     throw error;
+  }
+  
+  // If no data returned, no row was updated (e.g. ID mismatch or permissions)
+  if (!data || data.length === 0) {
+    throw new Error('Message not updated. Check ID or permissions.');
   }
 };
 

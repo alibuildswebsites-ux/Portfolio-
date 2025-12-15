@@ -18,6 +18,10 @@ const Messages: React.FC = () => {
 
   const handleMarkRead = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
+    
+    // Store previous state for rollback
+    const previousMessages = [...messages];
+
     // Optimistic Update: Update UI immediately
     setMessages(prev => prev.map(msg => 
       msg.id === id ? { ...msg, status: 'read' } : msg
@@ -25,12 +29,14 @@ const Messages: React.FC = () => {
 
     try {
       await db.markMessageRead(id);
-      // Optional: Re-fetch to confirm state matches server
-      // const data = await db.getMessages();
-      // setMessages(data);
     } catch (error) {
       console.error('Failed to mark message as read:', error);
-      // Revert UI on failure by reloading data
+      alert("Failed to mark message as read. Please try again.");
+      
+      // Revert UI on failure
+      setMessages(previousMessages);
+      
+      // Force refresh data from server to be safe
       const data = await db.getMessages();
       setMessages(data);
     }
