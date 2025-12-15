@@ -33,26 +33,26 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4 relative z-50 text-pastel-charcoal">
-      <div className="bg-white border-4 border-pastel-charcoal p-8 w-full max-w-md shadow-pixel-lg">
+    <div className="min-h-screen bg-pastel-cream flex flex-col items-center justify-center p-4 relative z-50 text-pastel-charcoal transition-colors duration-500">
+      <div className="bg-pastel-surface border-4 border-pastel-charcoal p-8 w-full max-w-md shadow-pixel-lg">
         <h2 className="font-pixel text-4xl text-center mb-8 text-pastel-charcoal">ADMIN LOGIN</h2>
         
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label className="block font-bold mb-2">Email</label>
+            <label className="block font-bold mb-2 text-pastel-charcoal">Email</label>
             <input 
               type="email" 
-              className="w-full border-2 border-pastel-charcoal p-3 focus:outline-none focus:shadow-pixel"
+              className="w-full border-2 border-pastel-charcoal bg-pastel-cream text-pastel-charcoal p-3 focus:outline-none focus:shadow-pixel"
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
             />
           </div>
           <div>
-            <label className="block font-bold mb-2">Password</label>
+            <label className="block font-bold mb-2 text-pastel-charcoal">Password</label>
             <input 
               type="password" 
-              className="w-full border-2 border-pastel-charcoal p-3 focus:outline-none focus:shadow-pixel"
+              className="w-full border-2 border-pastel-charcoal bg-pastel-cream text-pastel-charcoal p-3 focus:outline-none focus:shadow-pixel"
               value={password}
               onChange={e => setPassword(e.target.value)}
               required

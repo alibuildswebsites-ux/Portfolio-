@@ -21,11 +21,15 @@ const AdminLayout: React.FC = () => {
     { to: '/dashboard/settings', icon: <Settings size={20} />, label: 'Settings' },
   ];
 
+  // Use a fixed dark background for sidebar so it remains dark in both Day and Night modes
+  // 'pastel-charcoal' flips to light in Night mode, which breaks the white-text sidebar design.
+  const sidebarBg = "bg-[#2D2D2D] text-white";
+
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row font-sans">
+    <div className="min-h-screen bg-pastel-cream flex flex-col md:flex-row font-sans text-pastel-charcoal transition-colors duration-500">
       
       {/* Mobile Header */}
-      <div className="md:hidden bg-pastel-charcoal text-white p-4 flex justify-between items-center shadow-md z-20 sticky top-0">
+      <div className={`md:hidden ${sidebarBg} p-4 flex justify-between items-center shadow-md z-20 sticky top-0`}>
           <span className="font-pixel text-xl text-pastel-blue">ADMIN PANEL</span>
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
              {isMobileMenuOpen ? <X /> : <Menu />}
@@ -34,7 +38,7 @@ const AdminLayout: React.FC = () => {
 
       {/* Sidebar Navigation */}
       <aside className={`
-        bg-pastel-charcoal text-white flex flex-col z-10
+        ${sidebarBg} flex flex-col z-10
         fixed md:sticky top-14 md:top-0 left-0 w-full md:w-64 h-[calc(100vh-56px)] md:h-screen
         transition-transform duration-300 md:translate-x-0
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}

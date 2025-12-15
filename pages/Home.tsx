@@ -390,7 +390,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                   <div className="w-16 h-16 bg-gray-200 border-2 border-gray-400 mb-4 flex items-center justify-center">
                     <Code className="text-gray-400" />
                   </div>
-                  <p className="font-pixel text-xl text-black">No projects found in this category.</p>
+                  <p className="font-pixel text-xl text-black">Projects coming soon.</p>
                </motion.div>
             )}
         </div>
@@ -585,4 +585,3 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
 };
 
 export default Home;
-    

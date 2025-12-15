@@ -68,30 +68,30 @@ const Projects: React.FC = () => {
   return (
     <div>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-        <h2 className="font-pixel text-3xl">Manage Projects</h2>
+        <h2 className="font-pixel text-3xl text-pastel-charcoal">Manage Projects</h2>
         <PixelButton onClick={() => { setCurrentProject({ isVisible: true }); setIsEditing(true); }} className="w-full sm:w-auto">
           <Plus size={18} className="inline mr-2" /> Add Project
         </PixelButton>
       </div>
 
       {isEditing ? (
-        <div className="bg-white p-6 sm:p-8 border-2 border-pastel-charcoal shadow-pixel max-w-3xl mx-auto">
-          <h3 className="font-pixel text-2xl mb-6">{currentProject.id ? 'Edit Project' : 'New Project'}</h3>
+        <div className="bg-pastel-surface p-6 sm:p-8 border-2 border-pastel-charcoal shadow-pixel max-w-3xl mx-auto">
+          <h3 className="font-pixel text-2xl mb-6 text-pastel-charcoal">{currentProject.id ? 'Edit Project' : 'New Project'}</h3>
           <form onSubmit={handleSave} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                <div className="md:col-span-2">
-                  <label className="block font-bold mb-1">Title</label>
+                  <label className="block font-bold mb-1 text-pastel-charcoal">Title</label>
                   <input 
-                     className="w-full border-2 border-gray-300 p-2 focus:border-pastel-blue outline-none" 
+                     className="w-full border-2 border-pastel-charcoal bg-pastel-cream text-pastel-charcoal p-2 focus:border-pastel-blue outline-none" 
                      value={currentProject.title || ''} 
                      onChange={e => setCurrentProject({...currentProject, title: e.target.value})} 
                      required
                   />
                </div>
                <div>
-                  <label className="block font-bold mb-1">Visibility</label>
+                  <label className="block font-bold mb-1 text-pastel-charcoal">Visibility</label>
                   <select 
-                     className="w-full border-2 border-gray-300 p-2 focus:border-pastel-blue outline-none"
+                     className="w-full border-2 border-pastel-charcoal bg-pastel-cream text-pastel-charcoal p-2 focus:border-pastel-blue outline-none"
                      value={currentProject.isVisible !== false ? 'visible' : 'hidden'}
                      onChange={e => setCurrentProject({...currentProject, isVisible: e.target.value === 'visible'})}
                   >
@@ -102,9 +102,9 @@ const Projects: React.FC = () => {
             </div>
 
             <div>
-              <label className="block font-bold mb-1">Description</label>
+              <label className="block font-bold mb-1 text-pastel-charcoal">Description</label>
               <textarea 
-                 className="w-full border-2 border-gray-300 p-2 focus:border-pastel-blue outline-none" 
+                 className="w-full border-2 border-pastel-charcoal bg-pastel-cream text-pastel-charcoal p-2 focus:border-pastel-blue outline-none" 
                  rows={3}
                  value={currentProject.description || ''} 
                  onChange={e => setCurrentProject({...currentProject, description: e.target.value})}
@@ -113,9 +113,9 @@ const Projects: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                <div>
-                  <label className="block font-bold mb-1">Category</label>
+                  <label className="block font-bold mb-1 text-pastel-charcoal">Category</label>
                   <select 
-                     className="w-full border-2 border-gray-300 p-2 focus:border-pastel-blue outline-none"
+                     className="w-full border-2 border-pastel-charcoal bg-pastel-cream text-pastel-charcoal p-2 focus:border-pastel-blue outline-none"
                      value={currentProject.category || 'Web Development'}
                      onChange={e => setCurrentProject({...currentProject, category: e.target.value as any})}
                   >
@@ -126,9 +126,9 @@ const Projects: React.FC = () => {
                   </select>
                </div>
                <div>
-                  <label className="block font-bold mb-1">Tech Stack (comma separated)</label>
+                  <label className="block font-bold mb-1 text-pastel-charcoal">Tech Stack (comma separated)</label>
                   <input 
-                     className="w-full border-2 border-gray-300 p-2 focus:border-pastel-blue outline-none" 
+                     className="w-full border-2 border-pastel-charcoal bg-pastel-cream text-pastel-charcoal p-2 focus:border-pastel-blue outline-none" 
                      value={getTechnologiesString(currentProject.technologies)}
                      onChange={e => setCurrentProject({...currentProject, technologies: e.target.value})}
                   />
@@ -137,24 +137,24 @@ const Projects: React.FC = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                <div>
-                  <label className="block font-bold mb-1">Demo URL</label>
+                  <label className="block font-bold mb-1 text-pastel-charcoal">Demo URL</label>
                   <input 
-                     className="w-full border-2 border-gray-300 p-2 focus:border-pastel-blue outline-none" 
+                     className="w-full border-2 border-pastel-charcoal bg-pastel-cream text-pastel-charcoal p-2 focus:border-pastel-blue outline-none" 
                      value={currentProject.demoUrl || ''} 
                      onChange={e => setCurrentProject({...currentProject, demoUrl: e.target.value})}
                   />
                </div>
                <div>
-                  <label className="block font-bold mb-1">GitHub URL (Optional)</label>
+                  <label className="block font-bold mb-1 text-pastel-charcoal">GitHub URL (Optional)</label>
                   <input 
-                     className="w-full border-2 border-gray-300 p-2 focus:border-pastel-blue outline-none" 
+                     className="w-full border-2 border-pastel-charcoal bg-pastel-cream text-pastel-charcoal p-2 focus:border-pastel-blue outline-none" 
                      value={currentProject.githubUrl || ''} 
                      onChange={e => setCurrentProject({...currentProject, githubUrl: e.target.value})}
                   />
                </div>
             </div>
 
-            <div className="flex gap-4 pt-4 border-t border-gray-200 mt-4">
+            <div className="flex gap-4 pt-4 border-t border-pastel-gray mt-4">
               <PixelButton type="submit">Save Project</PixelButton>
               <PixelButton type="button" variant="secondary" onClick={() => setIsEditing(false)}>Cancel</PixelButton>
             </div>
@@ -163,45 +163,45 @@ const Projects: React.FC = () => {
       ) : (
         <div className="grid gap-6">
           {projects.map(p => (
-            <div key={p.id} className={`bg-white border-2 border-pastel-charcoal p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm gap-4 ${!p.isVisible ? 'opacity-60 bg-gray-50' : ''}`}>
+            <div key={p.id} className={`bg-pastel-surface border-2 border-pastel-charcoal p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm gap-4 ${!p.isVisible ? 'opacity-60 grayscale' : ''}`}>
               <div className="flex items-center gap-4 w-full sm:w-auto">
-                 <div className="w-16 h-16 bg-gray-200 border border-gray-300 shrink-0 flex items-center justify-center text-xs text-gray-400">No Img</div>
+                 <div className="w-16 h-16 bg-pastel-cream border border-pastel-charcoal shrink-0 flex items-center justify-center text-xs text-pastel-charcoal/50">No Img</div>
                  <div>
-                    <h3 className="font-bold text-lg flex items-center gap-2 flex-wrap">
+                    <h3 className="font-bold text-lg flex items-center gap-2 flex-wrap text-pastel-charcoal">
                        {p.title}
-                       {!p.isVisible && <span className="text-xs bg-gray-200 px-2 py-0.5 rounded text-gray-500 font-normal">Hidden</span>}
+                       {!p.isVisible && <span className="text-xs bg-gray-200 text-black px-2 py-0.5 rounded font-normal">Hidden</span>}
                     </h3>
-                    <div className="text-xs text-gray-500">{p.category} • {p.technologies.join(', ')}</div>
+                    <div className="text-xs text-pastel-charcoal/70">{p.category} • {p.technologies.join(', ')}</div>
                  </div>
               </div>
               <div className="flex gap-2 w-full sm:w-auto justify-end">
-                <a href={p.demoUrl} target="_blank" rel="noreferrer" className="p-2 text-gray-400 hover:text-pastel-charcoal" title="View Demo">
+                <a href={p.demoUrl} target="_blank" rel="noreferrer" className="p-2 text-pastel-charcoal/50 hover:text-pastel-charcoal transition-colors" title="View Demo">
                    <ExternalLink size={20} />
                 </a>
                 <button 
                   onClick={() => { setCurrentProject(p); setIsEditing(true); }}
-                  className="p-2 text-blue-600 hover:bg-blue-50 rounded"
+                  className="p-2 text-blue-500 hover:bg-blue-500/10 rounded"
                 >
                   <Edit2 size={20} />
                 </button>
                 <button 
                   onClick={() => setShowDeleteModal(p.id)}
-                  className="p-2 text-red-600 hover:bg-red-50 rounded"
+                  className="p-2 text-red-500 hover:bg-red-500/10 rounded"
                 >
                   <Trash2 size={20} />
                 </button>
               </div>
             </div>
           ))}
-          {projects.length === 0 && <p className="text-gray-500 italic text-center py-8">No projects found.</p>}
+          {projects.length === 0 && <p className="text-pastel-charcoal/50 italic text-center py-8">No projects found.</p>}
         </div>
       )}
 
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white p-6 sm:p-8 border-2 border-pastel-charcoal shadow-pixel max-w-md w-full">
-            <h3 className="font-pixel text-2xl mb-4 text-red-600">Confirm Deletion</h3>
-            <p className="mb-6">Are you sure you want to delete this project? This action cannot be undone.</p>
+          <div className="bg-pastel-surface p-6 sm:p-8 border-2 border-pastel-charcoal shadow-pixel max-w-md w-full">
+            <h3 className="font-pixel text-2xl mb-4 text-red-500">Confirm Deletion</h3>
+            <p className="mb-6 text-pastel-charcoal">Are you sure you want to delete this project? This action cannot be undone.</p>
             <div className="flex gap-4">
               <PixelButton variant="danger" onClick={handleDelete}>Delete Permanently</PixelButton>
               <PixelButton variant="secondary" onClick={() => setShowDeleteModal(null)}>Cancel</PixelButton>
