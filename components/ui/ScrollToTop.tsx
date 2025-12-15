@@ -1,10 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
 import { ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
 const ScrollToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     let ticking = false;
@@ -30,6 +31,11 @@ const ScrollToTop: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Hide on admin dashboard
+  if (location.pathname.startsWith('/dashboard')) {
+    return null;
+  }
 
   const scrollToTop = () => {
     window.scrollTo({
