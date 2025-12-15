@@ -16,10 +16,24 @@ const Messages: React.FC = () => {
     load();
   }, []);
 
-  const handleMarkRead = async (id: string) => {
-    await db.markMessageRead(id);
-    const data = await db.getMessages();
-    setMessages(data);
+  const handleMarkRead = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Optimistic Update: Update UI immediately
+    setMessages(prev => prev.map(msg => 
+      msg.id === id ? { ...msg, status: 'read' } : msg
+    ));
+
+    try {
+      await db.markMessageRead(id);
+      // Optional: Re-fetch to confirm state matches server
+      // const data = await db.getMessages();
+      // setMessages(data);
+    } catch (error) {
+      console.error('Failed to mark message as read:', error);
+      // Revert UI on failure by reloading data
+      const data = await db.getMessages();
+      setMessages(data);
+    }
   };
 
   const handleDelete = async () => {
@@ -52,7 +66,12 @@ const Messages: React.FC = () => {
                </div>
                <div className="flex gap-2 self-end sm:self-start shrink-0">
                   {msg.status === 'unread' && (
-                    <button onClick={() => handleMarkRead(msg.id)} className="text-green-500 text-sm flex items-center gap-1 hover:bg-green-500/10 px-2 py-1 rounded transition-colors" title="Mark as Read">
+                    <button 
+                      onClick={(e) => handleMarkRead(msg.id, e)} 
+                      type="button"
+                      className="text-green-500 text-sm flex items-center gap-1 hover:bg-green-500/10 px-2 py-1 rounded transition-colors" 
+                      title="Mark as Read"
+                    >
                         <CheckCircle size={18} />
                     </button>
                   )}

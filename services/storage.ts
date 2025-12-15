@@ -107,7 +107,11 @@ export const saveMessage = async (msg: Omit<ContactSubmission, 'id' | 'status' |
 };
 
 export const markMessageRead = async (id: string): Promise<void> => {
-  await supabase.from('messages').update({ status: 'read' }).eq('id', id);
+  const { error } = await supabase.from('messages').update({ status: 'read' }).eq('id', id);
+  if (error) {
+    console.error('Error marking message as read:', error);
+    throw error;
+  }
 };
 
 export const deleteMessage = async (id: string): Promise<void> => {
