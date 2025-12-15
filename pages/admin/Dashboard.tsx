@@ -1,8 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
-import { Folder, Star, Mail, Clock, Plus, MessageSquare, Database } from 'lucide-react';
+import { Folder, Star, Mail, Clock, Plus, MessageSquare } from 'lucide-react';
 import * as db from '../../services/storage';
-import { seedDatabase } from '../../services/seeder';
 import PixelButton from '../../components/ui/PixelButton';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,7 +18,6 @@ const Card = ({ title, count, icon, color }: { title: string, count: number | st
 
 const Dashboard: React.FC = () => {
   const [stats, setStats] = useState({ p: 0, t: 0, m: 0 });
-  const [isSeeding, setIsSeeding] = useState(false);
   const navigate = useNavigate();
 
   const load = async () => {
@@ -33,33 +31,10 @@ const Dashboard: React.FC = () => {
     load();
   }, []);
 
-  const handleSeed = async () => {
-    if (!window.confirm("This will add demo data to your database. Continue?")) return;
-    
-    setIsSeeding(true);
-    try {
-      await seedDatabase();
-      await load(); // Refresh stats
-      alert("Demo data added successfully!");
-    } catch (error: any) {
-      console.error(error);
-      alert("Failed to seed data: " + error.message);
-    } finally {
-      setIsSeeding(false);
-    }
-  };
-
   return (
     <div>
       <div className="flex justify-between items-center mb-6 sm:mb-8">
         <h2 className="font-pixel text-2xl sm:text-3xl text-pastel-charcoal">Dashboard Overview</h2>
-        <button 
-           onClick={handleSeed}
-           disabled={isSeeding}
-           className="text-xs sm:text-sm flex items-center gap-2 text-pastel-charcoal/50 hover:text-pastel-blue transition-colors disabled:opacity-50"
-        >
-           <Database size={16} /> {isSeeding ? 'Seeding...' : 'Seed Demo Data'}
-        </button>
       </div>
       
       {/* Quick Actions */}
