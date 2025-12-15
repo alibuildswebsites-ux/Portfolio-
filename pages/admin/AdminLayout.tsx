@@ -27,8 +27,8 @@ const AdminLayout: React.FC = () => {
   return (
     <div className="min-h-screen bg-pastel-cream flex flex-col md:flex-row font-sans text-pastel-charcoal transition-colors duration-500 relative">
       
-      {/* Mobile Header - Fixed height h-16 (4rem) for better touch targets */}
-      <div className={`md:hidden ${sidebarBg} h-16 px-4 flex justify-between items-center shadow-md z-50 sticky top-0 flex-shrink-0`}>
+      {/* Mobile Header - FIXED top */}
+      <div className={`md:hidden ${sidebarBg} h-16 px-4 flex justify-between items-center shadow-md z-50 fixed top-0 left-0 w-full`}>
           <span className="font-pixel text-xl text-pastel-blue tracking-widest">ADMIN PANEL</span>
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
@@ -100,8 +100,8 @@ const AdminLayout: React.FC = () => {
         </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto w-full md:ml-0 bg-pastel-cream">
+      {/* Main Content - Added top padding for mobile to account for fixed header */}
+      <main className="flex-1 w-full md:ml-0 bg-pastel-cream overflow-y-auto p-4 pt-20 sm:p-6 sm:pt-24 md:p-8 md:pt-8">
         <div className="max-w-6xl mx-auto">
            <Outlet />
         </div>
