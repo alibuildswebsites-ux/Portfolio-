@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import PixelButton from '../../components/ui/PixelButton';
 import { Plus, Trash2, Edit2, EyeOff } from 'lucide-react';
@@ -27,7 +28,7 @@ const Testimonials: React.FC = () => {
       clientName: currentItem.clientName,
       companyName: currentItem.companyName,
       text: currentItem.text,
-      photoUrl: currentItem.photoUrl,
+      // photoUrl removed as per request
       rating: Number(currentItem.rating) || 5,
       dateReceived: currentItem.dateReceived || new Date().toISOString(),
       isVisible: currentItem.isVisible !== false,
@@ -90,7 +91,7 @@ const Testimonials: React.FC = () => {
               />
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block font-bold mb-1 text-pastel-charcoal text-sm">Rating</label>
                   <input 
@@ -109,14 +110,6 @@ const Testimonials: React.FC = () => {
                       className="w-full border-2 border-pastel-charcoal bg-pastel-cream text-pastel-charcoal p-2 text-sm sm:text-base"
                       value={currentItem.dateReceived?.split('T')[0] || ''}
                       onChange={e => setCurrentItem({...currentItem, dateReceived: e.target.value})}
-                   />
-                </div>
-                <div>
-                   <label className="block font-bold mb-1 text-pastel-charcoal text-sm">Photo URL</label>
-                   <input 
-                      className="w-full border-2 border-pastel-charcoal bg-pastel-cream text-pastel-charcoal p-2 text-sm sm:text-base"
-                      value={currentItem.photoUrl || ''}
-                      onChange={e => setCurrentItem({...currentItem, photoUrl: e.target.value})}
                    />
                 </div>
             </div>
@@ -167,7 +160,6 @@ const Testimonials: React.FC = () => {
               </div>
               <p className="italic mb-4 text-pastel-charcoal/80 line-clamp-4 text-sm sm:text-base">"{t.text}"</p>
               <div className="flex items-center gap-3">
-                 {t.photoUrl && <img src={t.photoUrl} className="w-8 h-8 rounded-full border border-pastel-charcoal object-cover" alt="Client" />}
                  <div>
                     <div className="font-bold text-sm text-pastel-charcoal">{t.clientName || 'Anonymous'}</div>
                     <div className="text-xs text-pastel-charcoal/60">{t.companyName}</div>

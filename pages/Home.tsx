@@ -442,6 +442,16 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                           className="w-full h-full object-cover"
                         />
                      </div>
+                     <div>
+                        <div className="font-pixel text-lg sm:text-xl font-bold text-pastel-charcoal">
+                            {testimonials[currentTestimonial].clientName || 'Anonymous'}
+                        </div>
+                        {testimonials[currentTestimonial].companyName && (
+                            <div className="font-sans text-sm text-pastel-charcoal/70">
+                                {testimonials[currentTestimonial].companyName}
+                            </div>
+                        )}
+                     </div>
                    </div>
                 </motion.div>
               </AnimatePresence>
