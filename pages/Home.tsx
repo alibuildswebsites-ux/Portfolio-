@@ -68,7 +68,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
 
   // Auto-play for Testimonials
   useEffect(() => {
-    if (testimonials.length > 0 && !isTestimonialPaused) {
+    if (testimonials.length > 1 && !isTestimonialPaused) {
       const interval = setInterval(() => {
         nextTestimonial();
       }, 6000); 
@@ -456,24 +456,26 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                 </motion.div>
               </AnimatePresence>
 
-              <div className="absolute bottom-4 right-4 flex gap-2 z-20">
-                <button 
-                  onClick={() => { prevTestimonial(); playClick(); }}
-                  onMouseEnter={playHover}
-                  className="p-2 border-2 border-pastel-charcoal hover:bg-pastel-blue transition-colors bg-pastel-surface shadow-pixel-sm active:translate-y-1 text-pastel-charcoal"
-                >
-                   <ArrowLeft size={20} />
-                </button>
-                <button 
-                  onClick={() => { nextTestimonial(); playClick(); }}
-                  onMouseEnter={playHover}
-                  className="p-2 border-2 border-pastel-charcoal hover:bg-pastel-blue transition-colors bg-pastel-surface shadow-pixel-sm active:translate-y-1 text-pastel-charcoal"
-                >
-                   <ArrowRight size={20} />
-                </button>
-              </div>
+              {testimonials.length > 1 && (
+                <div className="absolute bottom-4 right-4 flex gap-2 z-20">
+                  <button 
+                    onClick={() => { prevTestimonial(); playClick(); }}
+                    onMouseEnter={playHover}
+                    className="p-2 border-2 border-pastel-charcoal hover:bg-pastel-blue transition-colors bg-pastel-surface shadow-pixel-sm active:translate-y-1 text-pastel-charcoal"
+                  >
+                    <ArrowLeft size={20} />
+                  </button>
+                  <button 
+                    onClick={() => { nextTestimonial(); playClick(); }}
+                    onMouseEnter={playHover}
+                    className="p-2 border-2 border-pastel-charcoal hover:bg-pastel-blue transition-colors bg-pastel-surface shadow-pixel-sm active:translate-y-1 text-pastel-charcoal"
+                  >
+                    <ArrowRight size={20} />
+                  </button>
+                </div>
+              )}
 
-              {!isTestimonialPaused && (
+              {!isTestimonialPaused && testimonials.length > 1 && (
                  <motion.div 
                     key={currentTestimonial} // resets on change
                     initial={{ width: "0%" }}

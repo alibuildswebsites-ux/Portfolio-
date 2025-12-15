@@ -1,6 +1,8 @@
+
 import React, { useEffect, useState } from 'react';
-import { Folder, Star, Mail, Clock, Plus, MessageSquare } from 'lucide-react';
+import { Folder, Star, Mail, Clock, Plus, MessageSquare, Database } from 'lucide-react';
 import * as db from '../../services/storage';
+import { seedDatabase } from '../../services/seeder';
 import PixelButton from '../../components/ui/PixelButton';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,21 +19,48 @@ const Card = ({ title, count, icon, color }: { title: string, count: number | st
 
 const Dashboard: React.FC = () => {
   const [stats, setStats] = useState({ p: 0, t: 0, m: 0 });
+  const [isSeeding, setIsSeeding] = useState(false);
   const navigate = useNavigate();
 
+  const load = async () => {
+    const p = await db.getProjects();
+    const t = await db.getTestimonials();
+    const m = await db.getMessages();
+    setStats({ p: p.length, t: t.length, m: m.filter(msg => msg.status === 'unread').length });
+  };
+
   useEffect(() => {
-    const load = async () => {
-      const p = await db.getProjects();
-      const t = await db.getTestimonials();
-      const m = await db.getMessages();
-      setStats({ p: p.length, t: t.length, m: m.filter(msg => msg.status === 'unread').length });
-    };
     load();
   }, []);
 
+  const handleSeed = async () => {
+    if (!window.confirm("This will add demo data to your database. Continue?")) return;
+    
+    setIsSeeding(true);
+    try {
+      await seedDatabase();
+      await load(); // Refresh stats
+      alert("Demo data added successfully!");
+    } catch (error: any) {
+      console.error(error);
+      alert("Failed to seed data: " + error.message);
+    } finally {
+      setIsSeeding(false);
+    }
+  };
+
   return (
     <div>
-      <h2 className="font-pixel text-2xl sm:text-3xl mb-6 sm:mb-8 text-pastel-charcoal">Dashboard Overview</h2>
+      <div className="flex justify-between items-center mb-6 sm:mb-8">
+        <h2 className="font-pixel text-2xl sm:text-3xl text-pastel-charcoal">Dashboard Overview</h2>
+        <button 
+           onClick={handleSeed}
+           disabled={isSeeding}
+           className="text-xs sm:text-sm flex items-center gap-2 text-pastel-charcoal/50 hover:text-pastel-blue transition-colors disabled:opacity-50"
+        >
+           <Database size={16} /> {isSeeding ? 'Seeding...' : 'Seed Demo Data'}
+        </button>
+      </div>
       
       {/* Quick Actions */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
