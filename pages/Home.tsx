@@ -26,7 +26,11 @@ const Section: React.FC<{ children: React.ReactNode; id: string; className?: str
   </section>
 );
 
-const Home: React.FC = () => {
+interface HomeProps {
+  startTypewriter?: boolean;
+}
+
+const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [filter, setFilter] = useState('All');
@@ -174,7 +178,11 @@ const Home: React.FC = () => {
               
               {/* Typewriter Container */}
               <div className="font-mono text-base sm:text-lg md:text-xl mb-8 min-h-[80px] border-l-4 border-pastel-blue pl-6 py-2 bg-pastel-surface/60 backdrop-blur-sm rounded-r-lg text-left w-full max-w-2xl">
-                <Typewriter text="I help small and medium sized businesses establish a strong online presence digitally." delay={25} />
+                <Typewriter 
+                  text="I help small and medium sized businesses establish a strong online presence digitally." 
+                  delay={25} 
+                  start={startTypewriter}
+                />
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
@@ -577,3 +585,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+    

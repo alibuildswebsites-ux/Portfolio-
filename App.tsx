@@ -41,7 +41,7 @@ const App: React.FC = () => {
             </AnimatePresence>
 
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home startTypewriter={!loading} />} />
               <Route path="/admin" element={<Login />} />
 
               <Route path="/dashboard" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>

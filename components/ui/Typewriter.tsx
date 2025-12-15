@@ -1,18 +1,24 @@
 import React, { useState, useEffect, memo } from 'react';
 
-const Typewriter = memo(({ text, delay = 50 }: { text: string, delay?: number }) => {
+interface TypewriterProps {
+  text: string;
+  delay?: number;
+  start?: boolean;
+}
+
+const Typewriter = memo(({ text, delay = 50, start = true }: TypewriterProps) => {
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    if (currentIndex < text.length) {
+    if (start && currentIndex < text.length) {
       const timeout = setTimeout(() => {
         setCurrentText(prev => prev + text[currentIndex]);
         setCurrentIndex(prev => prev + 1);
       }, delay);
       return () => clearTimeout(timeout);
     }
-  }, [currentIndex, delay, text]);
+  }, [currentIndex, delay, text, start]);
 
   return (
     <span className="inline-block break-words min-h-[80px] leading-snug">
