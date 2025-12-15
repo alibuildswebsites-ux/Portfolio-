@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 // Extracted Component
 const Card = ({ title, count, icon, color }: { title: string, count: number | string, icon: React.ReactNode, color: string }) => (
-  <div className={`bg-pastel-surface border-2 border-pastel-charcoal p-6 shadow-pixel relative overflow-hidden group`}>
+  <div className={`bg-pastel-surface border-2 border-pastel-charcoal p-4 sm:p-6 shadow-pixel relative overflow-hidden group transition-all hover:-translate-y-1`}>
      <div className={`absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity transform group-hover:scale-110 ${color}`}>
         {icon}
      </div>
-     <h3 className="text-pastel-charcoal/70 font-bold uppercase tracking-wider text-sm mb-2">{title}</h3>
-     <p className="font-pixel text-5xl text-pastel-charcoal">{count}</p>
+     <h3 className="text-pastel-charcoal/70 font-bold uppercase tracking-wider text-xs sm:text-sm mb-2">{title}</h3>
+     <p className="font-pixel text-4xl sm:text-5xl text-pastel-charcoal break-words">{count}</p>
   </div>
 );
 
@@ -31,33 +31,33 @@ const Dashboard: React.FC = () => {
 
   return (
     <div>
-      <h2 className="font-pixel text-3xl mb-8 text-pastel-charcoal">Dashboard Overview</h2>
+      <h2 className="font-pixel text-2xl sm:text-3xl mb-6 sm:mb-8 text-pastel-charcoal">Dashboard Overview</h2>
       
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
          <PixelButton onClick={() => navigate('/dashboard/projects')} className="w-full">
-            <Plus size={18} className="inline mr-2" /> Add Project
+            <Plus size={18} className="inline mr-2" /> <span className="text-sm sm:text-base">Add Project</span>
          </PixelButton>
          <PixelButton onClick={() => navigate('/dashboard/testimonials')} className="w-full">
-            <Plus size={18} className="inline mr-2" /> Add Testimonial
+            <Plus size={18} className="inline mr-2" /> <span className="text-sm sm:text-base">Add Testimonial</span>
          </PixelButton>
-         <PixelButton onClick={() => navigate('/dashboard/messages')} variant="secondary" className="w-full">
-            <MessageSquare size={18} className="inline mr-2" /> View Inbox
+         <PixelButton onClick={() => navigate('/dashboard/messages')} variant="secondary" className="w-full sm:col-span-2 lg:col-span-1">
+            <MessageSquare size={18} className="inline mr-2" /> <span className="text-sm sm:text-base">View Inbox</span>
          </PixelButton>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
         <Card title="Total Projects" count={stats.p} icon={<Folder size={64} />} color="text-pastel-blue" />
         <Card title="Total Testimonials" count={stats.t} icon={<Star size={64} />} color="text-pastel-lavender" />
         <Card title="Unread Messages" count={stats.m} icon={<Mail size={64} />} color="text-pastel-peach" />
         <Card title="Avg. Response" count="2h" icon={<Clock size={64} />} color="text-pastel-mint" />
       </div>
 
-      <div className="bg-pastel-surface border-2 border-pastel-charcoal p-8 shadow-pixel">
+      <div className="bg-pastel-surface border-2 border-pastel-charcoal p-6 sm:p-8 shadow-pixel">
         <h3 className="font-pixel text-xl mb-4 border-b-2 border-pastel-gray pb-2 text-pastel-charcoal">System Status</h3>
-        <p className="text-green-600 font-bold flex items-center gap-2">
+        <p className="text-green-600 font-bold flex items-center gap-2 text-sm sm:text-base">
            <span className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
-           All systems operational. Database connected (Supabase).
+           All systems operational. Database connected.
         </p>
       </div>
     </div>

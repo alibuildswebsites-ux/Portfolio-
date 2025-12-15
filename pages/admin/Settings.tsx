@@ -51,19 +51,19 @@ const Settings: React.FC = () => {
 
   return (
     <div>
-      <h2 className="font-pixel text-3xl mb-8 text-pastel-charcoal">Account Settings</h2>
+      <h2 className="font-pixel text-2xl sm:text-3xl mb-6 sm:mb-8 text-pastel-charcoal">Account Settings</h2>
       
       {msg.text && (
-        <div className={`p-4 mb-6 border-2 ${msg.type === 'error' ? 'bg-red-100 border-red-300 text-red-700' : 'bg-green-100 border-green-300 text-green-700'}`}>
+        <div className={`p-4 mb-6 border-2 text-sm sm:text-base ${msg.type === 'error' ? 'bg-red-100 border-red-300 text-red-700' : 'bg-green-100 border-green-300 text-green-700'}`}>
            {msg.text}
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Account Info */}
         <div className="bg-pastel-surface border-2 border-pastel-charcoal p-6 sm:p-8 shadow-pixel">
            <h3 className="font-pixel text-xl mb-4 border-b border-pastel-gray pb-2 text-pastel-charcoal">Account Info</h3>
-           <p className="mb-4 text-pastel-charcoal/80">
+           <p className="mb-4 text-pastel-charcoal/80 break-words">
              Logged in as: <strong>{currentUserEmail || 'Loading...'}</strong>
            </p>
            <p className="text-sm text-pastel-charcoal/60 italic">

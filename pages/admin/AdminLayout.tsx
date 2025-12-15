@@ -21,26 +21,33 @@ const AdminLayout: React.FC = () => {
     { to: '/dashboard/settings', icon: <Settings size={20} />, label: 'Settings' },
   ];
 
-  // Use a fixed dark background for sidebar so it remains dark in both Day and Night modes
-  // 'pastel-charcoal' flips to light in Night mode, which breaks the white-text sidebar design.
+  // Fixed dark background for sidebar
   const sidebarBg = "bg-[#2D2D2D] text-white";
 
   return (
-    <div className="min-h-screen bg-pastel-cream flex flex-col md:flex-row font-sans text-pastel-charcoal transition-colors duration-500">
+    <div className="min-h-screen bg-pastel-cream flex flex-col md:flex-row font-sans text-pastel-charcoal transition-colors duration-500 relative">
       
       {/* Mobile Header */}
-      <div className={`md:hidden ${sidebarBg} p-4 flex justify-between items-center shadow-md z-20 sticky top-0`}>
+      <div className={`md:hidden ${sidebarBg} p-4 flex justify-between items-center shadow-md z-50 sticky top-0`}>
           <span className="font-pixel text-xl text-pastel-blue">ADMIN PANEL</span>
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-             {isMobileMenuOpen ? <X /> : <Menu />}
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white hover:text-pastel-blue transition-colors">
+             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
       </div>
 
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 top-14 bg-black/50 z-30 md:hidden backdrop-blur-sm"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar Navigation */}
       <aside className={`
-        ${sidebarBg} flex flex-col z-10
-        fixed md:sticky top-14 md:top-0 left-0 w-full md:w-64 h-[calc(100vh-56px)] md:h-screen
-        transition-transform duration-300 md:translate-x-0
+        ${sidebarBg} flex flex-col z-40
+        fixed md:sticky top-14 md:top-0 left-0 w-64 h-[calc(100vh-56px)] md:h-screen
+        transition-transform duration-300 ease-in-out md:translate-x-0 shadow-xl md:shadow-none
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="p-6 border-b border-gray-700 hidden md:block">
@@ -85,9 +92,8 @@ const AdminLayout: React.FC = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-4 md:p-8 overflow-y-auto w-full">
+      <main className="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto w-full md:ml-0">
         <div className="max-w-6xl mx-auto">
-           {/* Renders the child route components */}
            <Outlet />
         </div>
       </main>
