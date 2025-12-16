@@ -290,18 +290,29 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
       {/* --- PROJECTS --- */}
       <Section id="projects" className="bg-pastel-surface border-t-4 border-pastel-charcoal transition-colors duration-500">
         <motion.div 
-          variants={fadeInUp}
+          // Master wrapper coordinates the sequence: Header -> Filters -> Grid
+          variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="flex flex-col justify-center items-center mb-12 gap-6 text-center"
+          viewport={{ once: true, margin: "-50px" }}
+          className="max-w-7xl mx-auto relative z-10 px-4 md:px-8"
         >
-          <div className="w-full">
-            <h2 className="font-pixel text-3xl sm:text-4xl mb-2 sm:mb-4">My Projects</h2>
-            <p className="text-base sm:text-lg max-w-2xl mx-auto">Selected works demonstrating value and functionality.</p>
-          </div>
+          {/* 1. Header Text */}
+          <motion.div 
+             variants={fadeInUp} 
+             className="flex flex-col justify-center items-center mb-8 gap-6 text-center"
+          >
+            <div className="w-full">
+              <h2 className="font-pixel text-3xl sm:text-4xl mb-2 sm:mb-4">My Projects</h2>
+              <p className="text-base sm:text-lg max-w-2xl mx-auto">Selected works demonstrating value and functionality.</p>
+            </div>
+          </motion.div>
           
-          <div className="flex flex-wrap justify-center gap-3 w-full">
+          {/* 2. Filter Buttons */}
+          <motion.div 
+             variants={fadeInUp} 
+             className="flex flex-wrap justify-center gap-3 w-full mb-12"
+          >
              {categories.map((name) => (
                <button 
                  key={name}
@@ -318,26 +329,20 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                  {name}
                </button>
              ))}
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Project Grid */}
-        <div className="max-w-7xl mx-auto relative z-10 px-4 md:px-8">
-            <motion.div 
+          {/* 3. Project Grid */}
+          <motion.div 
               layout
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer} // Nested stagger for the cards themselves
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 min-h-[200px]"
-            >
+          >
               <AnimatePresence mode="popLayout">
                 {filteredProjects.map((project) => (
                   <motion.div
                     key={project.id}
                     layout
                     variants={fadeInUp}
-                    // We allow parent stagger to control initial enter, but AnimatePresence handles exit
                     initial="hidden"
                     animate="visible"
                     exit="exit"
@@ -409,9 +414,9 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                   </motion.div>
                 ))}
               </AnimatePresence>
-            </motion.div>
+          </motion.div>
             
-            {filteredProjects.length === 0 && (
+          {filteredProjects.length === 0 && (
                <motion.div 
                  variants={fadeInUp}
                  initial="hidden"
@@ -424,7 +429,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                   <p className="font-pixel text-xl text-black">Projects coming soon.</p>
                </motion.div>
             )}
-        </div>
+        </motion.div>
       </Section>
 
       {/* --- TESTIMONIALS --- */}
