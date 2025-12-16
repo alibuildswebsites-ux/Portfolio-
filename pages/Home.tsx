@@ -60,6 +60,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [filter, setFilter] = useState('All');
+  const [isLoading, setIsLoading] = useState(true);
   const { theme } = useTheme();
   const { playHover, playClick } = useAudio();
   
@@ -77,6 +78,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
       const t = await db.getTestimonials();
       setProjects(p.filter(x => x.isVisible));
       setTestimonials(t.filter(x => x.isVisible));
+      setIsLoading(false);
     };
     loadData();
   }, []);
@@ -289,33 +291,33 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
 
       {/* --- PROJECTS --- */}
       <Section id="projects" className="bg-pastel-surface border-t-4 border-pastel-charcoal transition-colors duration-500">
-        <motion.div 
-          // Master wrapper coordinates the sequence: Header -> Filters -> Grid
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="max-w-7xl mx-auto relative z-10 px-4 md:px-8"
-        >
-          {/* 1. Header Text */}
+        <div className="max-w-7xl mx-auto relative z-10 px-4 md:px-8">
+          {/* 1. Header Text - Independent Trigger */}
           <motion.div 
-             variants={fadeInUp} 
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true }}
+             variants={staggerContainer}
              className="flex flex-col justify-center items-center mb-8 gap-6 text-center"
           >
-            <div className="w-full">
+            <motion.div variants={fadeInUp} className="w-full">
               <h2 className="font-pixel text-3xl sm:text-4xl mb-2 sm:mb-4">My Projects</h2>
               <p className="text-base sm:text-lg max-w-2xl mx-auto">Selected works demonstrating value and functionality.</p>
-            </div>
+            </motion.div>
           </motion.div>
           
-          {/* 2. Filter Buttons */}
+          {/* 2. Filter Buttons - Independent Trigger */}
           <motion.div 
-             variants={fadeInUp} 
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true }}
+             variants={staggerContainer}
              className="flex flex-wrap justify-center gap-3 w-full mb-12"
           >
-             {categories.map((name) => (
-               <button 
+             {categories.map((name, i) => (
+               <motion.button 
                  key={name}
+                 variants={fadeInUp}
                  onClick={() => { setFilter(name); playClick(); }}
                  onMouseEnter={playHover}
                  className={`
@@ -327,108 +329,118 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                  `}
                >
                  {name}
-               </button>
+               </motion.button>
              ))}
           </motion.div>
 
-          {/* 3. Project Grid */}
-          <motion.div 
-              layout
-              variants={staggerContainer} // Nested stagger for the cards themselves
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 min-h-[200px]"
-          >
-              <AnimatePresence mode="popLayout">
-                {filteredProjects.map((project) => (
-                  <motion.div
-                    key={project.id}
-                    layout
-                    variants={fadeInUp}
-                    initial="hidden"
-                    exit="exit"
-                    whileHover={{ scale: 1.02, y: -5, zIndex: 10 }}
-                    // Removed transition={{ duration: 0.3 }} to allow variant ease to work
-                    onMouseEnter={playHover}
-                    className="group bg-pastel-surface border-2 border-pastel-charcoal shadow-pixel flex flex-col h-full hover:shadow-pixel-lg transition-shadow duration-300 relative mt-6 md:mt-0"
-                  >
-                     {/* --- FLOATING ICON BADGE --- */}
-                     <div className="absolute -top-4 -right-4 w-12 h-12 bg-pastel-blue border-2 border-pastel-charcoal flex items-center justify-center shadow-pixel z-20 transform rotate-0 group-hover:rotate-[9deg] transition-transform duration-300">
-                        <Code size={24} className="text-black" />
-                     </div>
+          {/* 3. Project Grid - Completely Independent Trigger for robustness */}
+          {!isLoading ? (
+            <motion.div 
+                layout
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "100px" }}
+                variants={staggerContainer}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 min-h-[200px]"
+            >
+                <AnimatePresence mode="popLayout">
+                  {filteredProjects.map((project) => (
+                    <motion.div
+                      key={project.id}
+                      layout
+                      variants={fadeInUp}
+                      // Note: We rely on inherited "visible" from parent.
+                      // If data comes late, the parent 'whileInView' triggers, ensuring stagger.
+                      exit="exit"
+                      whileHover={{ scale: 1.02, y: -5, zIndex: 10 }}
+                      onMouseEnter={playHover}
+                      className="group bg-pastel-surface border-2 border-pastel-charcoal shadow-pixel flex flex-col h-full hover:shadow-pixel-lg transition-shadow duration-300 relative mt-6 md:mt-0"
+                    >
+                       {/* --- FLOATING ICON BADGE --- */}
+                       <div className="absolute -top-4 -right-4 w-12 h-12 bg-pastel-blue border-2 border-pastel-charcoal flex items-center justify-center shadow-pixel z-20 transform rotate-0 group-hover:rotate-[9deg] transition-transform duration-300">
+                          <Code size={24} className="text-black" />
+                       </div>
 
-                    {/* Content Body */}
-                    <div className="p-6 md:p-8 flex flex-col flex-1 h-full">
-                      <div className="mb-6">
-                        <div className="inline-block bg-pastel-lavender border-2 border-pastel-charcoal px-3 py-1 shadow-sm">
-                           <span className="font-pixel text-xs font-bold tracking-widest uppercase text-black">
-                              {project.category}
-                           </span>
+                      {/* Content Body */}
+                      <div className="p-6 md:p-8 flex flex-col flex-1 h-full">
+                        <div className="mb-6">
+                          <div className="inline-block bg-pastel-lavender border-2 border-pastel-charcoal px-3 py-1 shadow-sm">
+                             <span className="font-pixel text-xs font-bold tracking-widest uppercase text-black">
+                                {project.category}
+                             </span>
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="font-pixel text-3xl leading-none group-hover:text-pastel-blue transition-colors text-pastel-charcoal">
-                          {project.title}
-                        </h3>
-                      </div>
+                        <div className="flex justify-between items-start mb-4">
+                          <h3 className="font-pixel text-3xl leading-none group-hover:text-pastel-blue transition-colors text-pastel-charcoal">
+                            {project.title}
+                          </h3>
+                        </div>
 
-                      <p className="text-gray-600 mb-8 font-sans text-sm leading-relaxed flex-grow">
-                        {project.description}
-                      </p>
+                        <p className="text-gray-600 mb-8 font-sans text-sm leading-relaxed flex-grow">
+                          {project.description}
+                        </p>
 
-                      <div className="flex flex-wrap gap-2 mb-8">
-                        {project.technologies.slice(0, 4).map(t => (
-                          <span key={t} className="border-2 border-gray-200 bg-gray-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-gray-600">
-                            {t}
-                          </span>
-                        ))}
-                      </div>
+                        <div className="flex flex-wrap gap-2 mb-8">
+                          {project.technologies.slice(0, 4).map(t => (
+                            <span key={t} className="border-2 border-gray-200 bg-gray-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-gray-600">
+                              {t}
+                            </span>
+                          ))}
+                        </div>
 
-                      <div className="mt-auto flex gap-3 h-12">
-                        <a 
-                          href={project.demoUrl} 
-                          target="_blank" 
-                          rel="noreferrer"
-                          onClick={playClick} 
-                          onMouseEnter={playHover}
-                          className="flex-1 bg-pastel-charcoal text-white font-pixel text-lg border-2 border-pastel-charcoal hover:bg-pastel-blue hover:text-black hover:border-pastel-charcoal transition-all flex items-center justify-center gap-2 shadow-sm"
-                        >
-                          <ExternalLink size={18} /> Live Demo
-                        </a>
-                        
-                        {project.githubUrl && (
+                        <div className="mt-auto flex gap-3 h-12">
                           <a 
-                            href={project.githubUrl} 
+                            href={project.demoUrl} 
                             target="_blank" 
-                            rel="noreferrer" 
+                            rel="noreferrer"
                             onClick={playClick} 
                             onMouseEnter={playHover}
-                            className="w-14 border-2 border-pastel-charcoal flex items-center justify-center hover:bg-gray-100 transition-colors bg-pastel-surface text-pastel-charcoal" 
-                            title="View Code"
+                            className="flex-1 bg-pastel-charcoal text-white font-pixel text-lg border-2 border-pastel-charcoal hover:bg-pastel-blue hover:text-black hover:border-pastel-charcoal transition-all flex items-center justify-center gap-2 shadow-sm"
                           >
-                            <Github size={20} />
+                            <ExternalLink size={18} /> Live Demo
                           </a>
-                        )}
+                          
+                          {project.githubUrl && (
+                            <a 
+                              href={project.githubUrl} 
+                              target="_blank" 
+                              rel="noreferrer" 
+                              onClick={playClick} 
+                              onMouseEnter={playHover}
+                              className="w-14 border-2 border-pastel-charcoal flex items-center justify-center hover:bg-gray-100 transition-colors bg-pastel-surface text-pastel-charcoal" 
+                              title="View Code"
+                            >
+                              <Github size={20} />
+                            </a>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-          </motion.div>
-            
-          {filteredProjects.length === 0 && (
-               <motion.div 
-                 variants={fadeInUp}
-                 initial="hidden"
-                 animate="visible"
-                 className="w-full flex flex-col items-center justify-center py-20 opacity-50 bg-gray-50 border-2 border-dashed border-gray-300"
-               >
-                  <div className="w-16 h-16 bg-gray-200 border-2 border-gray-400 mb-4 flex items-center justify-center">
-                    <Code className="text-gray-400" />
-                  </div>
-                  <p className="font-pixel text-xl text-black">Projects coming soon.</p>
-               </motion.div>
-            )}
-        </motion.div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+                
+                {filteredProjects.length === 0 && (
+                   <motion.div 
+                     variants={fadeInUp}
+                     // Force visibility if list is empty
+                     initial="hidden" 
+                     animate="visible"
+                     className="w-full col-span-1 md:col-span-2 lg:col-span-3 flex flex-col items-center justify-center py-20 opacity-50 bg-gray-50 border-2 border-dashed border-gray-300"
+                   >
+                      <div className="w-16 h-16 bg-gray-200 border-2 border-gray-400 mb-4 flex items-center justify-center">
+                        <Code className="text-gray-400" />
+                      </div>
+                      <p className="font-pixel text-xl text-black">Projects coming soon.</p>
+                   </motion.div>
+                )}
+            </motion.div>
+          ) : (
+            <div className="h-[200px] flex items-center justify-center">
+              <span className="font-pixel text-xl animate-pulse text-pastel-charcoal">Loading projects...</span>
+            </div>
+          )}
+        </div>
       </Section>
 
       {/* --- TESTIMONIALS --- */}
