@@ -272,7 +272,13 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
 
       {/* --- PROJECTS --- */}
       <Section id="projects" className="bg-pastel-surface border-t-4 border-pastel-charcoal transition-colors duration-500">
-        <div className="flex flex-col justify-center items-center mb-12 gap-6 text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col justify-center items-center mb-12 gap-6 text-center"
+        >
           <div className="w-full">
             <h2 className="font-pixel text-3xl sm:text-4xl mb-2 sm:mb-4">My Projects</h2>
             <p className="text-base sm:text-lg max-w-2xl mx-auto">Selected works demonstrating value and functionality.</p>
@@ -296,12 +302,16 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                </button>
              ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Project Grid */}
         <div className="max-w-7xl mx-auto relative z-10 px-4 md:px-8">
             <motion.div 
               layout
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5 }}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 min-h-[200px]"
             >
               <AnimatePresence mode="popLayout">

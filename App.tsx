@@ -81,13 +81,15 @@ const AdminSkeleton = () => (
 // ============================================================================
 
 class LazyLoadErrorBoundary extends React.Component<
-  { children: React.ReactNode },
+  { children?: React.ReactNode }, 
   { hasError: boolean; error: Error | null }
 > {
   public state: { hasError: boolean; error: Error | null };
+  public props: { children?: React.ReactNode };
 
-  constructor(props: { children: React.ReactNode }) {
+  constructor(props: { children?: React.ReactNode }) {
     super(props);
+    this.props = props;
     this.state = { hasError: false, error: null };
   }
 
