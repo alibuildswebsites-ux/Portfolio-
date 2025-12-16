@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 export const PixelCloud = memo(({ size = "w-32", className = "", duration = 25, delay = 0, top = "10%" }: { size?: string, className?: string, duration?: number, delay?: number, top?: string }) => (
@@ -89,13 +89,13 @@ export const PixelMoon = memo(({ className = "" }: { className?: string }) => (
 ));
 
 export const PixelStars = memo(() => {
-  const stars = Array.from({ length: 20 }).map((_, i) => ({
+  const stars = useMemo(() => Array.from({ length: 20 }).map((_, i) => ({
     id: i,
     top: `${Math.random() * 60}%`,
     left: `${Math.random() * 100}%`,
     size: Math.random() > 0.5 ? 4 : 2,
     delay: Math.random() * 2
-  }));
+  })), []);
 
   return (
     <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
