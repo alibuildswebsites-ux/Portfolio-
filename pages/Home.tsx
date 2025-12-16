@@ -322,6 +322,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
+                    whileHover={{ scale: 1.02, y: -5, zIndex: 10 }}
                     transition={{ duration: 0.3 }}
                     onMouseEnter={playHover}
                     className="group bg-pastel-surface border-2 border-pastel-charcoal shadow-pixel flex flex-col h-full hover:shadow-pixel-lg transition-shadow duration-300 relative mt-6 md:mt-0"
@@ -421,7 +422,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
         <div className="max-w-4xl mx-auto relative z-10 px-0 sm:px-4">
           {testimonials.length > 0 ? (
             <div 
-               className="bg-pastel-surface border-2 border-pastel-charcoal p-6 md:p-12 shadow-pixel-lg relative mx-2 sm:mx-0 group cursor-pointer overflow-hidden"
+               className="bg-pastel-surface border-2 border-pastel-charcoal p-6 md:p-12 shadow-pixel-lg relative mx-2 sm:mx-0 group cursor-pointer"
                onMouseEnter={() => setIsTestimonialPaused(true)}
                onMouseLeave={() => setIsTestimonialPaused(false)}
             >
@@ -429,46 +430,48 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                  <Star className="fill-black text-black" />
               </div>
               
-              <AnimatePresence mode='wait'>
-                <motion.div
-                  key={currentTestimonial}
-                  variants={testimonialVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="relative z-10"
-                >
-                   <div className="flex gap-1 mb-4 md:mb-6">
-                      {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                        <Star key={i} size={20} className="fill-pastel-mint text-pastel-charcoal" />
-                      ))}
-                   </div>
-                   <p className="font-pixel text-xl sm:text-2xl md:text-3xl leading-relaxed mb-6 md:mb-8 text-pastel-charcoal">
-                     "{testimonials[currentTestimonial].text}"
-                   </p>
-                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 border-t-2 border-pastel-gray pt-6">
-                     <div className="w-10 h-10 md:w-12 md:h-12 bg-pastel-blue rounded-full border-2 border-pastel-charcoal overflow-hidden flex-shrink-0">
-                       {/* Using generic avatar if photoUrl is empty */}
-                       <img 
-                          src={testimonials[currentTestimonial].photoUrl || `https://api.dicebear.com/7.x/pixel-art/svg?seed=${testimonials[currentTestimonial].id}`} 
-                          alt="client" 
-                          className="w-full h-full object-cover"
-                        />
+              <div className="overflow-hidden">
+                <AnimatePresence mode='wait'>
+                  <motion.div
+                    key={currentTestimonial}
+                    variants={testimonialVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="relative z-10"
+                  >
+                     <div className="flex gap-1 mb-4 md:mb-6">
+                        {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                          <Star key={i} size={20} className="fill-pastel-mint text-pastel-charcoal" />
+                        ))}
                      </div>
-                     <div>
-                        <div className="font-pixel text-lg sm:text-xl font-bold text-pastel-charcoal">
-                            {testimonials[currentTestimonial].clientName || 'Anonymous'}
-                        </div>
-                        {testimonials[currentTestimonial].companyName && (
-                            <div className="font-sans text-sm text-pastel-charcoal/70">
-                                {testimonials[currentTestimonial].companyName}
-                            </div>
-                        )}
+                     <p className="font-pixel text-xl sm:text-2xl md:text-3xl leading-relaxed mb-6 md:mb-8 text-pastel-charcoal">
+                       "{testimonials[currentTestimonial].text}"
+                     </p>
+                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 border-t-2 border-pastel-gray pt-6">
+                       <div className="w-10 h-10 md:w-12 md:h-12 bg-pastel-blue rounded-full border-2 border-pastel-charcoal overflow-hidden flex-shrink-0">
+                         {/* Using generic avatar if photoUrl is empty */}
+                         <img 
+                            src={testimonials[currentTestimonial].photoUrl || `https://api.dicebear.com/7.x/pixel-art/svg?seed=${testimonials[currentTestimonial].id}`} 
+                            alt="client" 
+                            className="w-full h-full object-cover"
+                          />
+                       </div>
+                       <div>
+                          <div className="font-pixel text-lg sm:text-xl font-bold text-pastel-charcoal">
+                              {testimonials[currentTestimonial].clientName || 'Anonymous'}
+                          </div>
+                          {testimonials[currentTestimonial].companyName && (
+                              <div className="font-sans text-sm text-pastel-charcoal/70">
+                                  {testimonials[currentTestimonial].companyName}
+                              </div>
+                          )}
+                       </div>
                      </div>
-                   </div>
-                </motion.div>
-              </AnimatePresence>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
 
               {testimonials.length > 1 && (
                 <div className="absolute bottom-4 right-4 flex gap-2 z-20">
