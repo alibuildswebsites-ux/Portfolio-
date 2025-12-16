@@ -346,7 +346,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                     initial="hidden"
                     exit="exit"
                     whileHover={{ scale: 1.02, y: -5, zIndex: 10 }}
-                    transition={{ duration: 0.3 }}
+                    // Removed transition={{ duration: 0.3 }} to allow variant ease to work
                     onMouseEnter={playHover}
                     className="group bg-pastel-surface border-2 border-pastel-charcoal shadow-pixel flex flex-col h-full hover:shadow-pixel-lg transition-shadow duration-300 relative mt-6 md:mt-0"
                   >
