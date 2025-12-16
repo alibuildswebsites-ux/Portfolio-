@@ -11,7 +11,7 @@ interface AudioContextType {
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
-export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [muted, setMuted] = useState(() => {
     return localStorage.getItem('sound_muted') === 'true';
   });
