@@ -37,11 +37,28 @@ const ScrollToTop: React.FC = () => {
     return null;
   }
 
+  // Custom Smooth Scroll Function with Easing
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    const duration = 800; // Animation duration in ms
+    const start = window.scrollY;
+    const startTime = performance.now();
+
+    const animateScroll = (currentTime: number) => {
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      
+      // Easing function: easeOutQuart (1 - (1 - t)^4)
+      // Creates a natural feel: starts fast, slows down gently
+      const ease = 1 - Math.pow(1 - progress, 4);
+      
+      window.scrollTo(0, start * (1 - ease));
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animateScroll);
+      }
+    };
+
+    requestAnimationFrame(animateScroll);
   };
 
   return (
@@ -54,6 +71,7 @@ const ScrollToTop: React.FC = () => {
           onClick={scrollToTop}
           className="fixed bottom-6 right-6 z-40 bg-pastel-blue text-pastel-charcoal border-2 border-pastel-charcoal p-3 shadow-pixel hover:-translate-y-1 hover:shadow-pixel-lg active:translate-y-0 active:shadow-pixel transition-all group flex items-center justify-center"
           title="Back to Top"
+          aria-label="Scroll to top"
         >
           <ArrowUp className="w-6 h-6" />
           {/* Pixel tooltip hint (Hidden on mobile to prevent clutter) */}
