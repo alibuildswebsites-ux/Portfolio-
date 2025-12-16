@@ -17,13 +17,14 @@ import { useTheme } from '../context/ThemeContext';
 import { useAudio } from '../context/AudioContext';
 
 // --- ANIMATION VARIANTS ---
+
+// 1. Simplified fadeInUp with standard easing
 const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  hidden: { opacity: 0, y: 30 },
   visible: { 
     opacity: 1, 
     y: 0, 
-    scale: 1,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } 
+    transition: { duration: 0.5, ease: "easeOut" } 
   },
   exit: { 
     opacity: 0, 
@@ -32,13 +33,26 @@ const fadeInUp: Variants = {
   }
 };
 
-const staggerContainer: Variants = {
+// 2. Header Wrapper (Staggers the Title and the Filters)
+const headerWrapperVariants: Variants = {
   hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {
-      delayChildren: 0.1,
-      staggerChildren: 0.1
+      staggerChildren: 0.1,
+      when: "beforeChildren"
+    }
+  }
+};
+
+// 3. Grid Variants (Waits for header, then shows all cards at once)
+const projectGridVariants: Variants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.4, // Wait for header/filters to finish
+      staggerChildren: 0  // Animate all cards simultaneously
     }
   }
 };
@@ -262,10 +276,10 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
 
           {/* Stats Cards - Staggered */}
           <motion.div 
-            variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
+            variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
             className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full"
           >
             {[
@@ -292,65 +306,66 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
       {/* --- PROJECTS --- */}
       <Section id="projects" className="bg-pastel-surface border-t-4 border-pastel-charcoal transition-colors duration-500">
         <div className="max-w-7xl mx-auto relative z-10 px-4 md:px-8">
-          {/* 1. Header Text - Independent Trigger */}
-          <motion.div 
-             initial="hidden"
-             whileInView="visible"
-             viewport={{ once: true }}
-             variants={staggerContainer}
-             className="flex flex-col justify-center items-center mb-8 gap-6 text-center"
+          
+          {/* GROUPED HEADER & FILTERS */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={headerWrapperVariants}
+            className="mb-12"
           >
-            <motion.div variants={fadeInUp} className="w-full">
-              <h2 className="font-pixel text-3xl sm:text-4xl mb-2 sm:mb-4">My Projects</h2>
-              <p className="text-base sm:text-lg max-w-2xl mx-auto">Selected works demonstrating value and functionality.</p>
+            {/* 1. Header Text */}
+            <motion.div 
+              variants={fadeInUp}
+              className="flex flex-col justify-center items-center mb-8 gap-6 text-center"
+            >
+              <div className="w-full">
+                <h2 className="font-pixel text-3xl sm:text-4xl mb-2 sm:mb-4">My Projects</h2>
+                <p className="text-base sm:text-lg max-w-2xl mx-auto">Selected works demonstrating value and functionality.</p>
+              </div>
+            </motion.div>
+            
+            {/* 2. Filter Buttons */}
+            <motion.div 
+              variants={fadeInUp}
+              className="flex flex-wrap justify-center gap-3 w-full"
+            >
+              {categories.map((name) => (
+                <button 
+                  key={name}
+                  onClick={() => { setFilter(name); playClick(); }}
+                  onMouseEnter={playHover}
+                  className={`
+                    font-pixel text-lg px-4 py-2 border-2 border-pastel-charcoal transition-all duration-200
+                    ${filter === name 
+                      ? 'bg-pastel-blue shadow-none translate-y-1 text-black' 
+                      : 'bg-pastel-surface hover:bg-pastel-gray shadow-pixel hover:-translate-y-1 active:shadow-none active:translate-y-0 text-pastel-charcoal'
+                    }
+                  `}
+                >
+                  {name}
+                </button>
+              ))}
             </motion.div>
           </motion.div>
-          
-          {/* 2. Filter Buttons - Independent Trigger */}
-          <motion.div 
-             initial="hidden"
-             whileInView="visible"
-             viewport={{ once: true }}
-             variants={staggerContainer}
-             className="flex flex-wrap justify-center gap-3 w-full mb-12"
-          >
-             {categories.map((name, i) => (
-               <motion.button 
-                 key={name}
-                 variants={fadeInUp}
-                 onClick={() => { setFilter(name); playClick(); }}
-                 onMouseEnter={playHover}
-                 className={`
-                   font-pixel text-lg px-4 py-2 border-2 border-pastel-charcoal transition-all duration-200
-                   ${filter === name 
-                     ? 'bg-pastel-blue shadow-none translate-y-1 text-black' 
-                     : 'bg-pastel-surface hover:bg-pastel-gray shadow-pixel hover:-translate-y-1 active:shadow-none active:translate-y-0 text-pastel-charcoal'
-                   }
-                 `}
-               >
-                 {name}
-               </motion.button>
-             ))}
-          </motion.div>
 
-          {/* 3. Project Grid - Completely Independent Trigger for robustness */}
+          {/* 3. Project Grid */}
           {!isLoading ? (
             <motion.div 
-                layout
+                // Grid Animation triggered independently or flow after header (via delayChildren)
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: "100px" }}
-                variants={staggerContainer}
+                viewport={{ once: true, amount: 0.1 }} 
+                variants={projectGridVariants}
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 min-h-[200px]"
             >
                 <AnimatePresence mode="popLayout">
                   {filteredProjects.map((project) => (
                     <motion.div
                       key={project.id}
-                      layout
+                      layout // Layout prop kept here for filtering transitions
                       variants={fadeInUp}
-                      // Note: We rely on inherited "visible" from parent.
-                      // If data comes late, the parent 'whileInView' triggers, ensuring stagger.
                       exit="exit"
                       whileHover={{ scale: 1.02, y: -5, zIndex: 10 }}
                       onMouseEnter={playHover}
