@@ -84,6 +84,8 @@ class LazyLoadErrorBoundary extends React.Component<
   { children: React.ReactNode },
   { hasError: boolean; error: Error | null }
 > {
+  public state: { hasError: boolean; error: Error | null };
+
   constructor(props: { children: React.ReactNode }) {
     super(props);
     this.state = { hasError: false, error: null };

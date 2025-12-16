@@ -1,5 +1,4 @@
-
-import React, { createContext, useContext, useState, useRef, useEffect } from 'react';
+import React, { createContext, useContext, useState, useRef, useEffect, PropsWithChildren } from 'react';
 
 interface AudioContextType {
   muted: boolean;
@@ -11,7 +10,7 @@ interface AudioContextType {
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
-export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
+export const AudioProvider = ({ children }: PropsWithChildren) => {
   const [muted, setMuted] = useState(() => {
     return localStorage.getItem('sound_muted') === 'true';
   });

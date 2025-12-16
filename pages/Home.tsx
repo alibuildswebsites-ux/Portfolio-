@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/layout/Navbar';
@@ -55,7 +54,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
     loadData();
   }, []);
 
-  // Filter Logic (Counts removed)
+  // Filter Logic
   const categories = useMemo(() => {
     return ['All', ...Array.from(new Set(projects.map(p => p.category)))];
   }, [projects]);
@@ -63,15 +62,20 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
   const filteredProjects = useMemo(() => filter === 'All' ? projects : projects.filter(p => p.category === filter), [filter, projects]);
 
   // --- TESTIMONIAL NAVIGATION ---
+  
+  // Logic: Modulo operator (%) ensures infinite loop (0 -> 1 -> 2 -> 0)
   const nextTestimonial = () => setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  
+  // Logic: Adding length before modulo handles negative numbers for backward loop
   const prevTestimonial = () => setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
-  // Auto-play for Testimonials
+  // --- AUTO-SCROLL LOGIC ---
   useEffect(() => {
+    // Only run if we have multiple testimonials and user isn't hovering
     if (testimonials.length > 1 && !isTestimonialPaused) {
       const interval = setInterval(() => {
         nextTestimonial();
-      }, 6000); 
+      }, 6000); // 6 Seconds per slide
       return () => clearInterval(interval);
     }
   }, [testimonials.length, isTestimonialPaused]);
@@ -82,9 +86,9 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
     setFormStatus('submitting');
 
     // --- EMAILJS CONFIGURATION ---
-    const SERVICE_ID = 'service_bo3v0rd';
-    const TEMPLATE_ID = 'template_yk89bci'; 
-    const PUBLIC_KEY = 'mdk768wm_G6ddGmA6';
+    const SERVICE_ID = (import.meta as any).env.VITE_EMAILJS_SERVICE_ID || '';
+    const TEMPLATE_ID = (import.meta as any).env.VITE_EMAILJS_TEMPLATE_ID || ''; 
+    const PUBLIC_KEY = (import.meta as any).env.VITE_EMAILJS_PUBLIC_KEY || '';
 
     const templateParams = {
       from_name: contactForm.name,
@@ -107,10 +111,11 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
     }
   };
 
+  // Smooth Swipe Animation Variants
   const testimonialVariants = {
-    initial: { opacity: 0, x: 20 },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -20 }
+    initial: { opacity: 0, x: 50 }, // Start slightly to the right
+    animate: { opacity: 1, x: 0 },  // Center
+    exit: { opacity: 0, x: -50 }    // Exit slightly to the left
   };
 
   const scrollToProjects = () => {
@@ -406,7 +411,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
         <div className="max-w-4xl mx-auto relative z-10 px-0 sm:px-4">
           {testimonials.length > 0 ? (
             <div 
-               className="bg-pastel-surface border-2 border-pastel-charcoal p-6 md:p-12 shadow-pixel-lg relative mx-2 sm:mx-0 group"
+               className="bg-pastel-surface border-2 border-pastel-charcoal p-6 md:p-12 shadow-pixel-lg relative mx-2 sm:mx-0 group cursor-pointer"
                onMouseEnter={() => setIsTestimonialPaused(true)}
                onMouseLeave={() => setIsTestimonialPaused(false)}
             >
@@ -421,8 +426,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                   initial="initial"
                   animate="animate"
                   exit="exit"
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
                   className="relative z-10"
                 >
                    <div className="flex gap-1 mb-4 md:mb-6">
