@@ -344,7 +344,6 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                     layout
                     variants={fadeInUp}
                     initial="hidden"
-                    animate="visible"
                     exit="exit"
                     whileHover={{ scale: 1.02, y: -5, zIndex: 10 }}
                     transition={{ duration: 0.3 }}
