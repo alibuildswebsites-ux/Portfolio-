@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Folder, Star, Mail, Clock, Plus, MessageSquare } from 'lucide-react';
 import * as db from '../../services/storage';
@@ -21,10 +20,12 @@ const Dashboard: React.FC = () => {
   const navigate = useNavigate();
 
   const load = async () => {
-    const p = await db.getProjects();
-    const t = await db.getTestimonials();
-    const m = await db.getMessages();
-    setStats({ p: p.length, t: t.length, m: m.filter(msg => msg.status === 'unread').length });
+    try {
+      const data = await db.getStats();
+      setStats({ p: data.totalProjects, t: data.totalTestimonials, m: data.unreadMessages });
+    } catch (error) {
+      console.error("Failed to load stats", error);
+    }
   };
 
   useEffect(() => {

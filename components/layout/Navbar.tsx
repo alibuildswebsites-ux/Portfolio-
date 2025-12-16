@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Rocket, Sun, Moon, Volume2, VolumeX } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -126,6 +125,10 @@ const Navbar: React.FC = () => {
             className="flex-shrink-0 flex items-center gap-2 cursor-pointer group" 
             onClick={goHome}
             onMouseEnter={playHover}
+            role="button"
+            tabIndex={0}
+            aria-label="Go to Homepage"
+            onKeyPress={(e) => { if(e.key === 'Enter') goHome(); }}
           >
              <div className="w-10 h-10 bg-pastel-blue border-2 border-pastel-charcoal flex items-center justify-center shadow-pixel-sm group-hover:bg-pastel-lavender transition-colors">
                 <Rocket className="w-6 h-6 text-black group-hover:animate-pulse" />
@@ -160,6 +163,7 @@ const Navbar: React.FC = () => {
                 onMouseEnter={playHover}
                 className="p-2 hover:bg-pastel-blue/50 rounded-sm transition-colors text-pastel-charcoal"
                 title={muted ? "Unmute Sound" : "Mute Sound"}
+                aria-label={muted ? "Unmute Sound" : "Mute Sound"}
               >
                 {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
               </button>
@@ -170,6 +174,7 @@ const Navbar: React.FC = () => {
                 onMouseEnter={playHover}
                 className="ml-2 p-2 bg-pastel-gray border-2 border-pastel-charcoal hover:bg-pastel-blue transition-colors shadow-pixel-sm active:translate-y-[2px] active:shadow-none"
                 title="Toggle Theme"
+                aria-label="Toggle Theme"
               >
                 {theme === 'day' ? <Moon size={20} className="text-pastel-charcoal" /> : <Sun size={20} className="text-pastel-charcoal" />}
               </button>
@@ -181,6 +186,7 @@ const Navbar: React.FC = () => {
              <button
                 onClick={handleMuteToggle}
                 className="p-2 text-pastel-charcoal"
+                aria-label={muted ? "Unmute Sound" : "Mute Sound"}
               >
                 {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
               </button>
@@ -188,12 +194,14 @@ const Navbar: React.FC = () => {
             <button
               onClick={handleThemeToggle}
               className="p-2 bg-pastel-gray border-2 border-pastel-charcoal active:translate-y-[2px]"
+              aria-label="Toggle Theme"
             >
               {theme === 'day' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
             <button
               onClick={() => { setIsOpen(!isOpen); playClick(); }}
               className="inline-flex items-center justify-center p-2 text-pastel-charcoal hover:bg-pastel-blue focus:outline-none border-2 border-transparent hover:border-pastel-charcoal transition-all"
+              aria-label="Toggle Menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

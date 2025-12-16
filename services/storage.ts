@@ -1,5 +1,5 @@
 import { supabase } from './supabaseClient';
-import { Project, Testimonial, ContactSubmission } from '../types';
+import { Project, Testimonial, ContactSubmission, AdminStats } from '../types';
 
 // --- PROJECTS ---
 export const getProjects = async (): Promise<Project[]> => {
@@ -127,6 +127,23 @@ export const markMessageRead = async (id: string): Promise<void> => {
 
 export const deleteMessage = async (id: string): Promise<void> => {
   await supabase.from('messages').delete().eq('id', id);
+};
+
+// --- ADMIN STATS ---
+export const getStats = async (): Promise<AdminStats> => {
+  // Run queries in parallel for performance
+  const [pCount, tCount, mCount] = await Promise.all([
+    supabase.from('projects').select('*', { count: 'exact', head: true }),
+    supabase.from('testimonials').select('*', { count: 'exact', head: true }),
+    supabase.from('messages').select('*', { count: 'exact', head: true }).eq('status', 'unread')
+  ]);
+
+  return {
+    totalProjects: pCount.count || 0,
+    totalTestimonials: tCount.count || 0,
+    unreadMessages: mCount.count || 0,
+    lastLogin: new Date().toISOString() // Placeholder as supabase manages auth state
+  };
 };
 
 // --- AUTH ---

@@ -369,7 +369,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                       exit="exit"
                       whileHover={{ scale: 1.02, y: -5, zIndex: 10 }}
                       onMouseEnter={playHover}
-                      className="group bg-pastel-surface border-2 border-pastel-charcoal shadow-pixel flex flex-col h-full hover:shadow-pixel-lg transition-shadow duration-300 relative mt-6 md:mt-0"
+                      className="group bg-pastel-surface border-2 border-pastel-charcoal shadow-pixel flex flex-col h-full hover:shadow-pixel-lg transition-shadow duration-300 relative"
                     >
                        {/* --- FLOATING ICON BADGE --- */}
                        <div className="absolute -top-4 -right-4 w-12 h-12 bg-pastel-blue border-2 border-pastel-charcoal flex items-center justify-center shadow-pixel z-20 transform rotate-0 group-hover:rotate-[9deg] transition-transform duration-300">
