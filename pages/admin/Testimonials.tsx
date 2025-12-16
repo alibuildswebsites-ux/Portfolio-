@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import PixelButton from '../../components/ui/PixelButton';
 import { Plus, Trash2, Edit2, EyeOff } from 'lucide-react';
@@ -142,7 +141,7 @@ const Testimonials: React.FC = () => {
           </form>
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-4">
           {items.map(t => (
             <div key={t.id} className={`bg-pastel-surface border-2 border-pastel-charcoal p-6 shadow-sm relative ${!t.isVisible ? 'opacity-60 grayscale' : ''}`}>
               {t.isFeatured && (
@@ -167,7 +166,11 @@ const Testimonials: React.FC = () => {
               </div>
             </div>
           ))}
-          {items.length === 0 && <p className="text-pastel-charcoal/50 italic col-span-2 text-center">No testimonials added yet.</p>}
+          {items.length === 0 && (
+            <p className="text-pastel-charcoal/50 italic text-center py-8 border-2 border-dashed border-pastel-charcoal/30 p-8 rounded">
+              No testimonials yet. Click "Add Testimonial" to get started.
+            </p>
+          )}
         </div>
       )}
 
