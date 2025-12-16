@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import Navbar from '../components/layout/Navbar';
 import PixelButton from '../components/ui/PixelButton';
 import Footer from '../components/layout/Footer';
@@ -15,6 +15,33 @@ import { Project, Testimonial } from '../types';
 import emailjs from '@emailjs/browser';
 import { useTheme } from '../context/ThemeContext';
 import { useAudio } from '../context/AudioContext';
+
+// --- ANIMATION VARIANTS ---
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } 
+  },
+  exit: { 
+    opacity: 0, 
+    scale: 0.95, 
+    transition: { duration: 0.2, ease: "easeIn" } 
+  }
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.1,
+      staggerChildren: 0.1
+    }
+  }
+};
 
 // Section Wrapper
 const Section: React.FC<{ children: React.ReactNode; id: string; className?: string }> = ({ children, id, className = '' }) => (
@@ -62,20 +89,15 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
   const filteredProjects = useMemo(() => filter === 'All' ? projects : projects.filter(p => p.category === filter), [filter, projects]);
 
   // --- TESTIMONIAL NAVIGATION ---
-  
-  // Logic: Modulo operator (%) ensures infinite loop (0 -> 1 -> 2 -> 0)
   const nextTestimonial = () => setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  
-  // Logic: Adding length before modulo handles negative numbers for backward loop
   const prevTestimonial = () => setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   // --- AUTO-SCROLL LOGIC ---
   useEffect(() => {
-    // Only run if we have multiple testimonials and user isn't hovering
     if (testimonials.length > 1 && !isTestimonialPaused) {
       const interval = setInterval(() => {
         nextTestimonial();
-      }, 6000); // 6 Seconds per slide
+      }, 6000); 
       return () => clearInterval(interval);
     }
   }, [testimonials.length, isTestimonialPaused]);
@@ -85,7 +107,6 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
     e.preventDefault();
     setFormStatus('submitting');
 
-    // --- EMAILJS CONFIGURATION ---
     const SERVICE_ID = (import.meta as any).env.VITE_EMAILJS_SERVICE_ID || '';
     const TEMPLATE_ID = (import.meta as any).env.VITE_EMAILJS_TEMPLATE_ID || ''; 
     const PUBLIC_KEY = (import.meta as any).env.VITE_EMAILJS_PUBLIC_KEY || '';
@@ -111,11 +132,10 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
     }
   };
 
-  // Smooth Swipe Animation Variants
   const testimonialVariants = {
-    initial: { opacity: 0, x: 50 }, // Start slightly to the right
-    animate: { opacity: 1, x: 0 },  // Center
-    exit: { opacity: 0, x: -50 }    // Exit slightly to the left
+    initial: { opacity: 0, x: 50 },
+    animate: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -50 }
   };
 
   const scrollToProjects = () => {
@@ -140,14 +160,12 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
           <ParticleBackground />
           {theme === 'night' && <PixelStars />}
           
-          {/* Ambient Glow */}
           <motion.div 
              animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.5, 0.2] }}
              transition={{ duration: 4, repeat: Infinity }}
              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-white opacity-40 rounded-full blur-3xl" 
           />
 
-          {/* Sun / Moon - Positioned Absolute Top Right */}
           <div className="absolute top-24 right-4 md:right-8 lg:right-12 z-10">
             <AnimatePresence mode="wait">
                {theme === 'day' ? (
@@ -158,7 +176,6 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
             </AnimatePresence>
           </div>
 
-          {/* Clouds */}
           <div className="absolute top-[84px] left-0 w-full h-[50vh]">
              <PixelCloud top="10%" className="opacity-80 scale-75 md:scale-100" size="w-24 md:w-48" duration={60} delay={0} />
              <PixelCloud top="40%" className="opacity-60 scale-75 md:scale-100" size="w-16 md:w-32" duration={45} delay={20} />
@@ -168,8 +185,6 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
 
         {/* === LAYER 1: MAIN CONTENT === */}
         <div className="relative z-10 w-full px-3 md:px-6 lg:px-8 flex flex-col justify-center py-12 md:py-0 h-full flex-grow">
-          
-           {/* Left Aligned Content */}
            <motion.div 
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -181,7 +196,6 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                 <span className="bg-pastel-blue text-black px-4 py-2 shadow-pixel inline-block transform hover:scale-105 transition-transform mt-2">Raza A.</span>
               </h1>
               
-              {/* Typewriter Container */}
               <div className="font-mono text-base sm:text-lg md:text-xl mb-8 min-h-[80px] border-l-4 border-pastel-blue pl-6 py-2 bg-pastel-surface/60 backdrop-blur-sm rounded-r-lg text-left w-full max-w-2xl">
                 <Typewriter 
                   text="I help small and medium sized businesses establish a strong online presence digitally." 
@@ -195,17 +209,18 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                 <PixelButton onClick={() => window.open('https://calendly.com/alibuildswebsites/30min', '_blank')} variant="secondary" size="lg" className="w-full sm:w-auto shadow-pixel-lg">Start Project</PixelButton>
               </div>
            </motion.div>
-
         </div>
       </div>
 
       {/* --- ABOUT ME --- */}
       <Section id="about" className="bg-pastel-surface/90 backdrop-blur-sm transition-colors duration-500">
         <div className="flex flex-col items-center max-w-4xl mx-auto">
+          {/* Text Block - Fades in Up */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
             className="text-center mb-12"
           >
             <h2 className="font-pixel text-3xl sm:text-4xl mb-6 inline-flex items-center gap-3">
@@ -243,11 +258,12 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
             </div>
           </motion.div>
 
-          {/* Stats Cards */}
+          {/* Stats Cards - Staggered */}
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
             className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full"
           >
             {[
@@ -256,15 +272,16 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
               { label: 'Satisfaction', value: '100%', icon: <Star /> },
               { label: 'Availability', value: 'Project', icon: <Briefcase /> }
             ].map((stat, idx) => (
-              <div 
+              <motion.div 
                 key={idx} 
+                variants={fadeInUp}
                 onMouseEnter={playHover}
                 className="bg-pastel-cream border-2 border-pastel-charcoal p-3 sm:p-6 shadow-pixel hover:translate-y-[-4px] transition-transform text-left"
               >
                 <div className="mb-2 text-pastel-blue scale-75 sm:scale-100 origin-left">{stat.icon}</div>
                 <div className="font-pixel text-2xl sm:text-3xl md:text-4xl mb-1 text-pastel-charcoal">{stat.value}</div>
                 <div className="text-[10px] sm:text-sm font-bold uppercase tracking-widest text-pastel-charcoal">{stat.label}</div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </div>
@@ -273,10 +290,10 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
       {/* --- PROJECTS --- */}
       <Section id="projects" className="bg-pastel-surface border-t-4 border-pastel-charcoal transition-colors duration-500">
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
           className="flex flex-col justify-center items-center mb-12 gap-6 text-center"
         >
           <div className="w-full">
@@ -308,10 +325,10 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
         <div className="max-w-7xl mx-auto relative z-10 px-4 md:px-8">
             <motion.div 
               layout
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5 }}
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 min-h-[200px]"
             >
               <AnimatePresence mode="popLayout">
@@ -319,24 +336,23 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                   <motion.div
                     key={project.id}
                     layout
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
+                    variants={fadeInUp}
+                    // We allow parent stagger to control initial enter, but AnimatePresence handles exit
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
                     whileHover={{ scale: 1.02, y: -5, zIndex: 10 }}
                     transition={{ duration: 0.3 }}
                     onMouseEnter={playHover}
                     className="group bg-pastel-surface border-2 border-pastel-charcoal shadow-pixel flex flex-col h-full hover:shadow-pixel-lg transition-shadow duration-300 relative mt-6 md:mt-0"
                   >
-                     {/* --- FLOATING ICON BADGE (Top Right) --- */}
-                     {/* Updated: Always use Code icon, straight initially, rotate-9 on hover */}
+                     {/* --- FLOATING ICON BADGE --- */}
                      <div className="absolute -top-4 -right-4 w-12 h-12 bg-pastel-blue border-2 border-pastel-charcoal flex items-center justify-center shadow-pixel z-20 transform rotate-0 group-hover:rotate-[9deg] transition-transform duration-300">
                         <Code size={24} className="text-black" />
                      </div>
 
                     {/* Content Body */}
                     <div className="p-6 md:p-8 flex flex-col flex-1 h-full">
-                      
-                      {/* --- CATEGORY TAG (Top Left Box) --- */}
                       <div className="mb-6">
                         <div className="inline-block bg-pastel-lavender border-2 border-pastel-charcoal px-3 py-1 shadow-sm">
                            <span className="font-pixel text-xs font-bold tracking-widest uppercase text-black">
@@ -355,7 +371,6 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                         {project.description}
                       </p>
 
-                      {/* Tech Stack Boxes */}
                       <div className="flex flex-wrap gap-2 mb-8">
                         {project.technologies.slice(0, 4).map(t => (
                           <span key={t} className="border-2 border-gray-200 bg-gray-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-gray-600">
@@ -364,7 +379,6 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                         ))}
                       </div>
 
-                      {/* Action Buttons (Footer) */}
                       <div className="mt-auto flex gap-3 h-12">
                         <a 
                           href={project.demoUrl} 
@@ -399,8 +413,9 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
             
             {filteredProjects.length === 0 && (
                <motion.div 
-                 initial={{ opacity: 0 }} 
-                 animate={{ opacity: 1 }} 
+                 variants={fadeInUp}
+                 initial="hidden"
+                 animate="visible"
                  className="w-full flex flex-col items-center justify-center py-20 opacity-50 bg-gray-50 border-2 border-dashed border-gray-300"
                >
                   <div className="w-16 h-16 bg-gray-200 border-2 border-gray-400 mb-4 flex items-center justify-center">
