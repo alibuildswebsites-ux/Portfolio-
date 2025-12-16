@@ -9,13 +9,17 @@ const AdminLayout: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogout = useCallback(async () => {
+    console.log("Session expired. Logging out...");
     await db.logoutUser();
     navigate('/');
   }, [navigate]);
 
-  // Auto Logout on Inactivity (15 minutes)
+  // Auto Logout on Inactivity
   useEffect(() => {
-    const INACTIVITY_LIMIT = 15 * 60 * 1000; // 15 minutes
+    // --- TESTING SETTING: 10 Seconds ---
+    // Change this back to `15 * 60 * 1000` (15 minutes) for production.
+    const INACTIVITY_LIMIT = 10000; 
+
     let timeoutId: ReturnType<typeof setTimeout>;
 
     const resetTimer = () => {
@@ -33,7 +37,7 @@ const AdminLayout: React.FC = () => {
       document.addEventListener(event, resetTimer);
     });
 
-    // Start timer
+    // Start timer immediately
     resetTimer();
 
     // Cleanup
