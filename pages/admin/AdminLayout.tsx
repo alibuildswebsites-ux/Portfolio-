@@ -27,7 +27,8 @@ const AdminLayout: React.FC = () => {
     };
 
     // Events to track user activity
-    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+    // Removed mousemove and scroll to conserve battery/performance
+    const events = ['mousedown', 'keypress', 'touchstart', 'click'];
 
     // Attach listeners
     events.forEach(event => {
