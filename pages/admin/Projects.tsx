@@ -163,18 +163,16 @@ const Projects: React.FC = () => {
       ) : (
         <div className="grid gap-4 sm:gap-6">
           {projects.map(p => (
-            <div key={p.id} className={`bg-pastel-surface border-2 border-pastel-charcoal p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm gap-4 ${!p.isVisible ? 'opacity-60 grayscale' : ''}`}>
-              <div className="flex items-start sm:items-center w-full sm:w-auto overflow-hidden">
-                 {/* Removed the No Img box here */}
-                 <div className="min-w-0 flex-1">
-                    <h3 className="font-bold text-lg flex items-center gap-2 flex-wrap text-pastel-charcoal leading-tight">
-                       <span className="truncate max-w-[200px] sm:max-w-xs">{p.title}</span>
-                       {!p.isVisible && <span className="text-xs bg-gray-200 text-black px-2 py-0.5 rounded font-normal shrink-0">Hidden</span>}
-                    </h3>
-                    <div className="text-xs text-pastel-charcoal/70 truncate">{p.category} • {p.technologies.join(', ')}</div>
-                 </div>
+            <div key={p.id} className={`bg-pastel-surface border-2 border-pastel-charcoal p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm gap-4 relative overflow-hidden ${!p.isVisible ? 'opacity-60 grayscale' : ''}`}>
+              <div className="flex-1 min-w-0 w-full sm:w-auto">
+                 <h3 className="font-bold text-lg flex items-center gap-2 text-pastel-charcoal leading-tight">
+                    <span className="truncate">{p.title}</span>
+                    {!p.isVisible && <span className="text-xs bg-gray-200 text-black px-2 py-0.5 rounded font-normal shrink-0">Hidden</span>}
+                 </h3>
+                 <div className="text-xs text-pastel-charcoal/70 truncate mt-1">{p.category} • {p.technologies.join(', ')}</div>
               </div>
-              <div className="flex gap-2 w-full sm:w-auto justify-end">
+              
+              <div className="flex gap-2 w-full sm:w-auto justify-end shrink-0">
                 <a href={p.demoUrl} target="_blank" rel="noreferrer" className="p-2 text-pastel-charcoal/50 hover:text-pastel-charcoal transition-colors" title="View Demo">
                    <ExternalLink size={20} />
                 </a>
