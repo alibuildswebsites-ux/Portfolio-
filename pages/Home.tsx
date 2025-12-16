@@ -411,7 +411,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
                             rel="noreferrer"
                             onClick={playClick} 
                             onMouseEnter={playHover}
-                            className="flex-1 bg-pastel-charcoal text-white font-pixel text-lg border-2 border-pastel-charcoal hover:bg-pastel-blue hover:text-black hover:border-pastel-charcoal transition-all flex items-center justify-center gap-2 shadow-sm"
+                            className="flex-1 bg-pastel-charcoal text-pastel-cream font-pixel text-lg border-2 border-pastel-charcoal hover:bg-pastel-blue hover:text-black hover:border-pastel-charcoal transition-all flex items-center justify-center gap-2 shadow-sm"
                           >
                             <ExternalLink size={18} /> Live Demo
                           </a>
