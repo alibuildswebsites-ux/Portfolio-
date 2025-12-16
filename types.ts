@@ -33,12 +33,6 @@ export interface ContactSubmission {
   submittedAt: string;
 }
 
-export interface User {
-  username: string;
-  passwordHash: string; // Simulated hash
-  lastLogin: string;
-}
-
 export interface AdminStats {
   totalProjects: number;
   totalTestimonials: number;

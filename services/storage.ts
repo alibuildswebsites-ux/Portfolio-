@@ -1,5 +1,5 @@
 import { supabase } from './supabaseClient';
-import { Project, Testimonial, ContactSubmission, User } from '../types';
+import { Project, Testimonial, ContactSubmission } from '../types';
 
 // --- PROJECTS ---
 export const getProjects = async (): Promise<Project[]> => {
@@ -143,8 +143,3 @@ export const checkSession = async (): Promise<boolean> => {
   const { data } = await supabase.auth.getSession();
   return !!data.session;
 };
-
-// Placeholder to satisfy typescript errors if referenced elsewhere
-export const getUser = (): User => ({ username: 'Admin', passwordHash: '', lastLogin: '' });
-export const updateUser = async (updates: Partial<User>): Promise<void> => {};
-export const setSession = (isActive: boolean) => {};
