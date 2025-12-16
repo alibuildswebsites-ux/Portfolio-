@@ -421,7 +421,7 @@ const Home: React.FC<HomeProps> = ({ startTypewriter = true }) => {
         <div className="max-w-4xl mx-auto relative z-10 px-0 sm:px-4">
           {testimonials.length > 0 ? (
             <div 
-               className="bg-pastel-surface border-2 border-pastel-charcoal p-6 md:p-12 shadow-pixel-lg relative mx-2 sm:mx-0 group cursor-pointer"
+               className="bg-pastel-surface border-2 border-pastel-charcoal p-6 md:p-12 shadow-pixel-lg relative mx-2 sm:mx-0 group cursor-pointer overflow-hidden"
                onMouseEnter={() => setIsTestimonialPaused(true)}
                onMouseLeave={() => setIsTestimonialPaused(false)}
             >
