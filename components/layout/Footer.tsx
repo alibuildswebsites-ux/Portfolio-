@@ -98,14 +98,12 @@ const Footer: React.FC = () => {
           <div className="flex justify-center order-1 md:order-2">
              <div className="flex flex-wrap justify-center items-center gap-2 text-xs md:text-sm text-gray-400 bg-black/20 px-4 py-2 rounded-full border border-white/5 text-center">
                 <span>Made with</span>
-                <svg width="18" height="16" viewBox="0 0 9 8" className="animate-pulse" shapeRendering="crispEdges">
-                  {/* Left Lobe & Highlight (Light Pink) */}
-                  <path d="M1 1h2v1H1z M0 2h4v1H0z M0 3h4v1H0z M1 4h4v1H1z M2 5h3v1H2z M3 6h2v1H3z M4 7h1v1H4z" fill="#FFB5A7" />
-                  {/* Highlight Pixel */}
-                  <rect x="1" y="2" width="1" height="1" fill="#FFF" fillOpacity="0.6" />
+                <svg width="16" height="14" viewBox="0 0 8 7" className="animate-pulse" shapeRendering="crispEdges">
+                  {/* Left Half (Light Pink) */}
+                  <path d="M1 0h2v1H1z M0 1h4v3H0z M1 4h3v1H1z M2 5h2v1H2z M3 6h1v1H3z" fill="#FF9EAA" />
                   
-                  {/* Right Lobe & Shadow (Darker Pink) */}
-                  <path d="M5 1h2v1H5z M5 2h4v1H5z M5 3h4v1H5z M5 4h3v1H5z M5 5h2v1H5z M5 6h1v1H5z" fill="#FB7185" />
+                  {/* Right Half (Dark Pink) */}
+                  <path d="M5 0h2v1H5z M4 1h4v3H4z M4 4h3v1H4z M4 5h2v1H4z M4 6h1v1H4z" fill="#FF2A6D" />
                 </svg>
                 <span>using React & Tailwind</span>
              </div>
